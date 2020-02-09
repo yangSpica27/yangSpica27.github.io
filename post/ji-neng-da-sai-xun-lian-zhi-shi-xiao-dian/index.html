@@ -122,8 +122,11 @@ mNotifyMgr.notify(1, builder.build());
 <pre><code class="language-java">viewPager.setOffscreenPageLimit();
 </code></pre>
 <h2 id="textview跑马灯">TextView跑马灯</h2>
-<pre><code class="language-xml">android:ellipsize=&quot;marquee&quot;
-android:marqueeRepeatLimit=&quot;marquee_forever&quot;
+<pre><code class="language-XML">&lt;TextView
+            android:layout_width=&quot;wrap_content&quot;
+            android:layout_height=&quot;wrap_content&quot;
+            android:ellipsize=&quot;marquee&quot;
+            android:marqueeRepeatLimit=&quot;marquee_forever&quot; /&gt;
 </code></pre>
 <pre><code class="language-java">textView.setSelected(true);
 </code></pre>
