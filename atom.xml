@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-    <id>https://spica27/blog</id>
+    <id>https://yangspica27.github.io/spica27.github.io/</id>
     <title>Spica 27&apos;S Room</title>
-    <updated>2020-02-09T01:57:34.851Z</updated>
+    <updated>2020-02-09T02:00:36.033Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
-    <link rel="alternate" href="https://spica27/blog"/>
-    <link rel="self" href="https://spica27/blog/atom.xml"/>
+    <link rel="alternate" href="https://yangspica27.github.io/spica27.github.io/"/>
+    <link rel="self" href="https://yangspica27.github.io/spica27.github.io/atom.xml"/>
     <subtitle>玻璃晴朗 橘子辉煌</subtitle>
-    <logo>https://spica27/blog/images/avatar.png</logo>
-    <icon>https://spica27/blog/favicon.ico</icon>
+    <logo>https://yangspica27.github.io/spica27.github.io/images/avatar.png</logo>
+    <icon>https://yangspica27.github.io/spica27.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, Spica 27&apos;S Room</rights>
     <entry>
         <title type="html"><![CDATA[随想]]></title>
-        <id>https://spica27/blog/post/sui-xiang</id>
-        <link href="https://spica27/blog/post/sui-xiang">
+        <id>https://yangspica27.github.io/spica27.github.io/post/sui-xiang</id>
+        <link href="https://yangspica27.github.io/spica27.github.io/post/sui-xiang">
         </link>
         <updated>2020-02-09T01:36:49.000Z</updated>
         <content type="html"><![CDATA[<p>作为程序员，如果一个问题出现第二次，就是不能容忍的，但生活中，每个人都难以避免地不断重新犯错，过去的我总觉得给别人三次机会就不能再多了，这很多时候导致了我的不开心，直到我发觉这个事情，并不是每个人都是程序员，特别是家人，很多事情的宽容次数，三次不够，设为十次也不应该，如果可以，应该尽可能无限次宽容，因为他们也总是无限次宽容你，推广开来，就算是对外人也应该如此，宽容没有限数，不要再有后悔莫及的事情了...</p>
@@ -21,8 +21,8 @@
     </entry>
     <entry>
         <title type="html"><![CDATA[技能大赛训练知识小点]]></title>
-        <id>https://spica27/blog/post/ji-neng-da-sai-xun-lian-zhi-shi-xiao-dian</id>
-        <link href="https://spica27/blog/post/ji-neng-da-sai-xun-lian-zhi-shi-xiao-dian">
+        <id>https://yangspica27.github.io/spica27.github.io/post/ji-neng-da-sai-xun-lian-zhi-shi-xiao-dian</id>
+        <link href="https://yangspica27.github.io/spica27.github.io/post/ji-neng-da-sai-xun-lian-zhi-shi-xiao-dian">
         </link>
         <updated>2020-02-09T01:03:08.000Z</updated>
         <content type="html"><![CDATA[<h2 id="判断网络状态">判断网络状态</h2>
@@ -99,13 +99,13 @@ android:marqueeRepeatLimit=&quot;marquee_forever&quot;
     </entry>
     <entry>
         <title type="html"><![CDATA[论【装逼】]]></title>
-        <id>https://spica27/blog/post/lun-zhuang-bi</id>
-        <link href="https://spica27/blog/post/lun-zhuang-bi">
+        <id>https://yangspica27.github.io/spica27.github.io/post/lun-zhuang-bi</id>
+        <link href="https://yangspica27.github.io/spica27.github.io/post/lun-zhuang-bi">
         </link>
         <updated>2020-02-06T11:26:04.000Z</updated>
         <summary type="html"><![CDATA[<figure data-type="image" tabindex="1"><img src="/post-images/1581212071153.jpg" alt="" loading="lazy"></figure>
 ]]></summary>
-        <content type="html"><![CDATA[<figure data-type="image" tabindex="1"><img src="https://spica27/blog/post-images/1581212071153.jpg" alt="" loading="lazy"></figure>
+        <content type="html"><![CDATA[<figure data-type="image" tabindex="1"><img src="https://yangspica27.github.io/spica27.github.io//post-images/1581212071153.jpg" alt="" loading="lazy"></figure>
 <!-- more -->
 <p>很多行为某个人看不惯，然后就被直接归纳为，或者说...被攻击为「装逼」<br>
 是不是在卖弄虚荣这点并不是一个很明确的东西<br>
