@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://yangspica27.github.io/</id>
     <title>Spica 27&apos;S Room</title>
-    <updated>2020-02-09T03:11:47.320Z</updated>
+    <updated>2020-02-09T03:25:42.469Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://yangspica27.github.io/"/>
     <link rel="self" href="https://yangspica27.github.io/atom.xml"/>
@@ -90,6 +90,20 @@ mNotifyMgr.notify(1, builder.build());
      daoPackage 'com.lenovo.smarttraffic.db'
      targetGenDir 'src/main/java'
 }
+    /**
+     * 初始化GreenDao,直接在Application中进行初始化操作
+     */
+    private void initGreenDao() {
+        DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(this, &quot;jiaotong.db&quot;);
+        SQLiteDatabase db = helper.getWritableDatabase();
+        DaoMaster daoMaster = new DaoMaster(db);
+        daoSession = daoMaster.newSession();
+    }
+
+    private DaoSession daoSession;
+    public DaoSession getDaoSession() {
+        return daoSession;
+    }
 </code></pre>
 <h2 id="dp2px无需上下文">dp2px（无需上下文）</h2>
 <pre><code class="language-java">public static float dpTopx(int dp) {
@@ -97,6 +111,17 @@ mNotifyMgr.notify(1, builder.build());
   return TypedValue.applyDimension(
       TypedValue.COMPLEX_UNIT_DIP, dp, Resources.getSystem().getDisplayMetrics());
 }
+</code></pre>
+<h2 id="饼图拉线">饼图拉线</h2>
+<pre><code class="language-java">dataSet.setValueLinePart1OffsetPercentage(80f);//数据连接线距图形片内部边界的距离，为百分数
+        dataSet.setValueLinePart1Length(0.3f);
+        dataSet.setValueLinePart2Length(0.4f);
+        dataSet.setValueLineColor( PIE_COLORS[3]);//设置连接线的颜色
+        dataSet.setYValuePosition(PieDataSet.ValuePosition.OUTSIDE_SLICE);//y轴数据显示在饼图内/外
+        dataSet.setXValuePosition(PieDataSet.ValuePosition.OUTSIDE_SLICE);//x轴数据显示在饼图内/外
+</code></pre>
+<h2 id="webview加载assets文件夹下的html文件">WebView加载assets文件夹下的html文件</h2>
+<pre><code class="language-java">webView.loadUrl(&quot;file:////android_asset/文件名.html&quot;);
 </code></pre>
 ]]></content>
     </entry>
