@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://yangspica27.github.io/</id>
     <title>Spica 27&apos;S Room</title>
-    <updated>2020-02-10T00:28:20.515Z</updated>
+    <updated>2020-02-10T00:53:42.658Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://yangspica27.github.io/"/>
     <link rel="self" href="https://yangspica27.github.io/atom.xml"/>
@@ -11,238 +11,34 @@
     <icon>https://yangspica27.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, Spica 27&apos;S Room</rights>
     <entry>
-        <title type="html"><![CDATA[如何绘制一个MD风格的输入框]]></title>
-        <id>https://yangspica27.github.io/post/ru-he-hui-zhi-yi-ge-md-feng-ge-de-shu-ru-kuang</id>
-        <link href="https://yangspica27.github.io/post/ru-he-hui-zhi-yi-ge-md-feng-ge-de-shu-ru-kuang">
+        <title type="html"><![CDATA[活出自己]]></title>
+        <id>https://yangspica27.github.io/post/huo-chu-zi-ji</id>
+        <link href="https://yangspica27.github.io/post/huo-chu-zi-ji">
         </link>
-        <updated>2020-02-09T13:18:35.000Z</updated>
-        <content type="html"><![CDATA[<figure data-type="image" tabindex="1"><img src="https://yangspica27.github.io//post-images/1581254342503.gif" alt="" loading="lazy"></figure>
-<h2 id="提要">提要</h2>
-<p>首先我们分析效果图 达成的效果 输入框有数值的时候，绘制hint的文字在顶部，当输入框没有数值的时候将绘制的文字去掉，并且过程中插入一个向下/向上的一个移动动画。</p>
-<h2 id="准备工作">准备工作</h2>
-<p>首先定义需要的量</p>
-<pre><code class="language-java">public static final float TEXT_SIZE = Utils.dpTopx(12);//绘制的hint的文字大小
-public static final float TEXT_MARGIN = Utils.dpTopx(8);//绘制的hint文本的缩进距离
-public static final int TEXT_VERTICAL_OFFSET = (int) Utils.dpTopx(22);//绘制的hint文字水平偏移
-public static final int TEXT_HORIZONTAL_OFFSET = (int) Utils.dpTopx(5);//绘制的hint文字垂直方向偏移
-public static final int TEXT_ANIMATION_OFFSET = (int) Utils.dpTopx(16);//动画的移动幅度
-boolean floatingLableShow;//当前状态：是否显示上部的hint文字
-
-Rect boundPading;//用于获取pading
-float floatingLableFraction = 0;//动画执行的进度
-private boolean useFloatingLabel = true;//是否使用MD效果
-ObjectAnimator animator;//动画对象
-Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);//绘制文字的画笔
-</code></pre>
-<h2 id="初始化">初始化</h2>
-<pre><code class="language-java">{
-      paint.setTextSize(TEXT_SIZE);
-}
-public MaterialEditText(Context context, AttributeSet attrs) {
-    super(context, attrs);
-    TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.MaterialEditText);
-    useFloatingLabel = typedArray.getBoolean(R.styleable.MaterialEditText_useFloatingLabel, true);//获取attr中声明的值，如果不需要在xml中设置属性，可以跳过此步骤
-    typedArray.recycle(); // 回收
-  }
-</code></pre>
-<h2 id="hint文字的绘制">Hint文字的绘制</h2>
-<pre><code class="language-java">  @Override
-  protected void onDraw(Canvas canvas) {
-    super.onDraw(canvas);
-    paint.setAlpha((int) (0xff * floatingLableFraction));//根据动画执行的进度设置画笔的透明度
-    float extraOffset = TEXT_ANIMATION_OFFSET * (1 - floatingLableFraction);//根据动画的执行进度获取水平方向上的偏移量
-
-    if (useFloatingLabel) {
-      canvas.drawText(
-          (String) getHint(), TEXT_HORIZONTAL_OFFSET, TEXT_VERTICAL_OFFSET + extraOffset, paint);//绘制文字，绘制时候根据动画进度可以变化水平位置
-    }
-  }
-</code></pre>
-<h2 id="动画">动画</h2>
-<pre><code class="language-java">private ObjectAnimator getAninator() {
-    if (animator == null) {
-      animator = ObjectAnimator.ofFloat(MaterialEditText.this, &quot;floatingLableFraction&quot;, 0, 1);
-    }
-    return animator;
-  }
-</code></pre>
-<h2 id="布局重新测量">布局重新测量</h2>
-<pre><code class="language-java">private void onUseFloatLableChanged() {
-
-    if (useFloatingLabel) {
-      setPadding(
-          getPaddingLeft(),
-          (int) (boundPading.top + TEXT_SIZE + TEXT_MARGIN),//显示的时候，将布局向上排
-          getPaddingRight(),
-          getPaddingBottom());
-
-    } else {
-      setPadding(getPaddingLeft(), (boundPading.top), getPaddingRight(), getPaddingBottom());//不使用时候则将padding恢复原始状态
-    }
-  }
-</code></pre>
-<pre><code class="language-java">  public void setUseFloatingLabel(boolean useFloatingLabel) {
-
-    if (this.useFloatingLabel != useFloatingLabel) {
-      this.useFloatingLabel = useFloatingLabel;//当状态改变时候
-      onUseFloatLableChanged();//应用变化
-    }
-    requestLayout(); // 重新测量
-  }
-</code></pre>
-<h2 id="设置监听器">设置监听器</h2>
-<pre><code class="language-java"> addTextChangedListener(
-        new TextWatcher() {
-          @Override
-          public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-
-          @Override
-          public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            if (useFloatingLabel) {
-
-              if (floatingLableShow &amp;&amp; TextUtils.isEmpty(s)) {
-                floatingLableShow = !floatingLableShow;
-                getAninator().reverse();//逆向执行动画
-
-              } else if (!floatingLableShow &amp;&amp; !TextUtils.isEmpty(s)) {
-                floatingLableShow = !floatingLableShow;
-                getAninator().start();
-              }
-            }
-          }
-
-          @Override
-          public void afterTextChanged(Editable s) {}
-        });
-</code></pre>
-<h1 id="tips">Tips</h1>
-<ul>
-<li>
-<p>为什么获取paddingTop使用<code>boundPading.top</code>而不会使用<code>getPaddingTop</code>?<br>
-因为此View中，Padding并不是一个定值，每次<code>setPadding</code>的时候，都会进行改变,所以要将Padding恢复的时候，要涉及到一个累减的一个问题，而从background中获取的bounds是一个定值，所以可以有效避免复杂的计算。</p>
-</li>
-<li>
-<p><code>getAninator().start();</code>和<code>getAninator().reverse();</code>啥玩意还能这样子操作？？？<br>
-使用<code>getAninator()</code>可以避免重复构造动画对象避免性能损失，start表示的是动画的正方向执行，reverse表示倒叙执行</p>
-</li>
-</ul>
-<h3 id="完整代码">完整代码</h3>
-<pre><code class="language-java">public class MaterialEditText extends AppCompatEditText {
-  private static final String TAG = &quot;MaterialEditText&quot;;
-
-  public static final float TEXT_SIZE = Utils.dpTopx(12);
-
-  public static final float TEXT_MARGIN = Utils.dpTopx(8);
-  public static final int TEXT_VERTICAL_OFFSET = (int) Utils.dpTopx(22);
-  public static final int TEXT_HORIZONTAL_OFFSET = (int) Utils.dpTopx(5);
-  public static final int TEXT_ANIMATION_OFFSET = (int) Utils.dpTopx(16);
-
-  Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
-
-  boolean floatingLableShow;
-
-  ObjectAnimator animator;
-
-  Rect boundPading;
-  float floatingLableFraction = 0;
-  private boolean useFloatingLabel = true;
-
-  {
-    paint.setTextSize(TEXT_SIZE);
-    boundPading = getBackground().getBounds();
-
-    setPadding(
-        getPaddingLeft(),
-        (int) (boundPading.top + TEXT_SIZE + TEXT_MARGIN),
-        getPaddingRight(),
-        getPaddingBottom());
-
-    addTextChangedListener(
-        new TextWatcher() {
-          @Override
-          public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-
-          @Override
-          public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            if (useFloatingLabel) {
-
-              if (floatingLableShow &amp;&amp; TextUtils.isEmpty(s)) {
-                floatingLableShow = !floatingLableShow;
-                getAninator().reverse();
-
-              } else if (!floatingLableShow &amp;&amp; !TextUtils.isEmpty(s)) {
-                floatingLableShow = !floatingLableShow;
-                getAninator().start();
-              }
-            }
-          }
-
-          @Override
-          public void afterTextChanged(Editable s) {}
-        });
-  }
-
-  public MaterialEditText(Context context, AttributeSet attrs) {
-    super(context, attrs);
-    TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.MaterialEditText);
-    useFloatingLabel = typedArray.getBoolean(R.styleable.MaterialEditText_useFloatingLabel, true);
-    typedArray.recycle(); // 回收
-  }
-
-  public float getFloatingLableFraction() {
-    return floatingLableFraction;
-  }
-
-  public void setFloatingLableFraction(float floatingLableFraction) {
-    this.floatingLableFraction = floatingLableFraction;
-    invalidate();
-  }
-
-  private void onUseFloatLableChanged() {
-
-    if (useFloatingLabel) {
-      setPadding(
-          getPaddingLeft(),
-          (int) (boundPading.top + TEXT_SIZE + TEXT_MARGIN),
-          getPaddingRight(),
-          getPaddingBottom());
-
-    } else {
-      setPadding(getPaddingLeft(), (boundPading.top), getPaddingRight(), getPaddingBottom());
-    }
-  }
-
-  public void setUseFloatingLabel(boolean useFloatingLabel) {
-
-    if (this.useFloatingLabel != useFloatingLabel) {
-      this.useFloatingLabel = useFloatingLabel;
-      onUseFloatLableChanged();
-    }
-    requestLayout(); // 重新测量
-  }
-
-  private ObjectAnimator getAninator() {
-    if (animator == null) {
-      animator = ObjectAnimator.ofFloat(MaterialEditText.this, &quot;floatingLableFraction&quot;, 0, 1);
-    }
-    return animator;
-  }
-
-  @Override
-  protected void onDraw(Canvas canvas) {
-    super.onDraw(canvas);
-    paint.setAlpha((int) (0xff * floatingLableFraction));
-    float extraOffset = TEXT_ANIMATION_OFFSET * (1 - floatingLableFraction);
-
-    if (useFloatingLabel) {
-      canvas.drawText(
-          (String) getHint(), TEXT_HORIZONTAL_OFFSET, TEXT_VERTICAL_OFFSET + extraOffset, paint);
-    }
-  }
-}
-</code></pre>
+        <updated>2020-02-10T00:50:32.000Z</updated>
+        <content type="html"><![CDATA[<p>今天有人来问我，说如何成为像我这样的人。<br>
+　　让我受宠若惊。<br>
+　　我一时脑子短路不知道说什么好，就心血来潮回了一句：“不可能”<br>
+　　像，也只是像而已。<br>
+　　像是那些拙劣的iPhone模仿者一样，他们再吹嘘自己在某某部分上远超iPhone，但他们终究没有能够超越iPhone。<br>
+　　他们终究选择了做自己。不论好坏。<br>
+　　也或许有一部分执迷不悟，而已经退出了这个游戏。<br>
+　　能生存下来的也终究不是靠模仿iPhone.<br>
+　　人似乎也是如此。<br>
+　　如果我可以有一个双胞胎兄弟。小时候我们穿着一样的衣服，做着一样的事情，一起开心，一起哭泣。<br>
+　　可是长大以后，也会发现他和我并不相同。我也没有必要和他相同。<br>
+　　世界可以说很大，也可以很小。<br>
+　　把这个世界上所有人堆在一起，缩小了看，它们都属于Homo Sapian.<br>
+　　放大了看，其实每个人都站在不同的点上。即使有再小的不同，我们终究也还是不同的。<br>
+　　我们曾经想成为科学家，成为歌手，成为画家，成为音乐家。<br>
+　　上了学，我们想成为班上那最顶端的学生。<br>
+　　现在我终于可以说，<br>
+　　“我想成为谁啊？是我自己啊。”<br>
+　　我不再仰望Bill Gates的退学勇气，也不用羡慕Steve的现实扭曲立场，不必在意Jay Chou的歌究竟有多么吐字不清，不用再纠结我前方的几千人到底是怎么考出这个成绩的。<br>
+　　评估这个世界的轴已经从单一的成了多元的了。<br>
+　　而在我的世界里，总有比他们走的远的一个方向。<br>
+　　而没有超过他们的，自然没有必要担心。<br>
+　　我就是我啊。</p>
 ]]></content>
     </entry>
     <entry>
