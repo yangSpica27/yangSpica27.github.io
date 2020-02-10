@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://yangspica27.github.io/</id>
     <title>Spica 27&apos;S Room</title>
-    <updated>2020-02-10T00:20:00.149Z</updated>
+    <updated>2020-02-10T00:28:20.515Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://yangspica27.github.io/"/>
     <link rel="self" href="https://yangspica27.github.io/atom.xml"/>
@@ -72,20 +72,20 @@ public MaterialEditText(Context context, AttributeSet attrs) {
     if (useFloatingLabel) {
       setPadding(
           getPaddingLeft(),
-          (int) (boundPading.top + TEXT_SIZE + TEXT_MARGIN),
+          (int) (boundPading.top + TEXT_SIZE + TEXT_MARGIN),//显示的时候，将布局向上排
           getPaddingRight(),
           getPaddingBottom());
 
     } else {
-      setPadding(getPaddingLeft(), (boundPading.top), getPaddingRight(), getPaddingBottom());
+      setPadding(getPaddingLeft(), (boundPading.top), getPaddingRight(), getPaddingBottom());//不使用时候则将padding恢复原始状态
     }
   }
 </code></pre>
 <pre><code class="language-java">  public void setUseFloatingLabel(boolean useFloatingLabel) {
 
     if (this.useFloatingLabel != useFloatingLabel) {
-      this.useFloatingLabel = useFloatingLabel;
-      onUseFloatLableChanged();
+      this.useFloatingLabel = useFloatingLabel;//当状态改变时候
+      onUseFloatLableChanged();//应用变化
     }
     requestLayout(); // 重新测量
   }
@@ -103,7 +103,7 @@ public MaterialEditText(Context context, AttributeSet attrs) {
 
               if (floatingLableShow &amp;&amp; TextUtils.isEmpty(s)) {
                 floatingLableShow = !floatingLableShow;
-                getAninator().reverse();
+                getAninator().reverse();//逆向执行动画
 
               } else if (!floatingLableShow &amp;&amp; !TextUtils.isEmpty(s)) {
                 floatingLableShow = !floatingLableShow;

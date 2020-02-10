@@ -131,20 +131,20 @@ public MaterialEditText(Context context, AttributeSet attrs) {
     if (useFloatingLabel) {
       setPadding(
           getPaddingLeft(),
-          (int) (boundPading.top + TEXT_SIZE + TEXT_MARGIN),
+          (int) (boundPading.top + TEXT_SIZE + TEXT_MARGIN),//显示的时候，将布局向上排
           getPaddingRight(),
           getPaddingBottom());
 
     } else {
-      setPadding(getPaddingLeft(), (boundPading.top), getPaddingRight(), getPaddingBottom());
+      setPadding(getPaddingLeft(), (boundPading.top), getPaddingRight(), getPaddingBottom());//不使用时候则将padding恢复原始状态
     }
   }
 </code></pre>
 <pre><code class="language-java">  public void setUseFloatingLabel(boolean useFloatingLabel) {
 
     if (this.useFloatingLabel != useFloatingLabel) {
-      this.useFloatingLabel = useFloatingLabel;
-      onUseFloatLableChanged();
+      this.useFloatingLabel = useFloatingLabel;//当状态改变时候
+      onUseFloatLableChanged();//应用变化
     }
     requestLayout(); // 重新测量
   }
@@ -162,7 +162,7 @@ public MaterialEditText(Context context, AttributeSet attrs) {
 
               if (floatingLableShow &amp;&amp; TextUtils.isEmpty(s)) {
                 floatingLableShow = !floatingLableShow;
-                getAninator().reverse();
+                getAninator().reverse();//逆向执行动画
 
               } else if (!floatingLableShow &amp;&amp; !TextUtils.isEmpty(s)) {
                 floatingLableShow = !floatingLableShow;
