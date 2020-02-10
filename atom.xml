@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://yangspica27.github.io/</id>
     <title>Spica 27&apos;S Room</title>
-    <updated>2020-02-10T00:18:13.348Z</updated>
+    <updated>2020-02-10T00:20:00.149Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://yangspica27.github.io/"/>
     <link rel="self" href="https://yangspica27.github.io/atom.xml"/>
@@ -119,14 +119,14 @@ public MaterialEditText(Context context, AttributeSet attrs) {
 <h1 id="tips">Tips</h1>
 <ul>
 <li>
-<p>为什么获取paddingTop使用<code>boundPading.top</code>而不会使用<code>getPaddingTop</code>?</p>
-<h3 id="因为此view中padding并不是一个定值每次setpadding的时候都会进行改变所以要将padding恢复的时候要涉及到一个累减的一个问题而从background中获取的bounds是一个定值所以可以有效避免复杂的计算">因为此View中，Padding并不是一个定值，每次<code>setPadding</code>的时候，都会进行改变,所以要将Padding恢复的时候，要涉及到一个累减的一个问题，而从background中获取的bounds是一个定值，所以可以有效避免复杂的计算。</h3>
+<p>为什么获取paddingTop使用<code>boundPading.top</code>而不会使用<code>getPaddingTop</code>?<br>
+因为此View中，Padding并不是一个定值，每次<code>setPadding</code>的时候，都会进行改变,所以要将Padding恢复的时候，要涉及到一个累减的一个问题，而从background中获取的bounds是一个定值，所以可以有效避免复杂的计算。</p>
 </li>
 <li>
-<p><code>getAninator().start();</code>和<code>getAninator().reverse();</code>啥玩意还能这样子操作？？？</p>
+<p><code>getAninator().start();</code>和<code>getAninator().reverse();</code>啥玩意还能这样子操作？？？<br>
+使用<code>getAninator()</code>可以避免重复构造动画对象避免性能损失，start表示的是动画的正方向执行，reverse表示倒叙执行</p>
 </li>
 </ul>
-<h3 id="使用getaninator可以避免重复构造动画对象避免性能损失start表示的是动画的正方向执行reverse表示倒叙执行">使用<code>getAninator()</code>可以避免重复构造动画对象避免性能损失，start表示的是动画的正方向执行，reverse表示倒叙执行</h3>
 <h3 id="完整代码">完整代码</h3>
 <pre><code class="language-java">public class MaterialEditText extends AppCompatEditText {
   private static final String TAG = &quot;MaterialEditText&quot;;
