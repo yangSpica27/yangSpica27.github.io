@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://yangspica27.github.io/</id>
     <title>Spica 27&apos;S Room</title>
-    <updated>2020-02-10T10:14:46.113Z</updated>
+    <updated>2020-02-10T10:16:15.507Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://yangspica27.github.io/"/>
     <link rel="self" href="https://yangspica27.github.io/atom.xml"/>
@@ -21,7 +21,7 @@
 <li>测量流程：从根View递归调用每一级子View的<code>measure( )</code>方法，对他们进行测量</li>
 <li>布局流程：从根View递归调用每一级子View的<code>layout（ )</code>方法，把测量过程得出子View的位置和尺寸传给子View，子View保存</li>
 </ul>
-<h3 id="从整体看对于每个view">从整体看，对于每个View</h3>
+<h3 id="从个体看对于每个view">从个体看，对于每个View</h3>
 <ol>
 <li>运行前，开发者在xml文件里写入对View的布局要求layout_xxx</li>
 <li>父View在自己的<code>onMeasure( )</code>中，根据开发者在xml中写的对子View的要求，和自己的可用空间，得出对子View的具体尺寸要求。</li>
