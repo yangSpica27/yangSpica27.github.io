@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://yangspica27.github.io/</id>
     <title>Spica 27&apos;S Room</title>
-    <updated>2020-02-10T10:18:26.658Z</updated>
+    <updated>2020-02-10T13:42:34.899Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://yangspica27.github.io/"/>
     <link rel="self" href="https://yangspica27.github.io/atom.xml"/>
@@ -10,6 +10,161 @@
     <logo>https://yangspica27.github.io/images/avatar.png</logo>
     <icon>https://yangspica27.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, Spica 27&apos;S Room</rights>
+    <entry>
+        <title type="html"><![CDATA[如何自定义一个简单的自动换行的TagLayout布局]]></title>
+        <id>https://yangspica27.github.io/post/ru-he-zi-ding-yi-yi-ge-jian-dan-de-zi-dong-huan-xing-de-taglayout-bu-ju</id>
+        <link href="https://yangspica27.github.io/post/ru-he-zi-ding-yi-yi-ge-jian-dan-de-zi-dong-huan-xing-de-taglayout-bu-ju">
+        </link>
+        <updated>2020-02-10T13:21:11.000Z</updated>
+        <content type="html"><![CDATA[<figure data-type="image" tabindex="1"><img src="https://yangspica27.github.io//post-images/1581341006296.png" alt="" loading="lazy"></figure>
+<h1 id="先上完整代码">先上完整代码：</h1>
+<pre><code class="language-java">public class TagLayout extends ViewGroup {
+
+  List&lt;Rect&gt; childrenBounds = new ArrayList&lt;&gt;();
+
+  public TagLayout(Context context, AttributeSet attrs) {
+    super(context, attrs);
+  }
+
+  @Override
+  protected void onLayout(boolean changed, int l, int t, int r, int b) {
+    for (int i = 0; i &lt; getChildCount(); i++) {
+      View child = getChildAt(i);
+      Rect childBound = childrenBounds.get(i);
+      child.layout(childBound.left, childBound.top, childBound.right, childBound.bottom);
+    }
+  }
+
+  @Override
+  protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+    super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+
+    int lineMaxWidth = 0;
+    int heightUse = 0;
+    int widthUse = 0;
+    int lineMaxHeight = 0;
+
+    int specMode=MeasureSpec.getMode(widthMeasureSpec);
+
+    int specWidth = MeasureSpec.getSize(widthMeasureSpec);
+
+    for (int i = 0; i &lt; getChildCount(); i++) {
+      View child = getChildAt(i);
+
+      measureChildWithMargins(child, widthMeasureSpec, 0, heightMeasureSpec, heightUse);
+
+      if (specMode!=MeasureSpec.UNSPECIFIED&amp;&amp;widthUse + child.getMeasuredWidth() &gt; specWidth) {
+        // 另起一行
+        widthUse = 0;
+        heightUse += lineMaxHeight;
+        lineMaxHeight=0;
+        measureChildWithMargins(child, widthMeasureSpec, 0, heightMeasureSpec, heightUse);
+      }
+
+      Rect childBound;
+      if (childrenBounds.size() &lt;= i) {
+        childBound = new Rect();
+        childrenBounds.add(childBound);
+      } else {
+        childBound = childrenBounds.get(i);
+      }
+
+      childBound.set(
+          widthUse,
+          heightUse,
+          widthUse + getMeasuredWidth(),
+          heightUse + getMeasuredHeight());
+
+      widthUse += child.getMeasuredWidth();
+      lineMaxWidth = Math.max(lineMaxWidth, widthUse);
+      lineMaxHeight = Math.max(lineMaxHeight, child.getMeasuredHeight());
+    }
+
+    int width = lineMaxWidth;
+    int height = lineMaxHeight+heightUse;
+    setMeasuredDimension(width, height);
+  }
+
+  @Override
+  public LayoutParams generateLayoutParams(AttributeSet attrs) {
+    return new MarginLayoutParams(getContext(), attrs);
+  }
+}
+
+## 准备工作
+定义一个容器来存储子View的位置信息：
+```java
+  List&lt;Rect&gt; childrenBounds = new ArrayList&lt;&gt;();
+</code></pre>
+<h2 id="先从onmeasure阶段开始">先从onMeasure（）阶段开始</h2>
+<h3 id="定义了四个量">定义了四个量：</h3>
+<pre><code class="language-java">    int widthUse = 0;//使用了多少宽度
+    int heightUse = 0;//使用了多少高度
+    int lineMaxWidth = 0; //当前最大宽度
+    int lineMaxHeight = 0;//当前最大高度
+</code></pre>
+<p>这个布局是个横向排列的过程，我们用一个<code>widthUse</code>来记录当前行横向使用的宽度，则计算下个子View位置时候，只需在此基础上累加即可。<br>
+而<code>lineMaxHeight</code>用来记录当前行的子View中的最大高度，当换行时候传递给<code>heightUse</code>，使下一阶段的子View添加下沉高度。</p>
+<h3 id="这段代码是什么意义">这段代码是什么意义：</h3>
+<pre><code class="language-java">   measureChildWithMargins(child, widthMeasureSpec, 0, heightMeasureSpec, heightUse);
+</code></pre>
+<p>这其实是安卓帮我们做了一个自动计算的过程：</p>
+<pre><code class="language-java">    LayoutParams layoutParams = child.getLayoutParams();
+
+      int specWidthMode = MeasureSpec.getMode(widthMeasureSpec);
+      int specWidthSize = MeasureSpec.getSize(widthMeasureSpec);
+
+      int childWidthMode;
+      int childWidthSize;
+
+      switch (layoutParams.width) {
+        case LayoutParams.MATCH_PARENT:
+          switch (specWidthMode) {
+            case MeasureSpec.EXACTLY:
+            case MeasureSpec.AT_MOST:
+              childWidthMode = MeasureSpec.EXACTLY;
+              childWidthSize = specWidthSize - useWidth;
+              break;
+            case MeasureSpec.UNSPECIFIED:
+              childWidthMode = MeasureSpec.UNSPECIFIED;
+              childWidthSize = 0;
+              break;
+          }
+          break;
+        case LayoutParams.WRAP_CONTENT:
+          break;
+      }
+</code></pre>
+<p>可以类比为如上的代码，根据开发者传入的参数类型进行数值的自动适配</p>
+<h2 id="onlayout阶段">onLayout()阶段</h2>
+<p>循环设置布局参数</p>
+<pre><code class="language-java">    for (int i = 0; i &lt; getChildCount(); i++) {
+      View child = getChildAt(i);
+      Rect childBound = childrenBounds.get(i);
+      child.layout(childBound.left, childBound.top, childBound.right, childBound.bottom);
+    }
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[ resolveSize()的使用]]></title>
+        <id>https://yangspica27.github.io/post/resolvesizede-shi-yong</id>
+        <link href="https://yangspica27.github.io/post/resolvesizede-shi-yong">
+        </link>
+        <updated>2020-02-10T11:45:59.000Z</updated>
+        <content type="html"><![CDATA[<p>绘制自定义View的时候，<code>onMeasure</code>阶段需要根据类型来决定宽高（外部自定义或者有最大宽高），由此需要对内部参数进行改变，所以常常要写这种代码：</p>
+<pre><code class="language-java"> switch (specMode) {
+            case MeasureSpec.AT_MOST:
+        //.....
+                break;
+            case MeasureSpec.EXACTLY:
+      //....
+            case MeasureSpec.UNSPECIFIED:
+ }
+</code></pre>
+<p>但Android已经进行了封装，我们只需要调用<code>resolveSize(内部设定的数值，Measure的原始值)</code>就可以自动为我们选择合适的值。</p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[View的测量]]></title>
         <id>https://yangspica27.github.io/post/view-de-ce-liang</id>
