@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://yangspica27.github.io/</id>
     <title>Spica 27&apos;S Room</title>
-    <updated>2020-02-10T13:42:34.899Z</updated>
+    <updated>2020-02-11T08:05:29.453Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://yangspica27.github.io/"/>
     <link rel="self" href="https://yangspica27.github.io/atom.xml"/>
@@ -10,6 +10,391 @@
     <logo>https://yangspica27.github.io/images/avatar.png</logo>
     <icon>https://yangspica27.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, Spica 27&apos;S Room</rights>
+    <entry>
+        <title type="html"><![CDATA[HTTP学习笔记2]]></title>
+        <id>https://yangspica27.github.io/post/http-xue-xi-bi-ji-2</id>
+        <link href="https://yangspica27.github.io/post/http-xue-xi-bi-ji-2">
+        </link>
+        <updated>2020-02-11T06:58:09.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="编码加密hash">编码，加密，Hash</h1>
+<h2 id="加密">加密</h2>
+<ul>
+<li>对称加密
+<ul>
+<li>原理：使用密钥和加密算法对数据进行转换，得到的无意义的数据即为密文。使用密钥和解密算法对密文进行逆向转换，得到原数据。</li>
+<li>经典算法：AES DES</li>
+</ul>
+</li>
+<li>非对称加密
+<ul>
+<li>原理使用公钥对数据进行加密得到密文，使用私钥对数据解密得到原数据</li>
+<li>经典算法：RSA DSA</li>
+<li>衍生用途：数字签名<br>
+原数据---加密算法+加密密钥===&gt;密文---加密算法+解密密钥===&gt;原数据</li>
+</ul>
+</li>
+<li>密钥（key）
+<ul>
+<li>场景：用于加密和解密</li>
+<li>目的：保证数据被人截取时不被人读懂</li>
+<li>焦点：数据</li>
+</ul>
+</li>
+<li>密码（pasword）
+<ul>
+<li>场景：用户进入网站或者游戏的身份验证</li>
+<li>目的：数据提供方或者应用服务方对账户拥有者的数据的保护，保证<strong>你是你</strong>的时候提供权限</li>
+<li>焦点：身份</li>
+</ul>
+</li>
+</ul>
+<h2 id="base64">Base64</h2>
+<ul>
+<li>将二进制数据转化为64个字符组成的字符串的编码算法</li>
+<li>用途：让原数据拥有字符串所拥有的特性，如可以放在URL中传播，可以保存到文本文件，可以通过普通聊天软件进行文本传输。</li>
+<li>可以将人眼可读的字符串变为读不懂的字符串，降低窥视危险</li>
+</ul>
+<h2 id="url-encoding">URL Encoding</h2>
+<ul>
+<li>将URL中的保留字符使用百分号”%“进行编码（”+“，”/“，&quot;&amp;&quot;等）</li>
+<li>消除歧义避免解析错误
+<ul>
+<li>例: http://spica.com/user/?name=我&amp;你<br>
+👇<br>
+http://spica.com/user/?name=我&amp;26你</li>
+</ul>
+</li>
+</ul>
+<h2 id="压缩和解压缩">压缩和解压缩</h2>
+<ul>
+<li>
+<p>压缩：把数据换一种方式来存储，减少存储空间</p>
+</li>
+<li>
+<p>解压缩：把压缩后的数据还原为原先的形式，以便使用</p>
+</li>
+<li>
+<p>常见压缩算法：DEFLATE,JPEG,MP3</p>
+</li>
+<li>
+<p>压缩属于编码吗？</p>
+<ul>
+<li>编码五官方定义</li>
+<li>压缩属于编码</li>
+</ul>
+</li>
+<li>
+<p>媒体数据的编码解码</p>
+<ul>
+<li>图片的编码：把图像数据写成JPG，PNG，等文件的编码格式</li>
+<li>图片的解码：把JPG,PNG等文件的数据解析为标准的图像数据</li>
+</ul>
+<h2 id="序列化">序列化</h2>
+<ul>
+<li>把数据对象（一般为内存中的，例如JVM对象）转换为字节序列的过程</li>
+<li>目的：让内存中的对象可以被存储和传输</li>
+</ul>
+<h2 id="hash">Hash</h2>
+<ul>
+<li>把任意数据转化为指定大小范围（通常很小的计算）</li>
+<li>作用:摘要，数字指纹</li>
+<li>经典算法：MD5，SHA1，SH256等等</li>
+<li>实际用途：数据完整性验证，快速查找：hashCode()和HashMap（）</li>
+</ul>
+</li>
+</ul>
+<h2 id="登录和授权">登录和授权</h2>
+<ul>
+<li>Cookie</li>
+<li>Authorization</li>
+</ul>
+<h2 id="cookie">Cookie</h2>
+<ul>
+<li>
+<p>起源：购物车</p>
+</li>
+<li>
+<p>工作机制：</p>
+<ol>
+<li>客户端-----&gt;服务器<br>
+Post/cart HTTP/1.1<br>
+Host：shop.com<br>
+Cookie:cart=&quot;apple=1 &quot; banana=1</li>
+<li>服务器----&gt;客户端<br>
+HTTP/1.1 200 ok<br>
+set-Cookie：Cart=”apple=1&amp;banana=1“</li>
+<li>客户端<br>
+shop.com:<br>
+cart:&quot;apple=1&amp;banana=1&quot;</li>
+</ol>
+</li>
+<li>
+<p>Cookie的作用：</p>
+<ul>
+<li>会话管理：购物车，登录状态等等</li>
+<li>使用Cookie管理登录状态</li>
+<li>个性化</li>
+<li>分析用户行为</li>
+</ul>
+</li>
+<li>
+<p>Xss(cross-site scrpting):HTTP only 跨站脚本攻击</p>
+<ul>
+<li>Set-Cookie：Sessionid=123；Http Only 使Cookie对本地脚本不可见</li>
+</ul>
+</li>
+<li>
+<p>XSRF（cross-site request forgery ）：Referer：跨站请求伪造<br>
+利用之前登录留下的Cookie实现无登录转账</p>
+</li>
+</ul>
+<h2 id="authorization">Authorization</h2>
+<ul>
+<li>Authorization: Basic<code>&lt;Username：passwor(base64)&gt;</code></li>
+<li>Authorization: Bearer<code>&lt;bearer token&gt;</code>
+<ul>
+<li>OAuth2</li>
+<li>微信登录</li>
+</ul>
+</li>
+</ul>
+<h2 id="tcpip协议簇">TCP/IP协议簇</h2>
+<ul>
+<li>一系列模型组成的网络模型分层</li>
+<li>为什么要分层：因为网络不稳定</li>
+<li>具体分层：
+<ul>
+<li>应用层：HTTP，FTP，DNS</li>
+<li>传输层：TCP，UDP</li>
+<li>网络层：IP</li>
+<li>数据链路层：以太网，WIFI</li>
+</ul>
+</li>
+<li>TCP连接
+<ul>
+<li>三次握手...</li>
+</ul>
+</li>
+<li>长连接：
+<ul>
+<li>实现方式：心跳<br>
+在类小区网络环境下，防止长时间不连接端口关闭</li>
+</ul>
+</li>
+</ul>
+<h1 id="https">HTTPS</h1>
+<ul>
+<li>HTTP OVER SSL</li>
+<li>SSL：Secure Socket Layer====&gt;TLS：Transport Layer Secure</li>
+<li>定义：在HTTP下增加一个安全层，用于保障HTTP的加密传输</li>
+<li>本质：在客户端和服务器之间协商出一套对称密钥，每次发送信息之间将内容加密，收到之后在进行解密，达到内容加密传输</li>
+</ul>
+<h2 id="http-连接">HTTP 连接</h2>
+<ol>
+<li>客户端请求建立TLS连接</li>
+<li>服务器发回证明</li>
+<li>客户端验证服务器证书</li>
+<li>客户端信任服务器之后，和服务器协商对称密钥</li>
+<li>使用对称密钥开始通信</li>
+</ol>
+<h1 id="在android中使用">在Android中使用</h1>
+<ul>
+<li>正常情况下，直接使用</li>
+<li>什么时候不行：
+<ul>
+<li>用的自签名证书（例如用于内网的Https）</li>
+<li>证书信息补全，缺乏证书机构信息</li>
+<li>手机操作系统较旧，没有安装新加入的根证书</li>
+</ul>
+</li>
+<li>如何处理：
+<ul>
+<li>手写验证过程</li>
+</ul>
+</li>
+</ul>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[HTTP 学习笔记1]]></title>
+        <id>https://yangspica27.github.io/post/http-xue-xi-bi-ji</id>
+        <link href="https://yangspica27.github.io/post/http-xue-xi-bi-ji">
+        </link>
+        <updated>2020-02-11T05:27:59.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="http">HTTP</h1>
+<ul>
+<li>HyperText Transfer Portocol 超文本传输协议
+<ul>
+<li>超文本：在电脑中，显示的含有可以指向其他文本链接的文本</li>
+</ul>
+</li>
+</ul>
+<h2 id="http的工作方式">HTTP的工作方式</h2>
+<ul>
+<li>
+<p><strong>浏览器</strong>--&gt;发送请求--&gt;<strong>服务器</strong><br>
+GET/HTTP/1.1<br>
+Host：····.com</p>
+</li>
+<li>
+<p><strong>服务器</strong>--&gt;响应--&gt;<strong>浏览器</strong><br>
+HTTP/1.1 200 OK<br>
+Server：nginx/1.13.1<br>
+Date：Sun，0，...</p>
+</li>
+</ul>
+<h2 id="url-http报文">URL---&gt;HTTP报文</h2>
+<ul>
+<li>示例：http://space.bilibili.comsp/56285643<br>
+<strong>https:</strong> 协议类型<br>
+<strong>space.bilibili.com</strong>：服务器地址<br>
+<strong>56285643：</strong> 路径<br>
+↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓</li>
+<li>GET/56285643 HTTP/1.1<br>
+Host:space.bilibili.comsp</li>
+</ul>
+<ul>
+<li>报文格式：Request<pre><code>  GET/Users HTTP？1.1 //请求行
+  Host:api.githu.com                 //headers    
+  Content-Type: text/plain           //headers    
+  Content-Length:243                //headers   
+  ...                                       //body
+</code></pre>
+</li>
+<li>报文格式：Response</li>
+</ul>
+<pre><code>HTTP/1.1 200 OK //状态行
+//请求头
+Content-type：application/json；charset=UTF-8 //headers
+Cache-control：public，max-age=60，S-maxage=60
+vary：Accept，Accept-Encoding
+etag：w/“02eec5b33460”
+Content-encoding:g-zip
+//Body
+[{
+    .......
+}]
+</code></pre>
+<h2 id="request-methods">Request Methods</h2>
+<ul>
+<li><strong>Get</strong><br>
+获取资源，无Body</li>
+<li>Post<br>
+增加或者修改资源；Body</li>
+<li><strong>Put</strong><br>
+修改资源；有Body</li>
+<li><strong>DELETE</strong><br>
+删除资源；无Body</li>
+<li>HEAD<br>
+获取信息；如下载文件的大小；服务器不返回Body<br>
+<strong>Get/Put/DELETE具有幂等性</strong></li>
+</ul>
+<h2 id="status-code-状态码">Status Code 状态码</h2>
+<ul>
+<li>1xx: 临时性消息<br>
+101：支持HTTP2.0<br>
+100：未完成</li>
+<li>2XX：成功</li>
+<li>3XX：重定向<br>
+301：永久迁移<br>
+302：临时迁移<br>
+304：内容无改变</li>
+<li>4XX：客户端错误</li>
+<li>5XX：服务器错误</li>
+</ul>
+<h2 id="header-请求头">Header 请求头</h2>
+<ul>
+<li>
+<p>作用：HTTP消息的<strong>元数据</strong>（metadata）</p>
+<ul>
+<li>Host:服务器的主机地址   虚拟主机</li>
+<li>Content-Type/Content-Length： Body的类型/长度
+<ul>
+<li>Content-Length：内容的长度(字节)</li>
+<li>Content-Type：
+<ul>
+<li>text/html：HTML内容，用于浏览器页面响应</li>
+<li>application/x-www-form-urlencoded：普通表单</li>
+<li>encoded：URL模式</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>multipart/form-data：多部分形式；包含二进制的多内容</li>
+<li>application/json：json形式，用于Web Api的响应或者Post/Put请求</li>
+<li>image/jpeg/application/zip...：单文件，用于Web API响应或者put/post请求</li>
+</ul>
+<h2 id="chunked-transfer-encoding">Chunked Transfer Encoding</h2>
+</li>
+</ul>
+<ul>
+<li>Transfer-Encoding：chunked<br>
+表示Body长度无法确定，Content-Length不能使用<br>
+Body格式：<pre><code class="language-XML">&lt;length&gt;
+&lt;data1&gt;
+&lt;length2&gt;
+&lt;date2&gt;
+......
+0
+
+</code></pre>
+</li>
+</ul>
+<p><strong>0加换行</strong></p>
+<p>最后传输0表示内容结束</p>
+<ul>
+<li>Location:重定向的目标URL</li>
+<li>User-Agent:用户代理</li>
+<li>Range/Accept-Range：指定Body内容范围</li>
+<li>Cookie/Set-Cookie：发送/设置 Cookie</li>
+<li>Authorization:授权信息</li>
+<li>Accept：客户端可接受的数据类型：如text/html</li>
+<li>Accept-charset：客户端接收的字符集：如 UTF-8</li>
+<li>Accept-Encoding：客户端接收的压缩类型编码。如gzip</li>
+<li>Conetent-Encoding：压缩类型：如gzip</li>
+</ul>
+<h2 id="cache-缓存">Cache 缓存</h2>
+<ul>
+<li>Cache和Butter的区别？</li>
+<li>Cache-Control：
+<ul>
+<li>no-cache： 缓存，使用前询问</li>
+<li>no-store：不缓存</li>
+<li>max-age：指定日期</li>
+</ul>
+</li>
+<li>Last-Modified：
+<ul>
+<li>If-Modified-since</li>
+</ul>
+</li>
+<li>ETag：  If-None-Match</li>
+<li>Cache-Control：private/public  个性信息/公共信息</li>
+</ul>
+<p>##REST</p>
+<ul>
+<li>什么是<strong>REST</strong>：<br>
+一种架构风格对HTTP加以限制</li>
+<li>Sever-Client architecture     CS架构</li>
+<li>StateLessness     无状态</li>
+<li>Cacheablility     可缓存</li>
+<li>Layered System 分层的服务器集群对客户端透明</li>
+<li>Code on demand 服务器返回包含可执行代码</li>
+<li>Uniform interface
+<ul>
+<li>Resource identication in requests</li>
+<li>Resource manipulation through representation</li>
+<li>self-descriptive messages</li>
+<li>Hypermedia as engine of application state（HATEOAS）</li>
+</ul>
+</li>
+</ul>
+<h2 id="restful-http">RESTFUL HTTP</h2>
+<ul>
+<li>正确的使用Http</li>
+</ul>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[如何自定义一个简单的自动换行的TagLayout布局]]></title>
         <id>https://yangspica27.github.io/post/ru-he-zi-ding-yi-yi-ge-jian-dan-de-zi-dong-huan-xing-de-taglayout-bu-ju</id>

@@ -1,0 +1,530 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>HTTP学习笔记2 - Spica 27&#39;S Room</title>
+<link rel="shortcut icon" href="https://yangspica27.github.io//favicon.ico">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.2.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css">
+<link rel="stylesheet" href="https://yangspica27.github.io//media/css/tailwind.css">
+<link rel="stylesheet" href="https://yangspica27.github.io//styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="HTTP学习笔记2 - Spica 27&#39;S Room - Atom Feed" href="https://yangspica27.github.io//atom.xml">
+
+    
+
+  <meta name="description" content="编码，加密，Hash
+加密
+
+对称加密
+
+原理：使用密钥和加密算法对数据进行转换，得到的无意义的数据即为密文。使用密钥和解密算法对密文进行逆向转换，得到原数据。
+经典算法：AES DES
+
+
+非对称加密
+
+原理使用公钥对数据进行加密得到密文..." />
+  <meta property="og:title" content="HTTP学习笔记2 - Spica 27&#39;S Room">
+  <meta property="og:description" content="编码，加密，Hash
+加密
+
+对称加密
+
+原理：使用密钥和加密算法对数据进行转换，得到的无意义的数据即为密文。使用密钥和解密算法对密文进行逆向转换，得到原数据。
+经典算法：AES DES
+
+
+非对称加密
+
+原理使用公钥对数据进行加密得到密文..." />
+  <meta property="og:type" content="articles">
+  <meta property="og:url" content="https://yangspica27.github.io/post/http-xue-xi-bi-ji-2" />
+  <meta property="og:image" content="https://yangspica27.github.io//images/avatar.png">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:width" content="1200">
+  <meta name="twitter:title" content="HTTP学习笔记2 - Spica 27&#39;S Room">
+  <meta name="twitter:description" content="编码，加密，Hash
+加密
+
+对称加密
+
+原理：使用密钥和加密算法对数据进行转换，得到的无意义的数据即为密文。使用密钥和解密算法对密文进行逆向转换，得到原数据。
+经典算法：AES DES
+
+
+非对称加密
+
+原理使用公钥对数据进行加密得到密文...">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://yangspica27.github.io/post/http-xue-xi-bi-ji-2">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css">
+ 
+  
+    <link rel="stylesheet" href="https://yangspica27.github.io//media/css/prism-atom-dark.css">
+  
+
+  
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+  
+</head>
+
+<body>
+  <div class="antialiased flex flex-col min-h-screen" id="app">
+    <a href="https://yangspica27.github.io/" class="fixed top-0 left-0 mt-4 bg-black text-white dark:text-gray-700 dark:bg-yellow-50 dark:hover:bg-black dark:hover:text-white inline-flex p-2 pl-8 hover:text-gray-700 hover:bg-yellow-50 font-bold z-10 transition-fast animated fadeInLeft">
+      Spica 27&#39;S Room
+    </a>
+    <div class="max-w-4xl w-full mx-auto">
+      <div class="shadow-box bg-white dark:bg-gray-600 rounded-lg pt-32 md:pt-64 px-4 md:px-8 pb-8 animated fadeIn mb-8">
+        <h1 class="text-5xl font-semibold leading-normal pb-8 mb-8 border-b-8 border-gray-700">
+          HTTP学习笔记2
+        </h1>
+        
+        <div class="mb-8 flex flex-wrap">
+          <div class="text-gray-400 text-sm mr-4">2020-02-11 · 5 min read</div>
+          
+        </div>
+        <div class="markdown mb-8" v-pre>
+          <h1 id="编码加密hash">编码，加密，Hash</h1>
+<h2 id="加密">加密</h2>
+<ul>
+<li>对称加密
+<ul>
+<li>原理：使用密钥和加密算法对数据进行转换，得到的无意义的数据即为密文。使用密钥和解密算法对密文进行逆向转换，得到原数据。</li>
+<li>经典算法：AES DES</li>
+</ul>
+</li>
+<li>非对称加密
+<ul>
+<li>原理使用公钥对数据进行加密得到密文，使用私钥对数据解密得到原数据</li>
+<li>经典算法：RSA DSA</li>
+<li>衍生用途：数字签名<br>
+原数据---加密算法+加密密钥===&gt;密文---加密算法+解密密钥===&gt;原数据</li>
+</ul>
+</li>
+<li>密钥（key）
+<ul>
+<li>场景：用于加密和解密</li>
+<li>目的：保证数据被人截取时不被人读懂</li>
+<li>焦点：数据</li>
+</ul>
+</li>
+<li>密码（pasword）
+<ul>
+<li>场景：用户进入网站或者游戏的身份验证</li>
+<li>目的：数据提供方或者应用服务方对账户拥有者的数据的保护，保证<strong>你是你</strong>的时候提供权限</li>
+<li>焦点：身份</li>
+</ul>
+</li>
+</ul>
+<h2 id="base64">Base64</h2>
+<ul>
+<li>将二进制数据转化为64个字符组成的字符串的编码算法</li>
+<li>用途：让原数据拥有字符串所拥有的特性，如可以放在URL中传播，可以保存到文本文件，可以通过普通聊天软件进行文本传输。</li>
+<li>可以将人眼可读的字符串变为读不懂的字符串，降低窥视危险</li>
+</ul>
+<h2 id="url-encoding">URL Encoding</h2>
+<ul>
+<li>将URL中的保留字符使用百分号”%“进行编码（”+“，”/“，&quot;&amp;&quot;等）</li>
+<li>消除歧义避免解析错误
+<ul>
+<li>例: http://spica.com/user/?name=我&amp;你<br>
+👇<br>
+http://spica.com/user/?name=我&amp;26你</li>
+</ul>
+</li>
+</ul>
+<h2 id="压缩和解压缩">压缩和解压缩</h2>
+<ul>
+<li>
+<p>压缩：把数据换一种方式来存储，减少存储空间</p>
+</li>
+<li>
+<p>解压缩：把压缩后的数据还原为原先的形式，以便使用</p>
+</li>
+<li>
+<p>常见压缩算法：DEFLATE,JPEG,MP3</p>
+</li>
+<li>
+<p>压缩属于编码吗？</p>
+<ul>
+<li>编码五官方定义</li>
+<li>压缩属于编码</li>
+</ul>
+</li>
+<li>
+<p>媒体数据的编码解码</p>
+<ul>
+<li>图片的编码：把图像数据写成JPG，PNG，等文件的编码格式</li>
+<li>图片的解码：把JPG,PNG等文件的数据解析为标准的图像数据</li>
+</ul>
+<h2 id="序列化">序列化</h2>
+<ul>
+<li>把数据对象（一般为内存中的，例如JVM对象）转换为字节序列的过程</li>
+<li>目的：让内存中的对象可以被存储和传输</li>
+</ul>
+<h2 id="hash">Hash</h2>
+<ul>
+<li>把任意数据转化为指定大小范围（通常很小的计算）</li>
+<li>作用:摘要，数字指纹</li>
+<li>经典算法：MD5，SHA1，SH256等等</li>
+<li>实际用途：数据完整性验证，快速查找：hashCode()和HashMap（）</li>
+</ul>
+</li>
+</ul>
+<h2 id="登录和授权">登录和授权</h2>
+<ul>
+<li>Cookie</li>
+<li>Authorization</li>
+</ul>
+<h2 id="cookie">Cookie</h2>
+<ul>
+<li>
+<p>起源：购物车</p>
+</li>
+<li>
+<p>工作机制：</p>
+<ol>
+<li>客户端-----&gt;服务器<br>
+Post/cart HTTP/1.1<br>
+Host：shop.com<br>
+Cookie:cart=&quot;apple=1 &quot; banana=1</li>
+<li>服务器----&gt;客户端<br>
+HTTP/1.1 200 ok<br>
+set-Cookie：Cart=”apple=1&amp;banana=1“</li>
+<li>客户端<br>
+shop.com:<br>
+cart:&quot;apple=1&amp;banana=1&quot;</li>
+</ol>
+</li>
+<li>
+<p>Cookie的作用：</p>
+<ul>
+<li>会话管理：购物车，登录状态等等</li>
+<li>使用Cookie管理登录状态</li>
+<li>个性化</li>
+<li>分析用户行为</li>
+</ul>
+</li>
+<li>
+<p>Xss(cross-site scrpting):HTTP only 跨站脚本攻击</p>
+<ul>
+<li>Set-Cookie：Sessionid=123；Http Only 使Cookie对本地脚本不可见</li>
+</ul>
+</li>
+<li>
+<p>XSRF（cross-site request forgery ）：Referer：跨站请求伪造<br>
+利用之前登录留下的Cookie实现无登录转账</p>
+</li>
+</ul>
+<h2 id="authorization">Authorization</h2>
+<ul>
+<li>Authorization: Basic<code>&lt;Username：passwor(base64)&gt;</code></li>
+<li>Authorization: Bearer<code>&lt;bearer token&gt;</code>
+<ul>
+<li>OAuth2</li>
+<li>微信登录</li>
+</ul>
+</li>
+</ul>
+<h2 id="tcpip协议簇">TCP/IP协议簇</h2>
+<ul>
+<li>一系列模型组成的网络模型分层</li>
+<li>为什么要分层：因为网络不稳定</li>
+<li>具体分层：
+<ul>
+<li>应用层：HTTP，FTP，DNS</li>
+<li>传输层：TCP，UDP</li>
+<li>网络层：IP</li>
+<li>数据链路层：以太网，WIFI</li>
+</ul>
+</li>
+<li>TCP连接
+<ul>
+<li>三次握手...</li>
+</ul>
+</li>
+<li>长连接：
+<ul>
+<li>实现方式：心跳<br>
+在类小区网络环境下，防止长时间不连接端口关闭</li>
+</ul>
+</li>
+</ul>
+<h1 id="https">HTTPS</h1>
+<ul>
+<li>HTTP OVER SSL</li>
+<li>SSL：Secure Socket Layer====&gt;TLS：Transport Layer Secure</li>
+<li>定义：在HTTP下增加一个安全层，用于保障HTTP的加密传输</li>
+<li>本质：在客户端和服务器之间协商出一套对称密钥，每次发送信息之间将内容加密，收到之后在进行解密，达到内容加密传输</li>
+</ul>
+<h2 id="http-连接">HTTP 连接</h2>
+<ol>
+<li>客户端请求建立TLS连接</li>
+<li>服务器发回证明</li>
+<li>客户端验证服务器证书</li>
+<li>客户端信任服务器之后，和服务器协商对称密钥</li>
+<li>使用对称密钥开始通信</li>
+</ol>
+<h1 id="在android中使用">在Android中使用</h1>
+<ul>
+<li>正常情况下，直接使用</li>
+<li>什么时候不行：
+<ul>
+<li>用的自签名证书（例如用于内网的Https）</li>
+<li>证书信息补全，缺乏证书机构信息</li>
+<li>手机操作系统较旧，没有安装新加入的根证书</li>
+</ul>
+</li>
+<li>如何处理：
+<ul>
+<li>手写验证过程</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+        <!-- Share to Twitter, Weibo, Telegram -->
+        <div class="flex items-center">
+          <div class="mr-4 flex items-center">
+            <i class="ri-share-forward-line text-gray-500"></i>
+          </div>
+          <div class="px-4 cursor-pointer text-blue-500 hover:bg-blue-100 dark:hover:bg-gray-600 inline-flex" @click="shareToTwitter">
+            <i class="ri-twitter-line"></i>
+          </div>
+          <div class="px-4 cursor-pointer text-red-500 hover:bg-red-100 dark:hover:bg-gray-600 inline-flex" @click="shareToWeibo">
+            <i class="ri-weibo-line"></i>
+          </div>
+          <div class="px-4 cursor-pointer text-indigo-500 hover:bg-indigo-100 dark:hover:bg-gray-600 inline-flex" @click="shareToTelegram">
+            <i class="ri-telegram-line"></i>
+          </div>
+        </div>
+      </div>
+
+      
+
+      
+        <div id="vlaine-comment"></div>
+<script type="application/javascript" src="https://unpkg.com/valine"></script>
+<script type="application/javascript">
+  new Valine({
+    el: '#vlaine-comment',
+    appId: 'AR4nFLrhLULlkR2TemSiyB9o-9Nh9j0Va',
+    appKey: 'pW4rve7MFseLwc2b9pBpK1XG',
+    pageSize: 10,
+    notify: false,
+    avatar: 'mp',
+    verify: false,
+    placeholder: '来都来了，不妨评论一下',
+    visitor: true,
+    highlight: true,
+    recordIP: true,
+  })
+</script>
+      
+
+      <footer class="py-12 text-center px-4 md:px-0" v-pre>
+  Think like a man of action, act like a man of thought.
+</footer>
+    </div>
+
+    <!-- TOC Container -->
+    <div class="fixed right-0 bottom-0 mb-16 mr-4 shadow w-8 h-8 rounded-full flex justify-center items-center z-10 cursor-pointer bg-white dark:bg-gray-500 dark:text-gray-200 hover:shadow-lg transition-all animated fadeInRight" @click="showToc = true">
+      <i class="ri-file-list-line"></i>
+    </div>
+
+    <div class="fixed right-0 top-0 bottom-0 overflow-y-auto w-64 bg-white dark:bg-gray-800 p-4 border-l border-gray-100 dark:border-gray-600 z-10 transition-fast" :class="{ '-mr-64': !showToc }">
+      <div class="flex mb-4 justify-end">
+        <div class="w-8 h-8 inline-flex justify-center items-center rounded-full cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-600 transition-fast" @click="showToc = false">
+          <i class="ri-close-line text-lg"></i>
+        </div>
+      </div>
+      <div class="post-toc-container">
+        <ul class="markdownIt-TOC">
+<li><a href="#%E7%BC%96%E7%A0%81%E5%8A%A0%E5%AF%86hash">编码，加密，Hash</a>
+<ul>
+<li><a href="#%E5%8A%A0%E5%AF%86">加密</a></li>
+<li><a href="#base64">Base64</a></li>
+<li><a href="#url-encoding">URL Encoding</a></li>
+<li><a href="#%E5%8E%8B%E7%BC%A9%E5%92%8C%E8%A7%A3%E5%8E%8B%E7%BC%A9">压缩和解压缩</a></li>
+<li><a href="#%E5%BA%8F%E5%88%97%E5%8C%96">序列化</a></li>
+<li><a href="#hash">Hash</a></li>
+<li><a href="#%E7%99%BB%E5%BD%95%E5%92%8C%E6%8E%88%E6%9D%83">登录和授权</a></li>
+<li><a href="#cookie">Cookie</a></li>
+<li><a href="#authorization">Authorization</a></li>
+<li><a href="#tcpip%E5%8D%8F%E8%AE%AE%E7%B0%87">TCP/IP协议簇</a></li>
+</ul>
+</li>
+<li><a href="#https">HTTPS</a>
+<ul>
+<li><a href="#http-%E8%BF%9E%E6%8E%A5">HTTP 连接</a></li>
+</ul>
+</li>
+<li><a href="#%E5%9C%A8android%E4%B8%AD%E4%BD%BF%E7%94%A8">在Android中使用</a></li>
+</ul>
+
+      </div>
+    </div>
+
+    <!-- Back to top -->
+    <div class="fixed right-0 bottom-0 mb-4 mr-4 shadow w-8 h-8 rounded-full flex justify-center items-center z-10 cursor-pointer bg-white hover:shadow-lg transition-all dark:bg-gray-500 dark:text-gray-200" @click="backToUp" v-show="scrolled">
+      <i class="ri-arrow-up-line"></i>
+    </div>
+  </div>
+
+  <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+  <!-- Background of PhotoSwipe. 
+        It's a separate element as animating opacity is faster than rgba(). -->
+  <div class="pswp__bg">
+  </div>
+  <!-- Slides wrapper with overflow:hidden. -->
+  <div class="pswp__scroll-wrap">
+    <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+    <div class="pswp__container">
+      <div class="pswp__item">
+      </div>
+      <div class="pswp__item">
+      </div>
+      <div class="pswp__item">
+      </div>
+    </div>
+    <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+    <div class="pswp__ui pswp__ui--hidden">
+      <div class="pswp__top-bar">
+        <!--  Controls are self-explanatory. Order can be changed. -->
+        <div class="pswp__counter">
+        </div>
+        <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+        <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+        <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+        <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+        <!-- element will get class pswp__preloader--active when preloader is running -->
+        <div class="pswp__preloader">
+          <div class="pswp__preloader__icn">
+            <div class="pswp__preloader__cut">
+              <div class="pswp__preloader__donut">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+        <div class="pswp__share-tooltip">
+        </div>
+      </div>
+      <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+      </button>
+      <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+      </button>
+      <div class="pswp__caption">
+        <div class="pswp__caption__center">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="https://yangspica27.github.io//media/scripts/main.js"></script>
+  
+  <!-- Code Highlight -->
+  
+    <script src="https://yangspica27.github.io//media/prism.js"></script>
+    <script>
+      Prism.highlightAll()
+    </script>
+  
+
+  <script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+  <script>
+    //拿到预览框架，也就是上面的html代码
+    var pswpElement = document.querySelectorAll('.pswp')[0];
+    //定义图片数组变量
+    var imgitems;
+    /**
+    * 用于显示预览界面
+    * @param index 图片数组下标
+    */
+    function viewImg(index) {
+      //其它选项这里不做过多阐述，详情见官网
+      var pswpoptions = {
+        index: parseInt(index, 10), // 开始幻灯片索引。0是第一张幻灯片。必须是整数，而不是字符串。
+        bgOpacity: 0.7, // 背景透明度，0-1
+        maxSpreadZoom: 3, // 缩放级别，不要太大
+      };
+      //初始化并打开PhotoSwipe，pswpElement对应上面预览框架，PhotoSwipeUI_Default为皮肤，imgitems为图片数组，pswpoptions为选项
+      var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, imgitems, pswpoptions);
+      gallery.init()
+    }
+    /**
+    * 用于添加图片点击事件
+    * @param img 图片元素
+    * @param index 所属下标（在imgitems中的位置）
+    */
+    function addImgClick(img, index) {
+      img.onclick = function() {
+        viewImg(index)
+      }
+    }
+    /**
+    * 轮询所有图片，获取src、width、height等数据，加入imgitems，并给图片元素添加事件
+    * 最好在onload中执行该方法，本站因放在最底部，所以直接初始化
+    * 异步加载图片可在图片元素创建完成后调用此方法
+    */
+    function initImg() {
+      //重置图片数组
+      imgitems = [];
+      //查找class:markdown 下的所有img元素并遍历
+      var imgs = document.querySelectorAll('.markdown img');
+      for (var i = 0; i < imgs.length; i++) {
+        var img = imgs[i];
+        //本站相册初始为loading图片，真实图片放在data-src
+        var ds = img.getAttribute("data-src");
+        //创建image对象，用于获取图片宽高
+        var imgtemp = new Image();
+        //判断是否存在data-src
+        if (ds != null && ds.length > 0) {
+          imgtemp.src = ds
+        } else {
+          imgtemp.src = img.src
+        }
+        //判断是否存在缓存
+        if (imgtemp.complete) {
+          var imgobj = {
+            "src": imgtemp.src,
+            "w": imgtemp.width,
+            "h": imgtemp.height,
+          };
+          imgitems[i] = imgobj;
+          addImgClick(img, i);
+        } else {
+          console.log('进来了2')
+          imgtemp.index = i;
+          imgtemp.img = img;
+          imgtemp.onload = function() {
+            var imgobj = {
+              "src": this.src,
+              "w": this.width,
+              "h": this.height,
+            };
+            //不要使用push，因为onload前后顺序会不同
+            imgitems[this.index] = imgobj
+            //添加点击事件
+            addImgClick(this.img, this.index);
+          }
+        }
+      }
+    }
+    //初始化
+    initImg();
+  </script>
+</body>
+
+</html>
