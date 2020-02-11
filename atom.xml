@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-    <id>https://yangspica27.github.io/</id>
+    <id>http://srh5wj.coding-pages.com/</id>
     <title>Spica 27&apos;S Room</title>
-    <updated>2020-02-11T08:06:02.404Z</updated>
+    <updated>2020-02-11T09:15:50.380Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
-    <link rel="alternate" href="https://yangspica27.github.io/"/>
-    <link rel="self" href="https://yangspica27.github.io/atom.xml"/>
+    <link rel="alternate" href="http://srh5wj.coding-pages.com/"/>
+    <link rel="self" href="http://srh5wj.coding-pages.com/atom.xml"/>
     <subtitle>玻璃晴朗 橘子辉煌</subtitle>
-    <logo>https://yangspica27.github.io/images/avatar.png</logo>
-    <icon>https://yangspica27.github.io/favicon.ico</icon>
+    <logo>http://srh5wj.coding-pages.com/images/avatar.png</logo>
+    <icon>http://srh5wj.coding-pages.com/favicon.ico</icon>
     <rights>All rights reserved 2020, Spica 27&apos;S Room</rights>
     <entry>
         <title type="html"><![CDATA[HTTP学习笔记2]]></title>
-        <id>https://yangspica27.github.io/post/http-xue-xi-bi-ji-2</id>
-        <link href="https://yangspica27.github.io/post/http-xue-xi-bi-ji-2">
+        <id>http://srh5wj.coding-pages.com/post/http-xue-xi-bi-ji-2</id>
+        <link href="http://srh5wj.coding-pages.com/post/http-xue-xi-bi-ji-2">
         </link>
         <updated>2020-02-11T06:58:09.000Z</updated>
         <content type="html"><![CDATA[<h1 id="编码加密hash">编码，加密，Hash</h1>
@@ -217,8 +217,8 @@ cart:&quot;apple=1&amp;banana=1&quot;</li>
     </entry>
     <entry>
         <title type="html"><![CDATA[HTTP 学习笔记1]]></title>
-        <id>https://yangspica27.github.io/post/http-xue-xi-bi-ji</id>
-        <link href="https://yangspica27.github.io/post/http-xue-xi-bi-ji">
+        <id>http://srh5wj.coding-pages.com/post/http-xue-xi-bi-ji</id>
+        <link href="http://srh5wj.coding-pages.com/post/http-xue-xi-bi-ji">
         </link>
         <updated>2020-02-11T05:27:59.000Z</updated>
         <content type="html"><![CDATA[<h1 id="http">HTTP</h1>
@@ -397,11 +397,11 @@ Body格式：<pre><code class="language-XML">&lt;length&gt;
     </entry>
     <entry>
         <title type="html"><![CDATA[如何自定义一个简单的自动换行的TagLayout布局]]></title>
-        <id>https://yangspica27.github.io/post/ru-he-zi-ding-yi-yi-ge-jian-dan-de-zi-dong-huan-xing-de-taglayout-bu-ju</id>
-        <link href="https://yangspica27.github.io/post/ru-he-zi-ding-yi-yi-ge-jian-dan-de-zi-dong-huan-xing-de-taglayout-bu-ju">
+        <id>http://srh5wj.coding-pages.com/post/ru-he-zi-ding-yi-yi-ge-jian-dan-de-zi-dong-huan-xing-de-taglayout-bu-ju</id>
+        <link href="http://srh5wj.coding-pages.com/post/ru-he-zi-ding-yi-yi-ge-jian-dan-de-zi-dong-huan-xing-de-taglayout-bu-ju">
         </link>
         <updated>2020-02-10T13:21:11.000Z</updated>
-        <content type="html"><![CDATA[<figure data-type="image" tabindex="1"><img src="https://yangspica27.github.io//post-images/1581341006296.png" alt="" loading="lazy"></figure>
+        <content type="html"><![CDATA[<figure data-type="image" tabindex="1"><img src="http://srh5wj.coding-pages.com//post-images/1581341006296.png" alt="" loading="lazy"></figure>
 <h1 id="先上完整代码">先上完整代码：</h1>
 <pre><code class="language-java">public class TagLayout extends ViewGroup {
 
@@ -533,8 +533,8 @@ Body格式：<pre><code class="language-XML">&lt;length&gt;
     </entry>
     <entry>
         <title type="html"><![CDATA[ resolveSize()的使用]]></title>
-        <id>https://yangspica27.github.io/post/resolvesizede-shi-yong</id>
-        <link href="https://yangspica27.github.io/post/resolvesizede-shi-yong">
+        <id>http://srh5wj.coding-pages.com/post/resolvesizede-shi-yong</id>
+        <link href="http://srh5wj.coding-pages.com/post/resolvesizede-shi-yong">
         </link>
         <updated>2020-02-10T11:45:59.000Z</updated>
         <content type="html"><![CDATA[<p>绘制自定义View的时候，<code>onMeasure</code>阶段需要根据类型来决定宽高（外部自定义或者有最大宽高），由此需要对内部参数进行改变，所以常常要写这种代码：</p>
@@ -552,8 +552,8 @@ Body格式：<pre><code class="language-XML">&lt;length&gt;
     </entry>
     <entry>
         <title type="html"><![CDATA[View的测量]]></title>
-        <id>https://yangspica27.github.io/post/view-de-ce-liang</id>
-        <link href="https://yangspica27.github.io/post/view-de-ce-liang">
+        <id>http://srh5wj.coding-pages.com/post/view-de-ce-liang</id>
+        <link href="http://srh5wj.coding-pages.com/post/view-de-ce-liang">
         </link>
         <updated>2020-02-10T09:51:22.000Z</updated>
         <content type="html"><![CDATA[<h3 id="从整体看">从整体看</h3>
@@ -578,8 +578,8 @@ Body格式：<pre><code class="language-XML">&lt;length&gt;
     </entry>
     <entry>
         <title type="html"><![CDATA[活出自己]]></title>
-        <id>https://yangspica27.github.io/post/huo-chu-zi-ji</id>
-        <link href="https://yangspica27.github.io/post/huo-chu-zi-ji">
+        <id>http://srh5wj.coding-pages.com/post/huo-chu-zi-ji</id>
+        <link href="http://srh5wj.coding-pages.com/post/huo-chu-zi-ji">
         </link>
         <updated>2020-02-10T00:50:32.000Z</updated>
         <content type="html"><![CDATA[<p>今天有人来问我，说如何成为像我这样的人。<br>
@@ -609,11 +609,11 @@ Body格式：<pre><code class="language-XML">&lt;length&gt;
     </entry>
     <entry>
         <title type="html"><![CDATA[如何绘制一个MD风格的输入框]]></title>
-        <id>https://yangspica27.github.io/post/ru-he-hui-zhi-yi-ge-md-feng-ge-de-shu-ru-kuang</id>
-        <link href="https://yangspica27.github.io/post/ru-he-hui-zhi-yi-ge-md-feng-ge-de-shu-ru-kuang">
+        <id>http://srh5wj.coding-pages.com/post/ru-he-hui-zhi-yi-ge-md-feng-ge-de-shu-ru-kuang</id>
+        <link href="http://srh5wj.coding-pages.com/post/ru-he-hui-zhi-yi-ge-md-feng-ge-de-shu-ru-kuang">
         </link>
         <updated>2020-02-09T13:18:35.000Z</updated>
-        <content type="html"><![CDATA[<figure data-type="image" tabindex="1"><img src="https://yangspica27.github.io//post-images/1581254342503.gif" alt="" loading="lazy"></figure>
+        <content type="html"><![CDATA[<figure data-type="image" tabindex="1"><img src="http://srh5wj.coding-pages.com//post-images/1581254342503.gif" alt="" loading="lazy"></figure>
 <h2 id="提要">提要</h2>
 <p>首先我们分析效果图 达成的效果 输入框有数值的时候，绘制hint的文字在顶部，当输入框没有数值的时候将绘制的文字去掉，并且过程中插入一个向下/向上的一个移动动画。</p>
 <h2 id="准备工作">准备工作</h2>
@@ -844,8 +844,8 @@ public MaterialEditText(Context context, AttributeSet attrs) {
     </entry>
     <entry>
         <title type="html"><![CDATA[随想]]></title>
-        <id>https://yangspica27.github.io/post/sui-xiang</id>
-        <link href="https://yangspica27.github.io/post/sui-xiang">
+        <id>http://srh5wj.coding-pages.com/post/sui-xiang</id>
+        <link href="http://srh5wj.coding-pages.com/post/sui-xiang">
         </link>
         <updated>2020-02-09T01:36:49.000Z</updated>
         <content type="html"><![CDATA[<p>作为程序员，如果一个问题出现第二次，就是不能容忍的，但生活中，每个人都难以避免地不断重新犯错，过去的我总觉得给别人三次机会就不能再多了，这很多时候导致了我的不开心，直到我发觉这个事情，并不是每个人都是程序员，特别是家人，很多事情的宽容次数，三次不够，设为十次也不应该，如果可以，应该尽可能无限次宽容，因为他们也总是无限次宽容你，推广开来，就算是对外人也应该如此，宽容没有限数，不要再有后悔莫及的事情了...</p>
@@ -853,8 +853,8 @@ public MaterialEditText(Context context, AttributeSet attrs) {
     </entry>
     <entry>
         <title type="html"><![CDATA[技能大赛训练知识小点]]></title>
-        <id>https://yangspica27.github.io/post/Competition_notes</id>
-        <link href="https://yangspica27.github.io/post/Competition_notes">
+        <id>http://srh5wj.coding-pages.com/post/Competition_notes</id>
+        <link href="http://srh5wj.coding-pages.com/post/Competition_notes">
         </link>
         <updated>2020-02-09T01:03:08.000Z</updated>
         <content type="html"><![CDATA[<h2 id="判断网络状态">判断网络状态</h2>
@@ -959,13 +959,13 @@ mNotifyMgr.notify(1, builder.build());
     </entry>
     <entry>
         <title type="html"><![CDATA[论【装逼】]]></title>
-        <id>https://yangspica27.github.io/post/lun-zhuang-bi</id>
-        <link href="https://yangspica27.github.io/post/lun-zhuang-bi">
+        <id>http://srh5wj.coding-pages.com/post/lun-zhuang-bi</id>
+        <link href="http://srh5wj.coding-pages.com/post/lun-zhuang-bi">
         </link>
         <updated>2020-02-06T11:26:04.000Z</updated>
         <summary type="html"><![CDATA[<figure data-type="image" tabindex="1"><img src="/post-images/1581212071153.jpg" alt="" loading="lazy"></figure>
 ]]></summary>
-        <content type="html"><![CDATA[<figure data-type="image" tabindex="1"><img src="https://yangspica27.github.io//post-images/1581212071153.jpg" alt="" loading="lazy"></figure>
+        <content type="html"><![CDATA[<figure data-type="image" tabindex="1"><img src="http://srh5wj.coding-pages.com//post-images/1581212071153.jpg" alt="" loading="lazy"></figure>
 <!-- more -->
 <p>很多行为某个人看不惯，然后就被直接归纳为，或者说...被攻击为「装逼」<br>
 是不是在卖弄虚荣这点并不是一个很明确的东西<br>
