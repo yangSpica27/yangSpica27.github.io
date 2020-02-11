@@ -1,19 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-    <id>http://srh5wj.coding-pages.com/</id>
+    <id>https://yangspica27.github.io/</id>
     <title>Spica 27&apos;S Room</title>
-    <updated>2020-02-11T09:15:50.380Z</updated>
+    <updated>2020-02-11T12:29:45.148Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
-    <link rel="alternate" href="http://srh5wj.coding-pages.com/"/>
-    <link rel="self" href="http://srh5wj.coding-pages.com/atom.xml"/>
+    <link rel="alternate" href="https://yangspica27.github.io/"/>
+    <link rel="self" href="https://yangspica27.github.io/atom.xml"/>
     <subtitle>玻璃晴朗 橘子辉煌</subtitle>
-    <logo>http://srh5wj.coding-pages.com/images/avatar.png</logo>
-    <icon>http://srh5wj.coding-pages.com/favicon.ico</icon>
+    <logo>https://yangspica27.github.io/images/avatar.png</logo>
+    <icon>https://yangspica27.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, Spica 27&apos;S Room</rights>
     <entry>
+        <title type="html"><![CDATA[进程和线程学习笔记]]></title>
+        <id>https://yangspica27.github.io/post/jin-cheng-he-xian-cheng-xue-xi-bi-ji</id>
+        <link href="https://yangspica27.github.io/post/jin-cheng-he-xian-cheng-xue-xi-bi-ji">
+        </link>
+        <updated>2020-02-11T11:16:08.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="进程">进程</h2>
+<ul>
+<li>给每个程序提供的独立封闭的环境，里面有各种资源和线程</li>
+</ul>
+<h2 id="区别">区别</h2>
+<ul>
+<li>同进程下的线程可以共享资源，进程之间无法直接共享资源</li>
+</ul>
+<h2 id="使用thread类来定义工作">使用Thread类来定义工作</h2>
+<pre><code class="language-java">    Thread thread=new Thread(){
+      @Override public void run() {
+        super.run();
+        //工作内容
+      }
+    };
+</code></pre>
+<h2 id="使用runable来定义工作">使用Runable来定义工作</h2>
+<pre><code class="language-java">    Runnable runnable =
+        new Runnable() {
+          @Override
+          public void run() {
+
+            while (flag) {}
+          }
+        };
+        Thread thread=new Thread(runnable);
+</code></pre>
+<h2 id="工厂方法">工厂方法</h2>
+<pre><code class="language-java"> ThreadFactory threadFactory=new ThreadFactory() {
+      int count=1;
+      @Override public Thread newThread(@NonNull Runnable r) {
+        count++;
+        return new Thread(r,count+&quot;&quot;);
+      }
+    };
+    
+    Thread thread=threadFactory.newThread(runnable);
+</code></pre>
+<h2 id="executor">Executor</h2>
+<pre><code class="language-java"> Executor executor = Executors.newCachedThreadPool();
+    executor.execute(runnable);
+</code></pre>
+<ul>
+<li>newCachedThreadPool()<br>
+初始0个线程，可以不断添加，用完后线程会暂时缓存，过段时间之后会回收</li>
+<li>newSingleThreadExecutor();<br>
+只能跑一个线程，放多个会排队进行</li>
+<li>Executors.newFixedThreadPool(5);<br>
+只能跑限定个数的线程，需要自己做资源回收<br>
+<code>((ExecutorService)executor).shutdown();</code></li>
+</ul>
+<h2 id="callable-可以看作有返回值的runnable">Callable (可以看作有返回值的Runnable)</h2>
+<pre><code class="language-java">Callable&lt;String&gt; callable=new Callable&lt;String&gt;() {
+    @Override public String call() throws Exception {
+      return &quot;string&quot;;
+    }
+  };
+  ExecutorService executor=Executors.newCachedThreadPool();
+  Future&lt;String&gt; future=executor.submit(callable);
+  String result=future.get();
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
         <title type="html"><![CDATA[HTTP学习笔记2]]></title>
-        <id>http://srh5wj.coding-pages.com/post/http-xue-xi-bi-ji-2</id>
-        <link href="http://srh5wj.coding-pages.com/post/http-xue-xi-bi-ji-2">
+        <id>https://yangspica27.github.io/post/http-xue-xi-bi-ji-2</id>
+        <link href="https://yangspica27.github.io/post/http-xue-xi-bi-ji-2">
         </link>
         <updated>2020-02-11T06:58:09.000Z</updated>
         <content type="html"><![CDATA[<h1 id="编码加密hash">编码，加密，Hash</h1>
@@ -217,8 +286,8 @@ cart:&quot;apple=1&amp;banana=1&quot;</li>
     </entry>
     <entry>
         <title type="html"><![CDATA[HTTP 学习笔记1]]></title>
-        <id>http://srh5wj.coding-pages.com/post/http-xue-xi-bi-ji</id>
-        <link href="http://srh5wj.coding-pages.com/post/http-xue-xi-bi-ji">
+        <id>https://yangspica27.github.io/post/http-xue-xi-bi-ji</id>
+        <link href="https://yangspica27.github.io/post/http-xue-xi-bi-ji">
         </link>
         <updated>2020-02-11T05:27:59.000Z</updated>
         <content type="html"><![CDATA[<h1 id="http">HTTP</h1>
@@ -397,11 +466,11 @@ Body格式：<pre><code class="language-XML">&lt;length&gt;
     </entry>
     <entry>
         <title type="html"><![CDATA[如何自定义一个简单的自动换行的TagLayout布局]]></title>
-        <id>http://srh5wj.coding-pages.com/post/ru-he-zi-ding-yi-yi-ge-jian-dan-de-zi-dong-huan-xing-de-taglayout-bu-ju</id>
-        <link href="http://srh5wj.coding-pages.com/post/ru-he-zi-ding-yi-yi-ge-jian-dan-de-zi-dong-huan-xing-de-taglayout-bu-ju">
+        <id>https://yangspica27.github.io/post/ru-he-zi-ding-yi-yi-ge-jian-dan-de-zi-dong-huan-xing-de-taglayout-bu-ju</id>
+        <link href="https://yangspica27.github.io/post/ru-he-zi-ding-yi-yi-ge-jian-dan-de-zi-dong-huan-xing-de-taglayout-bu-ju">
         </link>
         <updated>2020-02-10T13:21:11.000Z</updated>
-        <content type="html"><![CDATA[<figure data-type="image" tabindex="1"><img src="http://srh5wj.coding-pages.com//post-images/1581341006296.png" alt="" loading="lazy"></figure>
+        <content type="html"><![CDATA[<figure data-type="image" tabindex="1"><img src="https://yangspica27.github.io//post-images/1581341006296.png" alt="" loading="lazy"></figure>
 <h1 id="先上完整代码">先上完整代码：</h1>
 <pre><code class="language-java">public class TagLayout extends ViewGroup {
 
@@ -533,8 +602,8 @@ Body格式：<pre><code class="language-XML">&lt;length&gt;
     </entry>
     <entry>
         <title type="html"><![CDATA[ resolveSize()的使用]]></title>
-        <id>http://srh5wj.coding-pages.com/post/resolvesizede-shi-yong</id>
-        <link href="http://srh5wj.coding-pages.com/post/resolvesizede-shi-yong">
+        <id>https://yangspica27.github.io/post/resolvesizede-shi-yong</id>
+        <link href="https://yangspica27.github.io/post/resolvesizede-shi-yong">
         </link>
         <updated>2020-02-10T11:45:59.000Z</updated>
         <content type="html"><![CDATA[<p>绘制自定义View的时候，<code>onMeasure</code>阶段需要根据类型来决定宽高（外部自定义或者有最大宽高），由此需要对内部参数进行改变，所以常常要写这种代码：</p>
@@ -552,8 +621,8 @@ Body格式：<pre><code class="language-XML">&lt;length&gt;
     </entry>
     <entry>
         <title type="html"><![CDATA[View的测量]]></title>
-        <id>http://srh5wj.coding-pages.com/post/view-de-ce-liang</id>
-        <link href="http://srh5wj.coding-pages.com/post/view-de-ce-liang">
+        <id>https://yangspica27.github.io/post/view-de-ce-liang</id>
+        <link href="https://yangspica27.github.io/post/view-de-ce-liang">
         </link>
         <updated>2020-02-10T09:51:22.000Z</updated>
         <content type="html"><![CDATA[<h3 id="从整体看">从整体看</h3>
@@ -578,8 +647,8 @@ Body格式：<pre><code class="language-XML">&lt;length&gt;
     </entry>
     <entry>
         <title type="html"><![CDATA[活出自己]]></title>
-        <id>http://srh5wj.coding-pages.com/post/huo-chu-zi-ji</id>
-        <link href="http://srh5wj.coding-pages.com/post/huo-chu-zi-ji">
+        <id>https://yangspica27.github.io/post/huo-chu-zi-ji</id>
+        <link href="https://yangspica27.github.io/post/huo-chu-zi-ji">
         </link>
         <updated>2020-02-10T00:50:32.000Z</updated>
         <content type="html"><![CDATA[<p>今天有人来问我，说如何成为像我这样的人。<br>
@@ -609,11 +678,11 @@ Body格式：<pre><code class="language-XML">&lt;length&gt;
     </entry>
     <entry>
         <title type="html"><![CDATA[如何绘制一个MD风格的输入框]]></title>
-        <id>http://srh5wj.coding-pages.com/post/ru-he-hui-zhi-yi-ge-md-feng-ge-de-shu-ru-kuang</id>
-        <link href="http://srh5wj.coding-pages.com/post/ru-he-hui-zhi-yi-ge-md-feng-ge-de-shu-ru-kuang">
+        <id>https://yangspica27.github.io/post/ru-he-hui-zhi-yi-ge-md-feng-ge-de-shu-ru-kuang</id>
+        <link href="https://yangspica27.github.io/post/ru-he-hui-zhi-yi-ge-md-feng-ge-de-shu-ru-kuang">
         </link>
         <updated>2020-02-09T13:18:35.000Z</updated>
-        <content type="html"><![CDATA[<figure data-type="image" tabindex="1"><img src="http://srh5wj.coding-pages.com//post-images/1581254342503.gif" alt="" loading="lazy"></figure>
+        <content type="html"><![CDATA[<figure data-type="image" tabindex="1"><img src="https://yangspica27.github.io//post-images/1581254342503.gif" alt="" loading="lazy"></figure>
 <h2 id="提要">提要</h2>
 <p>首先我们分析效果图 达成的效果 输入框有数值的时候，绘制hint的文字在顶部，当输入框没有数值的时候将绘制的文字去掉，并且过程中插入一个向下/向上的一个移动动画。</p>
 <h2 id="准备工作">准备工作</h2>
@@ -844,8 +913,8 @@ public MaterialEditText(Context context, AttributeSet attrs) {
     </entry>
     <entry>
         <title type="html"><![CDATA[随想]]></title>
-        <id>http://srh5wj.coding-pages.com/post/sui-xiang</id>
-        <link href="http://srh5wj.coding-pages.com/post/sui-xiang">
+        <id>https://yangspica27.github.io/post/sui-xiang</id>
+        <link href="https://yangspica27.github.io/post/sui-xiang">
         </link>
         <updated>2020-02-09T01:36:49.000Z</updated>
         <content type="html"><![CDATA[<p>作为程序员，如果一个问题出现第二次，就是不能容忍的，但生活中，每个人都难以避免地不断重新犯错，过去的我总觉得给别人三次机会就不能再多了，这很多时候导致了我的不开心，直到我发觉这个事情，并不是每个人都是程序员，特别是家人，很多事情的宽容次数，三次不够，设为十次也不应该，如果可以，应该尽可能无限次宽容，因为他们也总是无限次宽容你，推广开来，就算是对外人也应该如此，宽容没有限数，不要再有后悔莫及的事情了...</p>
@@ -853,8 +922,8 @@ public MaterialEditText(Context context, AttributeSet attrs) {
     </entry>
     <entry>
         <title type="html"><![CDATA[技能大赛训练知识小点]]></title>
-        <id>http://srh5wj.coding-pages.com/post/Competition_notes</id>
-        <link href="http://srh5wj.coding-pages.com/post/Competition_notes">
+        <id>https://yangspica27.github.io/post/Competition_notes</id>
+        <link href="https://yangspica27.github.io/post/Competition_notes">
         </link>
         <updated>2020-02-09T01:03:08.000Z</updated>
         <content type="html"><![CDATA[<h2 id="判断网络状态">判断网络状态</h2>
@@ -955,33 +1024,6 @@ mNotifyMgr.notify(1, builder.build());
 <h2 id="webview加载assets文件夹下的html文件">WebView加载assets文件夹下的html文件</h2>
 <pre><code class="language-java">webView.loadUrl(&quot;file:////android_asset/文件名.html&quot;);
 </code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[论【装逼】]]></title>
-        <id>http://srh5wj.coding-pages.com/post/lun-zhuang-bi</id>
-        <link href="http://srh5wj.coding-pages.com/post/lun-zhuang-bi">
-        </link>
-        <updated>2020-02-06T11:26:04.000Z</updated>
-        <summary type="html"><![CDATA[<figure data-type="image" tabindex="1"><img src="/post-images/1581212071153.jpg" alt="" loading="lazy"></figure>
-]]></summary>
-        <content type="html"><![CDATA[<figure data-type="image" tabindex="1"><img src="http://srh5wj.coding-pages.com//post-images/1581212071153.jpg" alt="" loading="lazy"></figure>
-<!-- more -->
-<p>很多行为某个人看不惯，然后就被直接归纳为，或者说...被攻击为「装逼」<br>
-是不是在卖弄虚荣这点并不是一个很明确的东西<br>
-我写的文字会不会也被某个人看作是单纯的「装逼」呢<br>
-其实在现实中倒是经常发生这种事情<br>
-但是有时候真的就只是，他们不理解而已<br>
-而不是只关心你在讨论的问题或者对话或者事情本身<br>
-对于网路上的单纯的文字交流<br>
-要判断对方的心情和感受真的不是一件容易的事情<br>
-我们的判断其实充满了误解<br>
-只要不是面对面都会很难的<br>
-比如认真的表情和生气的表情其实不一定能通过一张静态的照片看出来因为他们可能完全一样在那个瞬间<br>
-我上初高中的时候，经常被我们班同学以『装逼』的名义攻击。。<br>
-后来我上了大学，改变了策略，有意不对我同学露出我在别的方面占优势的地方。。<br>
-唉。。<br>
-宫崎骏老爷子就会比较直接的说他们都是猪了</p>
 ]]></content>
     </entry>
 </feed>
