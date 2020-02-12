@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://yangspica27.github.io/</id>
     <title>Spica 27&apos;S Room</title>
-    <updated>2020-02-11T13:21:16.568Z</updated>
+    <updated>2020-02-12T03:38:21.648Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://yangspica27.github.io/"/>
     <link rel="self" href="https://yangspica27.github.io/atom.xml"/>
@@ -545,10 +545,11 @@ Body格式：<pre><code class="language-XML">&lt;length&gt;
   }
 }
 
-## 准备工作
-定义一个容器来存储子View的位置信息：
-```java
-  List&lt;Rect&gt; childrenBounds = new ArrayList&lt;&gt;();
+
+</code></pre>
+<h2 id="准备工作">准备工作</h2>
+<p>定义一个容器来存储子View的位置信息：</p>
+<pre><code class="language-java">  List&lt;Rect&gt; childrenBounds = new ArrayList&lt;&gt;();
 </code></pre>
 <h2 id="先从onmeasure阶段开始">先从onMeasure（）阶段开始</h2>
 <h3 id="定义了四个量">定义了四个量：</h3>
