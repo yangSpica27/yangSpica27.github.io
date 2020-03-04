@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://yangspica27.github.io/</id>
     <title>Spica 27&apos;S Room</title>
-    <updated>2020-02-18T04:36:01.931Z</updated>
+    <updated>2020-03-04T02:13:19.075Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://yangspica27.github.io/"/>
     <link rel="self" href="https://yangspica27.github.io/atom.xml"/>
@@ -10,6 +10,23 @@
     <logo>https://yangspica27.github.io/images/avatar.png</logo>
     <icon>https://yangspica27.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, Spica 27&apos;S Room</rights>
+    <entry>
+        <title type="html"><![CDATA[写了一个demo]]></title>
+        <id>https://yangspica27.github.io/post/xie-liao-yi-ge-demo/</id>
+        <link href="https://yangspica27.github.io/post/xie-liao-yi-ge-demo/">
+        </link>
+        <updated>2020-03-04T02:08:53.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="类似一言的一个app">类似一言的一个App</h2>
+<ul>
+<li>架构基于MVVM&amp;MVP</li>
+<li>并发使用的协程与Retrofit</li>
+<li>不喜轻喷</li>
+<li>开源地址：<a href="https://github.com/yangSpica27/TodayHistory.git">地址</a></li>
+<li>预览图<br>
+-<img src="https://yangspica27.github.io//post-images/1583287937393.gif" alt="" loading="lazy"></li>
+</ul>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[Android App 启动优化全记录]]></title>
         <id>https://yangspica27.github.io/post/android-app-qi-dong-you-hua-quan-ji-lu/</id>
@@ -1168,15 +1185,6 @@ public MaterialEditText(Context context, AttributeSet attrs) {
   }
 }
 </code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[随想]]></title>
-        <id>https://yangspica27.github.io/post/sui-xiang/</id>
-        <link href="https://yangspica27.github.io/post/sui-xiang/">
-        </link>
-        <updated>2020-02-09T01:36:49.000Z</updated>
-        <content type="html"><![CDATA[<p>作为程序员，如果一个问题出现第二次，就是不能容忍的，但生活中，每个人都难以避免地不断重新犯错，过去的我总觉得给别人三次机会就不能再多了，这很多时候导致了我的不开心，直到我发觉这个事情，并不是每个人都是程序员，特别是家人，很多事情的宽容次数，三次不够，设为十次也不应该，如果可以，应该尽可能无限次宽容，因为他们也总是无限次宽容你，推广开来，就算是对外人也应该如此，宽容没有限数，不要再有后悔莫及的事情了...</p>
 ]]></content>
     </entry>
 </feed>
