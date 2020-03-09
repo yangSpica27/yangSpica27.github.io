@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://yangspica27.github.io/</id>
     <title>Spica 27&apos;S Room</title>
-    <updated>2020-03-09T13:51:26.956Z</updated>
+    <updated>2020-03-09T13:52:31.374Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://yangspica27.github.io/"/>
     <link rel="self" href="https://yangspica27.github.io/atom.xml"/>
@@ -18,9 +18,7 @@
         <updated>2020-03-08T10:22:07.000Z</updated>
         <content type="html"><![CDATA[<h1 id="202038">2020/3/8</h1>
 <h2 id="es6部分">ES6部分</h2>
-<ol>
-<li>var     let    const</li>
-</ol>
+<h3 id="var-let-const">var     let    const</h3>
 <ul>
 <li>var声明可以重复声明 重新定义 属于当前的函数</li>
 </ul>
@@ -71,9 +69,7 @@
 <li>需要重新绑定或者更新使用let</li>
 <li>尽量不适用var</li>
 </ul>
-<ol start="2">
-<li>箭头函数</li>
-</ol>
+<h3 id="箭头函数">箭头函数</h3>
 <pre><code class="language-JavaScript">	const nums=[1,2,3,4,5,6,7]
 			const nums2=nums.map((number,i)=&gt;{
 				console.log(`${i}:${number*2}`)
@@ -115,10 +111,8 @@ name没有，<strong>因为js中，this实在运行时才绑定的</strong>此�
 <p>输出：chengkeyu like Eating<br>
 chengkeyu like Sleeping<br>
 原因：箭头函数是子法作用域，没有自己的this，继承于父级函数</p>
-<ol start="3">
-<li>字符串模板<br>
-格式：</li>
-</ol>
+<h3 id="字符串模板">字符串模板</h3>
+<p>格式：</p>
 <pre><code>`文本${变量或者代码块}文本`
 </code></pre>
 <p><strong>字符串模板允许嵌套</strong><br>
@@ -145,10 +139,8 @@ chengkeyu like Sleeping<br>
 </code></pre>
 <p>显示效果：<br>
 <img src="https://yangspica27.github.io//post-images/1583756571592.png" alt="" loading="lazy"></p>
-<ol start="4">
-<li>数组解构<br>
-数组对数组</li>
-</ol>
+<h3 id="数组解构">数组解构</h3>
+<p>数组对数组</p>
 <pre><code class="language-javascript">const nums=[1,2,3,4]
 		const [one,two]=nums
 		console.log(one,two)
@@ -175,8 +167,8 @@ const b=2
 <p>打印：1 2<br>
 null 2<br>
 undefined表示不给值，null表示给个null值</p>
-<p>5.对象解构<br>
-原则：key值对应</p>
+<h3 id="对象解构">对象解构</h3>
+<p>原则：key值对应</p>
 <pre><code class="language-javascript">	const Chengkeyu={
 			name:&quot;陈科宇&quot;,
 			sex:&quot;男&quot;,
@@ -208,9 +200,7 @@ undefined表示不给值，null表示给个null值</p>
 <p><strong>此时会报错</strong><br>
 报错原因：大括号内的内容<code>{name:a,hobbies:b}</code>会被编译器当作代码块而非变量<br>
 所以需要加<strong>外部加括号且提前声明</strong></p>
-<ol start="6">
-<li>拓展运算符</li>
-</ol>
+<h3 id="拓展运算符">拓展运算符</h3>
 <pre><code class="language-javascript">	const nums1=[1,2,3]
 		const nums2=[5,6,7]
 		const nums3=[...nums1,4,...nums2]
@@ -220,9 +210,7 @@ undefined表示不给值，null表示给个null值</p>
 <p>打印： 123456<br>
 Warning：此时nums4持有的是nums3的索引，所以对nums4进行修改会导致nums3同时变化<br>
 所以正确赋值姿势应该为<code>const nums4=[].concat(nums3)</code></p>
-<ol start="7">
-<li>Rest运算符（剩余参数）</li>
-</ol>
+<h3 id="rest运算符剩余参数">Rest运算符（剩余参数）</h3>
 <pre><code class="language-javascript">	function a(...nums) {
 				console.log(nums)
 			}
