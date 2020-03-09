@@ -80,7 +80,7 @@ pom文件依赖...">
           <img src="https://yangspica27.github.io//post-images/hou-duan-kuang-jia-ji-zhu-xue-xi-bi-ji.jpg" alt="后端框架技术学习笔记" class="block w-full mb-8">
         
         <div class="mb-8 flex flex-wrap">
-          <div class="text-gray-400 text-sm mr-4">2020-03-08 · 4 min read</div>
+          <div class="text-gray-400 text-sm mr-4">2020-03-08 · 8 min read</div>
           
             <a href="https://yangspica27.github.io/tag/wwFyOEy1b/" class="text-gray-700 text-sm border-b-2 border-dotted border-gray-200 hover:border-gray-600 transition-all duration-100 inline-flex mr-2">
               <i class="ri-hashtag"></i>
@@ -232,6 +232,204 @@ class DemoApplicationTests {
 </li>
 <li>结束</li>
 </ol>
+<h1 id="202039">2020/3/9</h1>
+<h2 id="使用kotlin的注意事项">使用kotlin的注意事项</h2>
+<ul>
+<li>因为底层问题，所以部分类型的声明需要注意对Java的兼容</li>
+</ul>
+<pre><code class="language-kotlin">@JvmOverloads
+    @GetMapping(&quot;/spica&quot;)
+    fun spica() = &quot;spica 27&quot;
+
+   @GetMapping(&quot;/spica/{name}&quot;)
+    fun spica(
+            @PathVariable(name = &quot;name&quot;)
+            name: String? = &quot;spica&quot;) = &quot;&lt;h1&gt;name=${name.toString()}&lt;/h1&gt;&quot;
+</code></pre>
+<p>以下是今天碰见的问题：<br>
+- 重写方法加@JvmOverloads注解<br>
+- 类型声明要加？允许为null,如上直接使用String类型会报<code>java.lang.NoClassDefFoundError: kotlin/jvm/internal/Intrinsics</code></p>
+<h2 id="单元测试junit4与junit-5对比">单元测试·JUnit4与JUnit 5对比</h2>
+<p>常用注解及其作用对比：</p>
+<table>
+<thead>
+<tr>
+<th>JUnit4</th>
+<th>JUnit5</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>@Test</td>
+<td>@Test</td>
+<td>表示该方法是一个测试方法。JUnit5与JUnit 4的@Test注解不同的是，它没有声明任何属性，因为JUnit Jupiter中的测试扩展是基于它们自己的专用注解来完成的。这样的方法会被继承，除非它们被覆盖</td>
+</tr>
+<tr>
+<td>@BeforeClass</td>
+<td>@BeforeAll</td>
+<td>表示使用了该注解的方法应该在当前类中所有使用了@Test @RepeatedTest、@ParameterizedTest或者@TestFactory注解的方法之前 执行；</td>
+</tr>
+<tr>
+<td>@AfterClass</td>
+<td>@AfterAll</td>
+<td>表示使用了该注解的方法应该在当前类中所有使用了@Test、@RepeatedTest、@ParameterizedTest或者@TestFactory注解的方法之后执行；</td>
+</tr>
+<tr>
+<td>@Before</td>
+<td>@BeforeEach</td>
+<td>表示使用了该注解的方法应该在当前类中每一个使用了@Test、@RepeatedTest、@ParameterizedTest或者@TestFactory注解的方法之前 执行</td>
+</tr>
+<tr>
+<td>@After</td>
+<td>@AfterEach</td>
+<td>表示使用了该注解的方法应该在当前类中每一个使用了@Test、@RepeatedTest、@ParameterizedTest或者@TestFactory注解的方法之后 执行</td>
+</tr>
+<tr>
+<td>@Ignore</td>
+<td>@Disabled</td>
+<td>用于禁用一个测试类或测试方法</td>
+</tr>
+<tr>
+<td>@Category</td>
+<td>@Tag</td>
+<td>用于声明过滤测试的tags，该注解可以用在方法或类上；类似于TesgNG的测试组或JUnit 4的分类。</td>
+</tr>
+<tr>
+<td>@Parameters</td>
+<td>@ParameterizedTest</td>
+<td>表示该方法是一个参数化测试</td>
+</tr>
+<tr>
+<td>@RunWith</td>
+<td>@ExtendWith</td>
+<td>@Runwith就是放在测试类名之前，用来确定这个类怎么运行的</td>
+</tr>
+<tr>
+<td>@Rule</td>
+<td>@ExtendWith</td>
+<td>Rule是一组实现了TestRule接口的共享类，提供了验证、监视TestCase和外部资源管理等能力</td>
+</tr>
+<tr>
+<td>@ClassRule</td>
+<td>@ExtendWith</td>
+<td>@ClassRule用于测试类中的静态变量，必须是TestRule接口的实例，且访问修饰符必须为public。</td>
+</tr>
+</tbody>
+</table>
+<h2 id="maven的格式">Maven的格式</h2>
+<ul>
+<li>依赖配置
+<ul>
+<li>groupId：标识符</li>
+<li>artifactId ：单独的项目标识符</li>
+<li>version：版本号</li>
+<li>scope：任务的类路径及其如何限制依赖关系的传递性</li>
+<li>exclusions：包含一个或多个排除元素，每个排除元素都包含一个表示要排除的依赖关系的 groupId 和 artifactId。与可选项不同，可能或可能不会安装和使用，排除主动从依赖关系树中删除自己。</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-xml"> &lt;dependencies&gt;
+      &lt;dependency&gt;
+            &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+            &lt;artifactId&gt;spring-boot-starter-test&lt;/artifactId&gt;
+            &lt;version&gt;2.0&lt;/version&gt;
+            &lt;scope&gt;test&lt;/scope&gt;
+            &lt;exclusions&gt;
+                &lt;exclusion&gt;
+                    &lt;groupId&gt;org.junit.vintage&lt;/groupId&gt;
+                    &lt;artifactId&gt;junit-vintage-engine&lt;/artifactId&gt;
+                &lt;/exclusion&gt;
+            &lt;/exclusions&gt;
+        &lt;/dependency&gt;
+    ...
+  &lt;/dependencies&gt;
+</code></pre>
+<ul>
+<li>build配置
+<ul>
+<li>plugins 插件
+<ul>
+<li>plugin
+<ul>
+<li>extensions：是否加载此插件的扩展名。</li>
+<li>dependencies ：插件本身需要的依赖</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-xml">&lt;build&gt;
+    &lt;plugins&gt;
+&lt;plugin&gt;
+            &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+                &lt;artifactId&gt;maven-compiler-plugin&lt;/artifactId&gt;
+                &lt;executions&gt;
+                    &lt;execution&gt;
+                        &lt;id&gt;compile&lt;/id&gt;
+                        &lt;phase&gt;compile&lt;/phase&gt;
+                        &lt;goals&gt;
+                            &lt;goal&gt;compile&lt;/goal&gt;
+                        &lt;/goals&gt;
+                    &lt;/execution&gt;
+                    &lt;execution&gt;
+                        &lt;id&gt;testCompile&lt;/id&gt;
+                        &lt;phase&gt;test-compile&lt;/phase&gt;
+                        &lt;goals&gt;
+                            &lt;goal&gt;testCompile&lt;/goal&gt;
+                        &lt;/goals&gt;
+                    &lt;/execution&gt;
+                &lt;/executions&gt;
+            &lt;/plugin&gt;
+            ... ...
+    &lt;/plugins&gt;
+  &lt;/build&gt;
+</code></pre>
+<h2 id="配置文件">配置文件</h2>
+<ul>
+<li>properties</li>
+<li>yaml</li>
+</ul>
+<ol>
+<li>基本格式要求：
+<ol>
+<li>YAML大小写敏感；</li>
+<li>使用缩进代表层级关系</li>
+<li>缩进只能使用空格，不能使用TAB，不要求空格个数，只需要相同层级左对齐（一般2个或4个空格）</li>
+</ol>
+</li>
+<li>值的写法
+<ol>
+<li>普通的值：k:v</li>
+<li>对象，Map：键值对
+<ol>
+<li>k: v：在下一行写对象的属性和值的关系；注意缩进</li>
+<li>行内写法</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<pre><code class="language-yaml">man:    
+      name: jelly           
+      age: 20 
+</code></pre>
+<pre><code class="language-yaml">man: {name: jelly,age: 18}
+</code></pre>
+<p>,<br>
+3.  数组（List Set）<br>
+一个短横代表一个数组项</p>
+<pre><code class="language-yaml">people:
+  - chengkeyu
+  - zhaoqian
+  - guzhaoyuan
+  - yangweizhi
+</code></pre>
+<p>行内写法</p>
+<pre><code class="language-yaml">people:[chengkeyu,zhaoqian,guzhaoyuan,yangweizhi]
+</code></pre>
 
         </div>
         <!-- Share to Twitter, Weibo, Telegram -->
@@ -314,6 +512,14 @@ class DemoApplicationTests {
 </ul>
 </li>
 <li><a href="#springboot%E6%89%A7%E8%A1%8C%E6%B5%81%E7%A8%8B">SpringBoot执行流程</a></li>
+</ul>
+</li>
+<li><a href="#202039">2020/3/9</a>
+<ul>
+<li><a href="#%E4%BD%BF%E7%94%A8kotlin%E7%9A%84%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9">使用kotlin的注意事项</a></li>
+<li><a href="#%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95junit4%E4%B8%8Ejunit-5%E5%AF%B9%E6%AF%94">单元测试·JUnit4与JUnit 5对比</a></li>
+<li><a href="#maven%E7%9A%84%E6%A0%BC%E5%BC%8F">Maven的格式</a></li>
+<li><a href="#%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6">配置文件</a></li>
 </ul>
 </li>
 </ul>
