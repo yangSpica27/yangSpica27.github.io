@@ -86,7 +86,7 @@ var声明可以重复声明 重新定义 属于当前的函数
           <img src="https://yangspica27.github.io//post-images/qian-duan-kuang-jia-ji-zhu-xue-xi-bi-ji.jpg" alt="前端框架技术学习笔记" class="block w-full mb-8">
         
         <div class="mb-8 flex flex-wrap">
-          <div class="text-gray-400 text-sm mr-4">2020-03-08 · 2 min read</div>
+          <div class="text-gray-400 text-sm mr-4">2020-03-08 · 5 min read</div>
           
             <a href="https://yangspica27.github.io/tag/wwFyOEy1b/" class="text-gray-700 text-sm border-b-2 border-dotted border-gray-200 hover:border-gray-600 transition-all duration-100 inline-flex mr-2">
               <i class="ri-hashtag"></i>
@@ -170,6 +170,151 @@ var声明可以重复声明 重新定义 属于当前的函数
 3:12<br>
 ···<br>
 <strong>规则：去掉function，加=&gt;</strong></p>
+<pre><code class="language-JavaScript">const chengkeyu = {
+				name: &quot;chengkeyu&quot;,
+				hobbies: ['Eating', 'Sleeping'],
+				printHobbies: function() {
+					this.hobbies.map(function(hobby){
+						console.log(`${this.name} like ${hobby}`)
+					})
+				}
+			}
+			chengkeyu.printHobbies()
+</code></pre>
+<p>输出：like Eating<br>
+like Sleeping<br>
+name没有，<strong>因为js中，this实在运行时才绑定的</strong>此时的this.name所在的函数是一个独立函数，所以指向的是window</p>
+<pre><code class="language-JavaScript">const chengkeyu = {
+				name: &quot;chengkeyu&quot;,
+				hobbies: ['Eating', 'Sleeping'],
+				printHobbies: function() {
+					this.hobbies.map((hobby)=&gt;{
+						console.log(`${this.name} like ${hobby}`)
+					})
+					
+				}
+			}
+			chengkeyu.printHobbies()
+</code></pre>
+<p>输出：chengkeyu like Eating<br>
+chengkeyu like Sleeping<br>
+原因：箭头函数是子法作用域，没有自己的this，继承于父级函数</p>
+<ol start="3">
+<li>字符串模板<br>
+格式：</li>
+</ol>
+<pre><code>`文本${变量或者代码块}文本`
+</code></pre>
+<p><strong>字符串模板允许嵌套</strong><br>
+示例：</p>
+<pre><code class="language-JavaScript">		const objs = [{
+					firstName: &quot;yang&quot;,
+					lastName: &quot;weizhi&quot;
+				},
+				{
+					firstName: &quot;cheng&quot;,
+					lastName: &quot;keyu&quot;
+				},
+				{
+					firstName: &quot;zhao&quot;,
+					lastName: &quot;qian&quot;
+				},
+			]
+			const temp=`
+			&lt;ul&gt;
+			${objs.map(name=&gt;`&lt;li&gt;${name.firstName}性男子&lt;/li&gt;`)}
+			&lt;/ul&gt;
+			`
+		document.body.innerHTML=temp
+</code></pre>
+<p>显示效果：<br>
+<img src="https://yangspica27.github.io//post-images/1583756571592.png" alt="" loading="lazy"></p>
+<ol start="4">
+<li>数组解构<br>
+数组对数组</li>
+</ol>
+<pre><code class="language-javascript">const nums=[1,2,3,4]
+		const [one,two]=nums
+		console.log(one,two)
+</code></pre>
+<p>打印： 1 2<br>
+Restful的写法</p>
+<pre><code class="language-javascript">const nums=[1,2,3,4]
+		const [one,...others]=nums
+		console.log(one,others)
+</code></pre>
+<p>打印：1234<br>
+<strong>注意：...仅能声明在最后，不然会报错</strong></p>
+<p>数组解构实现变量交换</p>
+<pre><code class="language-javascript">const a=1
+const b=2
+[a,b]=[b,a]
+</code></pre>
+<p>默认值</p>
+<pre><code class="language-javascript">const [a = 1, b] = [undefined, 2]
+			console.log(a, b)
+			const [c = 1, d] = [null, 2]
+			console.log(c, d)
+</code></pre>
+<p>打印：1 2<br>
+null 2<br>
+undefined表示不给值，null表示给个null值</p>
+<p>5.对象解构<br>
+原则：key值对应</p>
+<pre><code class="language-javascript">	const Chengkeyu={
+			name:&quot;陈科宇&quot;,
+			sex:&quot;男&quot;,
+			hobbies:[&quot;羽毛球&quot;,&quot;睡觉&quot;],
+		}
+		const {name,hobbies}=Chengkeyu
+		console.log(`${name}喜欢${hobbies}`)
+</code></pre>
+<p>打印：陈科宇喜欢羽毛球,睡觉</p>
+<p>重命名</p>
+<pre><code class="language-javascript">	const Chengkeyu={
+			name:&quot;陈科宇&quot;,
+			sex:&quot;男&quot;,
+			hobbies:[&quot;羽毛球&quot;,&quot;睡觉&quot;],
+		}
+		const {name:a,hobbies:b}=Chengkeyu
+		console.log(`${a}喜欢${b}`)
+</code></pre>
+<p>注意点：<br>
+错误写法</p>
+<pre><code class="language-javascript">	const Chengkeyu={
+			name:&quot;陈科宇&quot;,
+			sex:&quot;男&quot;,
+			hobbies:[&quot;羽毛球&quot;,&quot;睡觉&quot;],
+		}
+		{name:a,hobbies:b}=Chengkeyu
+		console.log(`${a}喜欢${b}`)
+</code></pre>
+<p><strong>此时会报错</strong><br>
+报错原因：大括号内的内容<code>{name:a,hobbies:b}</code>会被编译器当作代码块而非变量<br>
+所以需要加<strong>外部加括号且提前声明</strong></p>
+<ol start="6">
+<li>拓展运算符</li>
+</ol>
+<pre><code class="language-javascript">	const nums1=[1,2,3]
+		const nums2=[5,6,7]
+		const nums3=[...nums1,4,...nums2]
+        const nums4=nums3
+		console.log(nums4)
+</code></pre>
+<p>打印： 123456<br>
+Warning：此时nums4持有的是nums3的索引，所以对nums4进行修改会导致nums3同时变化<br>
+所以正确赋值姿势应该为<code>const nums4=[].concat(nums3)</code></p>
+<ol start="7">
+<li>Rest运算符（剩余参数）</li>
+</ol>
+<pre><code class="language-javascript">	function a(...nums) {
+				console.log(nums)
+			}
+
+			a(1, 23, 4, 234)
+</code></pre>
+<p>打印：(4) [1, 23, 4, 234]<br>
+num以array的形式保存了这些参数</p>
 
         </div>
         <!-- Share to Twitter, Weibo, Telegram -->
