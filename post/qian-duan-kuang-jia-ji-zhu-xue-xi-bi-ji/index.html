@@ -86,7 +86,7 @@ var声明可以重复声明 重新定义 属于当前的函数
           <img src="https://yangspica27.github.io//post-images/qian-duan-kuang-jia-ji-zhu-xue-xi-bi-ji.jpg" alt="前端框架技术学习笔记" class="block w-full mb-8">
         
         <div class="mb-8 flex flex-wrap">
-          <div class="text-gray-400 text-sm mr-4">2020-03-08 · 5 min read</div>
+          <div class="text-gray-400 text-sm mr-4">2020-03-08 · 6 min read</div>
           
             <a href="https://yangspica27.github.io/tag/wwFyOEy1b/" class="text-gray-700 text-sm border-b-2 border-dotted border-gray-200 hover:border-gray-600 transition-all duration-100 inline-flex mr-2">
               <i class="ri-hashtag"></i>
@@ -303,6 +303,57 @@ Warning：此时nums4持有的是nums3的索引，所以对nums4进行修改会�
 </code></pre>
 <p>打印：(4) [1, 23, 4, 234]<br>
 nums以array的形式保存了这些参数</p>
+<h1 id="2020310">2020/3/10</h1>
+<h2 id="js的基础复习">Js的基础复习</h2>
+<h3 id="网页的生成流程">网页的生成流程</h3>
+<ol>
+<li>HTML代码转换成DOM、</li>
+<li>CSS代码转换为CSSOM（CSS Object Model）</li>
+<li>结合DOM和CSSOM，生成渲染树，Render tree，包含各个节点的视觉信息</li>
+<li><em>耗时操作</em>   生成布局Layout,j将所有的渲染树的所有节点进行平面整合</li>
+<li><em>耗时操作</em>   将布局绘制（paint）在屏幕上</li>
+</ol>
+<ul>
+<li>生成的布局flow与绘制paint合称渲染</li>
+<li>网页生成之时至少渲染一次，用户访问过程中不会中断渲染</li>
+<li>重新渲染包含：<strong>重排</strong>和<strong>重绘</strong>，重绘不一定要重排，重排一定会重绘</li>
+</ul>
+<p>JS的组成</p>
+<ul>
+<li>ECMAScript：定义语法规范</li>
+<li>DOM：文档对象模型</li>
+<li>BOM：浏览器对象模型</li>
+</ul>
+<h3 id="arguments">arguments：</h3>
+<pre><code class="language-javascript">function pringArgs(){
+    console.log(arguments)
+}
+pringArgs(10,11)
+</code></pre>
+<p>此处的arguments为10,11</p>
+<h3 id="函数的定义方式">函数的定义方式</h3>
+<ol>
+<li>函数声明方式：function 关键字        命名函数</li>
+<li>函数表达式                                   匿名函数</li>
+<li>new Function()                              执行效率低，较少使用<br>
+注意：所有函数都是Function对象</li>
+</ol>
+<h3 id="作用域">作用域</h3>
+<ol>
+<li>全局变量（尽可能不要使用）</li>
+<li>局部变量</li>
+<li>块级作用域</li>
+<li>词法作用域</li>
+</ol>
+<h3 id="js的预解析过程">JS的预解析过程</h3>
+<ol>
+<li>变量声明提升至当前作用域的最前，仅会提升声明，而不会赋值</li>
+<li>把函数的声明提升到最前，仅会提升声明，而不会调用</li>
+<li>先var 再function</li>
+</ol>
+<h3 id="对象存储">对象存储</h3>
+<p>简单类型的存储： 会独立的存于堆内存中<br>
+复杂对象的存储：栈仅存储指针，指向堆中的对象</p>
 
         </div>
         <!-- Share to Twitter, Weibo, Telegram -->
@@ -374,6 +425,20 @@ nums以array的形式保存了这些参数</p>
 <li><a href="#%E5%AF%B9%E8%B1%A1%E8%A7%A3%E6%9E%84">对象解构</a></li>
 <li><a href="#%E6%8B%93%E5%B1%95%E8%BF%90%E7%AE%97%E7%AC%A6">拓展运算符</a></li>
 <li><a href="#rest%E8%BF%90%E7%AE%97%E7%AC%A6%E5%89%A9%E4%BD%99%E5%8F%82%E6%95%B0">Rest运算符（剩余参数）</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#2020310">2020/3/10</a>
+<ul>
+<li><a href="#js%E7%9A%84%E5%9F%BA%E7%A1%80%E5%A4%8D%E4%B9%A0">Js的基础复习</a>
+<ul>
+<li><a href="#%E7%BD%91%E9%A1%B5%E7%9A%84%E7%94%9F%E6%88%90%E6%B5%81%E7%A8%8B">网页的生成流程</a></li>
+<li><a href="#arguments">arguments：</a></li>
+<li><a href="#%E5%87%BD%E6%95%B0%E7%9A%84%E5%AE%9A%E4%B9%89%E6%96%B9%E5%BC%8F">函数的定义方式</a></li>
+<li><a href="#%E4%BD%9C%E7%94%A8%E5%9F%9F">作用域</a></li>
+<li><a href="#js%E7%9A%84%E9%A2%84%E8%A7%A3%E6%9E%90%E8%BF%87%E7%A8%8B">JS的预解析过程</a></li>
+<li><a href="#%E5%AF%B9%E8%B1%A1%E5%AD%98%E5%82%A8">对象存储</a></li>
 </ul>
 </li>
 </ul>
