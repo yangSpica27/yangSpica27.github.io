@@ -194,7 +194,7 @@ name没有，<strong>因为js中，this实在运行时才绑定的</strong>此�
 </code></pre>
 <p>输出：chengkeyu like Eating<br>
 chengkeyu like Sleeping<br>
-原因：箭头函数是子法作用域，没有自己的this，继承于父级函数</p>
+原因：箭头函数是词法作用域，没有自己的this，继承于父级函数</p>
 <h3 id="字符串模板">字符串模板</h3>
 <p>格式：</p>
 <pre><code>`文本${变量或者代码块}文本`
@@ -302,7 +302,7 @@ Warning：此时nums4持有的是nums3的索引，所以对nums4进行修改会�
 			a(1, 23, 4, 234)
 </code></pre>
 <p>打印：(4) [1, 23, 4, 234]<br>
-num以array的形式保存了这些参数</p>
+nums以array的形式保存了这些参数</p>
 
         </div>
         <!-- Share to Twitter, Weibo, Telegram -->
