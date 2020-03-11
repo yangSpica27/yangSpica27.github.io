@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://yangspica27.github.io/</id>
     <title>Spica 27&apos;S Room</title>
-    <updated>2020-03-11T09:56:44.566Z</updated>
+    <updated>2020-03-11T09:57:26.009Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://yangspica27.github.io/"/>
     <link rel="self" href="https://yangspica27.github.io/atom.xml"/>
@@ -270,6 +270,451 @@ pringArgs(10,11)
 <h3 id="对象存储">对象存储</h3>
 <p>简单类型的存储： 会独立的存于堆内存中<br>
 复杂对象的存储：栈仅存储指针，指向堆中的对象</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[后端框架技术学习笔记]]></title>
+        <id>https://yangspica27.github.io/post/hou-duan-kuang-jia-ji-zhu-xue-xi-bi-ji/</id>
+        <link href="https://yangspica27.github.io/post/hou-duan-kuang-jia-ji-zhu-xue-xi-bi-ji/">
+        </link>
+        <updated>2020-03-08T06:22:34.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="202038">2020/3/8</h1>
+<h2 id="认识springboot">认识SpringBoot</h2>
+<h3 id="springboot的优点">SpringBoot的优点</h3>
+<ul>
+<li>创建独立的Spring应用程序</li>
+<li>嵌入TomCat，无需部署WAR文件</li>
+<li>无代码生成，无xml配置要求</li>
+</ul>
+<h1 id="stringboot-的-hello-world">StringBoot 的 Hello World</h1>
+<h2 id="pom文件依赖配置">pom文件依赖配置</h2>
+<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;project xmlns=&quot;http://maven.apache.org/POM/4.0.0&quot;
+    xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+    xsi:schemaLocation=&quot;http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd&quot;&gt;
+    &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+
+    &lt;groupId&gt;org.example&lt;/groupId&gt;
+    &lt;artifactId&gt;com.first&lt;/artifactId&gt;
+    &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;
+
+    &lt;!--    spring Boot 依赖--&gt;
+    &lt;parent&gt;
+        &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+        &lt;artifactId&gt;spring-boot-starter-parent&lt;/artifactId&gt;
+        &lt;version&gt;2.1.3.RELEASE&lt;/version&gt;
+    &lt;/parent&gt;
+
+    &lt;!--    web场景依赖启动器,引入springMVC的相关依赖--&gt;
+    &lt;dependencies&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+            &lt;artifactId&gt;spring-boot-starter-web&lt;/artifactId&gt;
+        &lt;/dependency&gt;
+    &lt;/dependencies&gt;
+&lt;/project&gt;
+</code></pre>
+<ul>
+<li>spring-boot-starter-parent作用</li>
+</ul>
+<blockquote>
+<p>它提供依赖管理（类比Android的话，作用类似于<a href="https://github.com/ben-manes/gradle-versions-plugin">ben-manes.versions</a>插件？？）引入之后，声明<strong>其管理范围内</strong>的依赖时不在需要填版本了</p>
+</blockquote>
+<ul>
+<li>spring-boot-starter-web作用
+<ul>
+<li>spring-boot-starter-web:</li>
+</ul>
+<blockquote>
+<p>默认使用嵌套式的TomCat作为Web容器对开开发HTTP服务</p>
+</blockquote>
+<ul>
+<li>spring-boot-starter：</li>
+</ul>
+<blockquote>
+<p>SpringBoot场景启动器，帮我们导入了web模块支出运行的组件</p>
+</blockquote>
+</li>
+</ul>
+<p><strong>Spring Boot将所有的功能场景都抽取出来，做成一个个的starters（启动器），只需要在项目里面 引入这些starter相关场景的所有依赖都会导入进来。要用什么功能就导入什么场景的启动器</strong></p>
+<h2 id="applicationcontroller">Application&amp;Controller</h2>
+<pre><code class="language-java">//Application
+/**标记为主程序启动类**/
+@SpringBootApplication
+public class ManualChaptApplication {
+  public static void main(String[] args) {
+    SpringApplication.run(ManualChaptApplication.class);
+  }
+}
+</code></pre>
+<pre><code class="language-java">/**
+ *Controller
+ * 该注解为组合注解
+ * @ResponseBody+Controller
+ */
+@RestController
+public class HelloController {
+
+  /**
+   *GetMapping：相当于@RequestMapping(value=”/hello“，RequestMethod.Get)
+   */
+  @GetMapping(&quot;/hello&quot;)
+  public String hello() {
+    return &quot;hello World&quot;;
+  }
+}
+</code></pre>
+<h3 id="注解的意思">注解的意思：</h3>
+<ul>
+<li>@SpringBootApplication：<br>
+标注在某个类上，说明此类为SpringBoot的主配置类，SpringBoot运行此类的Main方法来启动StringBoot应用，会将主配置类（@SpringBootApplication标注的类）的<strong>所在包及下面所有子包里面</strong>的所有组件扫描到 Spring容器；</li>
+<li>@RestController<br>
+此注解为组合注解，意味着这个controller上的所有方法上都加了@ResponseBody</li>
+</ul>
+<h2 id="单元测试">单元测试</h2>
+<pre><code class="language-java">@SpringBootTest  
+class DemoApplicationTests {
+
+  @Autowired
+  private HelloController helloController;
+
+
+  @Test
+  void contextLoads() {
+    String hello = helloController.hello();
+    System.out.println(&quot;print：  &quot; + hello);
+  }
+}
+</code></pre>
+<h3 id="注解的意思-2">注解的意思：</h3>
+<ul>
+<li>@SpringBootTest:<br>
+标记springBoot单元测试，并加载项目的applicationContext的上下文环境</li>
+<li>@Autowired<br>
+它可以对类成员变量、方法及构造函数进行标注，完成自动装配的工作。</li>
+</ul>
+<h2 id="springboot执行流程">SpringBoot执行流程</h2>
+<ol>
+<li>开始</li>
+<li>初始化Spring Application的实例
+<ul>
+<li>判断当前项目的类型</li>
+<li>应用的初始化设置</li>
+<li>应用的监听设置</li>
+<li>设置项目的启动类</li>
+</ul>
+</li>
+<li>初始化Spring Boot项目的启动
+<ul>
+<li>获取并运行监听器</li>
+<li>准备项目运行环境</li>
+<li>应用上下文装配</li>
+<li>启动上下文</li>
+<li>运行自定义执行器</li>
+<li>持续运行上下文</li>
+</ul>
+</li>
+<li>结束</li>
+</ol>
+<h1 id="202039">2020/3/9</h1>
+<h2 id="使用kotlin的注意事项">使用kotlin的注意事项</h2>
+<ul>
+<li>因为底层问题，所以部分类型的声明需要注意对Java的兼容</li>
+</ul>
+<pre><code class="language-kotlin">@JvmOverloads
+    @GetMapping(&quot;/spica&quot;)
+    fun spica() = &quot;spica 27&quot;
+
+   @GetMapping(&quot;/spica/{name}&quot;)
+    fun spica(
+            @PathVariable(name = &quot;name&quot;)
+            name: String? = &quot;spica&quot;) = &quot;&lt;h1&gt;name=${name.toString()}&lt;/h1&gt;&quot;
+</code></pre>
+<p>以下是今天碰见的问题：<br>
+- 重写方法加@JvmOverloads注解<br>
+- 类型声明要加？允许为null,如上直接使用String类型会报<code>java.lang.NoClassDefFoundError: kotlin/jvm/internal/Intrinsics</code></p>
+<h2 id="单元测试junit4与junit-5对比">单元测试·JUnit4与JUnit 5对比</h2>
+<p>常用注解及其作用对比：</p>
+<table>
+<thead>
+<tr>
+<th>JUnit4</th>
+<th>JUnit5</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>@Test</td>
+<td>@Test</td>
+<td>表示该方法是一个测试方法。JUnit5与JUnit 4的@Test注解不同的是，它没有声明任何属性，因为JUnit Jupiter中的测试扩展是基于它们自己的专用注解来完成的。这样的方法会被继承，除非它们被覆盖</td>
+</tr>
+<tr>
+<td>@BeforeClass</td>
+<td>@BeforeAll</td>
+<td>表示使用了该注解的方法应该在当前类中所有使用了@Test @RepeatedTest、@ParameterizedTest或者@TestFactory注解的方法之前 执行；</td>
+</tr>
+<tr>
+<td>@AfterClass</td>
+<td>@AfterAll</td>
+<td>表示使用了该注解的方法应该在当前类中所有使用了@Test、@RepeatedTest、@ParameterizedTest或者@TestFactory注解的方法之后执行；</td>
+</tr>
+<tr>
+<td>@Before</td>
+<td>@BeforeEach</td>
+<td>表示使用了该注解的方法应该在当前类中每一个使用了@Test、@RepeatedTest、@ParameterizedTest或者@TestFactory注解的方法之前 执行</td>
+</tr>
+<tr>
+<td>@After</td>
+<td>@AfterEach</td>
+<td>表示使用了该注解的方法应该在当前类中每一个使用了@Test、@RepeatedTest、@ParameterizedTest或者@TestFactory注解的方法之后 执行</td>
+</tr>
+<tr>
+<td>@Ignore</td>
+<td>@Disabled</td>
+<td>用于禁用一个测试类或测试方法</td>
+</tr>
+<tr>
+<td>@Category</td>
+<td>@Tag</td>
+<td>用于声明过滤测试的tags，该注解可以用在方法或类上；类似于TesgNG的测试组或JUnit 4的分类。</td>
+</tr>
+<tr>
+<td>@Parameters</td>
+<td>@ParameterizedTest</td>
+<td>表示该方法是一个参数化测试</td>
+</tr>
+<tr>
+<td>@RunWith</td>
+<td>@ExtendWith</td>
+<td>@Runwith就是放在测试类名之前，用来确定这个类怎么运行的</td>
+</tr>
+<tr>
+<td>@Rule</td>
+<td>@ExtendWith</td>
+<td>Rule是一组实现了TestRule接口的共享类，提供了验证、监视TestCase和外部资源管理等能力</td>
+</tr>
+<tr>
+<td>@ClassRule</td>
+<td>@ExtendWith</td>
+<td>@ClassRule用于测试类中的静态变量，必须是TestRule接口的实例，且访问修饰符必须为public。</td>
+</tr>
+</tbody>
+</table>
+<h2 id="maven的格式">Maven的格式</h2>
+<ul>
+<li>依赖配置
+<ul>
+<li>groupId：标识符</li>
+<li>artifactId ：单独的项目标识符</li>
+<li>version：版本号</li>
+<li>scope：任务的类路径及其如何限制依赖关系的传递性</li>
+<li>exclusions：包含一个或多个排除元素，每个排除元素都包含一个表示要排除的依赖关系的 groupId 和 artifactId。与可选项不同，可能或可能不会安装和使用，排除主动从依赖关系树中删除自己。</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-xml"> &lt;dependencies&gt;
+      &lt;dependency&gt;
+            &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+            &lt;artifactId&gt;spring-boot-starter-test&lt;/artifactId&gt;
+            &lt;version&gt;2.0&lt;/version&gt;
+            &lt;scope&gt;test&lt;/scope&gt;
+            &lt;exclusions&gt;
+                &lt;exclusion&gt;
+                    &lt;groupId&gt;org.junit.vintage&lt;/groupId&gt;
+                    &lt;artifactId&gt;junit-vintage-engine&lt;/artifactId&gt;
+                &lt;/exclusion&gt;
+            &lt;/exclusions&gt;
+        &lt;/dependency&gt;
+    ...
+  &lt;/dependencies&gt;
+</code></pre>
+<ul>
+<li>build配置
+<ul>
+<li>plugins 插件
+<ul>
+<li>plugin
+<ul>
+<li>extensions：是否加载此插件的扩展名。</li>
+<li>dependencies ：插件本身需要的依赖</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-xml">&lt;build&gt;
+    &lt;plugins&gt;
+&lt;plugin&gt;
+            &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+                &lt;artifactId&gt;maven-compiler-plugin&lt;/artifactId&gt;
+                &lt;executions&gt;
+                    &lt;execution&gt;
+                        &lt;id&gt;compile&lt;/id&gt;
+                        &lt;phase&gt;compile&lt;/phase&gt;
+                        &lt;goals&gt;
+                            &lt;goal&gt;compile&lt;/goal&gt;
+                        &lt;/goals&gt;
+                    &lt;/execution&gt;
+                    &lt;execution&gt;
+                        &lt;id&gt;testCompile&lt;/id&gt;
+                        &lt;phase&gt;test-compile&lt;/phase&gt;
+                        &lt;goals&gt;
+                            &lt;goal&gt;testCompile&lt;/goal&gt;
+                        &lt;/goals&gt;
+                    &lt;/execution&gt;
+                &lt;/executions&gt;
+            &lt;/plugin&gt;
+            ... ...
+    &lt;/plugins&gt;
+  &lt;/build&gt;
+</code></pre>
+<h2 id="配置文件">配置文件</h2>
+<ul>
+<li>properties</li>
+<li>yaml</li>
+</ul>
+<ol>
+<li>基本格式要求：
+<ol>
+<li>YAML大小写敏感；</li>
+<li>使用缩进代表层级关系</li>
+<li>缩进只能使用空格，不能使用TAB，不要求空格个数，只需要相同层级左对齐（一般2个或4个空格）</li>
+</ol>
+</li>
+<li>值的写法
+<ol>
+<li>普通的值：k:v</li>
+<li>对象，Map：键值对
+<ol>
+<li>k: v：在下一行写对象的属性和值的关系；注意缩进</li>
+<li>行内写法</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<pre><code class="language-yaml">man:    
+      name: jelly           
+      age: 20 
+</code></pre>
+<pre><code class="language-yaml">man: {name: jelly,age: 18}
+</code></pre>
+<p>,<br>
+3.  数组（List Set）<br>
+一个短横代表一个数组项</p>
+<pre><code class="language-yaml">people:
+  - chengkeyu
+  - zhaoqian
+  - guzhaoyuan
+  - yangweizhi
+</code></pre>
+<p>行内写法</p>
+<pre><code class="language-yaml">people:[chengkeyu,zhaoqian,guzhaoyuan,yangweizhi]
+</code></pre>
+<p>随机值的使用</p>
+<pre><code class="language-yml">${random.value}
+
+随机生成一个32位的字符串，如：b21d56d2f10d74f84608dfff01b25552
+
+${random.int}
+
+随机生成一个int范围的随机数，如：-386223791
+
+${random.long}
+
+随机生成一个long范围的随机数，如：2404587442488649534
+
+${random.int(10)}
+
+随机生一个[0,10]之间的随机数，如：8
+
+${random.int[1024,65536]}
+
+随机生成一个[1024,65536]之间的随机数，如：63856
+
+${user.userName}
+
+获取配置文件中已经配置好的属性值，不存在时直接返回整个“${user.userName}”
+
+${user.width:hello}
+
+获取配置文件中已经配置好的属性值，不存在时则用&quot;hello&quot;返回
+
+
+</code></pre>
+<h3 id="示例">示例</h3>
+<pre><code class="language-yml">user:
+  lastName: hello
+  age: 18
+  boss: false
+  birth: 2017/12/12
+  maps: {qq: 1000 , mobile: 13811002233}
+  lists: []
+  dog:
+    name: jelly
+    age: 18
+
+address: 上海${random.value}
+</code></pre>
+<pre><code class="language-properties">person.last-name=hello${user.lastName}
+
+person.age=${random.int}
+
+person.birth=2017/12/15
+
+person.boss=false
+
+person.maps.aa=v1
+
+person.maps.bb=14
+
+person.lists=a,b,c
+
+person.dog.name=${person.hello:hello}_dog
+
+person.dog.age=15
+</code></pre>
+<h3 id="指定bean对象">指定bean对象</h3>
+<pre><code class="language-java">//	指定配置文件
+@PropertySource(value = {&quot;classpath:application.yaml&quot;})
+//放入容器
+@Component
+//绑定
+@ConfigurationProperties(prefix = &quot;user&quot;)
+public class User {
+
+private String lastName;
+
+private Integer age;
+
+private Boolean boss;
+
+private Date birth;
+
+private Map&lt;String, Object&gt; maps;
+
+private List&lt;Object&gt; lists;
+
+private Dog dog;
+
+get...
+seting..
+}
+</code></pre>
+<h2 id="profile环境切换">Profile环境切换</h2>
+<h3 id="多profile">多profile</h3>
+<p>我们在主配置文件编写的时候，文件名可以是 application-{profile}.properties/yml 默认使用application.properties的配置；<br>
+例如：<br>
+application-dev.properties：开发环境 application-test.properties：测试环境 application-prod.properties：生产环境</p>
+<h3 id="激活指定profile">激活指定profile</h3>
+<ol>
+<li>在配置文件中指定 spring.profiles.active=dev</li>
+<li>命令行： java -jar spring-boot-02-config-0.0.1-SNAPSHOT.jar --spring.profiles.active=dev；可以直接在测试的时候，配置传入命令行参数</li>
+<li>虚拟机参数； -Dspring.profiles.active=dev</li>
+</ol>
 ]]></content>
     </entry>
     <entry>
@@ -1181,37 +1626,6 @@ Body格式：<pre><code class="language-XML">&lt;length&gt;
 <li>子View在自己的<code>layout( )</code>方法中，将父View传进来的自己的实际尺寸和位置保存<br>
 -如果是ViewGroup，还会在<code>onLayout( )</code>里调用每个字View的<code>layout( )</code>把他们尺寸位置给他们</li>
 </ol>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[活出自己]]></title>
-        <id>https://yangspica27.github.io/post/huo-chu-zi-ji/</id>
-        <link href="https://yangspica27.github.io/post/huo-chu-zi-ji/">
-        </link>
-        <updated>2020-02-10T00:50:32.000Z</updated>
-        <content type="html"><![CDATA[<p>今天有人来问我，说如何成为像我这样的人。<br>
-　　让我受宠若惊。<br>
-　　我一时脑子短路不知道说什么好，就心血来潮回了一句：“不可能”<br>
-　　像，也只是像而已。<br>
-　　像是那些拙劣的iPhone模仿者一样，他们再吹嘘自己在某某部分上远超iPhone，但他们终究没有能够超越iPhone。<br>
-　　他们终究选择了做自己。不论好坏。<br>
-　　也或许有一部分执迷不悟，而已经退出了这个游戏。<br>
-　　能生存下来的也终究不是靠模仿iPhone.<br>
-　　人似乎也是如此。<br>
-　　如果我可以有一个双胞胎兄弟。小时候我们穿着一样的衣服，做着一样的事情，一起开心，一起哭泣。<br>
-　　可是长大以后，也会发现他和我并不相同。我也没有必要和他相同。<br>
-　　世界可以说很大，也可以很小。<br>
-　　把这个世界上所有人堆在一起，缩小了看，它们都属于Homo Sapian.<br>
-　　放大了看，其实每个人都站在不同的点上。即使有再小的不同，我们终究也还是不同的。<br>
-　　我们曾经想成为科学家，成为歌手，成为画家，成为音乐家。<br>
-　　上了学，我们想成为班上那最顶端的学生。<br>
-　　现在我终于可以说，<br>
-　　“我想成为谁啊？是我自己啊。”<br>
-　　我不再仰望Bill Gates的退学勇气，也不用羡慕Steve的现实扭曲立场，不必在意Jay Chou的歌究竟有多么吐字不清，不用再纠结我前方的几千人到底是怎么考出这个成绩的。<br>
-　　评估这个世界的轴已经从单一的成了多元的了。<br>
-　　而在我的世界里，总有比他们走的远的一个方向。<br>
-　　而没有超过他们的，自然没有必要担心。<br>
-　　我就是我啊。</p>
 ]]></content>
     </entry>
 </feed>
