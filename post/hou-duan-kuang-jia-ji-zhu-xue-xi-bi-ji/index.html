@@ -80,7 +80,7 @@ pom文件依赖...">
           <img src="https://yangspica27.github.io//post-images/hou-duan-kuang-jia-ji-zhu-xue-xi-bi-ji.jpg" alt="后端框架技术学习笔记" class="block w-full mb-8">
         
         <div class="mb-8 flex flex-wrap">
-          <div class="text-gray-400 text-sm mr-4">2020-03-08 · 10 min read</div>
+          <div class="text-gray-400 text-sm mr-4">2020-03-08 · 11 min read</div>
           
             <a href="https://yangspica27.github.io/tag/wwFyOEy1b/" class="text-gray-700 text-sm border-b-2 border-dotted border-gray-200 hover:border-gray-600 transition-all duration-100 inline-flex mr-2">
               <i class="ri-hashtag"></i>
@@ -493,7 +493,7 @@ person.dog.name=${person.hello:hello}_dog
 
 person.dog.age=15
 </code></pre>
-<h3 id="指定bean对象">指定bean对象</h3>
+<h3 id="指定bean对象java">指定bean对象(Java)</h3>
 <pre><code class="language-java">//	指定配置文件
 @PropertySource(value = {&quot;classpath:application.yaml&quot;})
 //放入容器
@@ -520,6 +520,21 @@ get...
 seting..
 }
 </code></pre>
+<h3 id="指定bean对象kotlin">指定bean对象(Kotlin)</h3>
+<pre><code class="language-kotlin">@PropertySource(value = [&quot;classpath:application.yaml&quot;])
+@Component
+@ConfigurationProperties(prefix = &quot;user&quot;)
+class User {
+    var lastName: String? = null
+    var age: Int? = null
+    var isBoss = false
+    var birth: Date? = null
+    var maps: Map&lt;String, Any&gt;? = null
+    var lists: List&lt;Any&gt;? = null
+    var dog: Dog? = null
+}
+</code></pre>
+<p>需要注意注解格式变化和添加？允许为空</p>
 <h2 id="profile环境切换">Profile环境切换</h2>
 <h3 id="多profile">多profile</h3>
 <p>我们在主配置文件编写的时候，文件名可以是 application-{profile}.properties/yml 默认使用application.properties的配置；<br>
@@ -623,7 +638,8 @@ application-dev.properties：开发环境 application-test.properties：测试�
 <li><a href="#%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6">配置文件</a>
 <ul>
 <li><a href="#%E7%A4%BA%E4%BE%8B">示例</a></li>
-<li><a href="#%E6%8C%87%E5%AE%9Abean%E5%AF%B9%E8%B1%A1">指定bean对象</a></li>
+<li><a href="#%E6%8C%87%E5%AE%9Abean%E5%AF%B9%E8%B1%A1java">指定bean对象(Java)</a></li>
+<li><a href="#%E6%8C%87%E5%AE%9Abean%E5%AF%B9%E8%B1%A1kotlin">指定bean对象(Kotlin)</a></li>
 </ul>
 </li>
 <li><a href="#profile%E7%8E%AF%E5%A2%83%E5%88%87%E6%8D%A2">Profile环境切换</a>

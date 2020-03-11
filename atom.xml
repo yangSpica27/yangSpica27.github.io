@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://yangspica27.github.io/</id>
     <title>Spica 27&apos;S Room</title>
-    <updated>2020-03-11T09:57:26.009Z</updated>
+    <updated>2020-03-11T10:01:59.020Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://yangspica27.github.io/"/>
     <link rel="self" href="https://yangspica27.github.io/atom.xml"/>
@@ -677,7 +677,7 @@ person.dog.name=${person.hello:hello}_dog
 
 person.dog.age=15
 </code></pre>
-<h3 id="指定bean对象">指定bean对象</h3>
+<h3 id="指定bean对象java">指定bean对象(Java)</h3>
 <pre><code class="language-java">//	指定配置文件
 @PropertySource(value = {&quot;classpath:application.yaml&quot;})
 //放入容器
@@ -704,6 +704,21 @@ get...
 seting..
 }
 </code></pre>
+<h3 id="指定bean对象kotlin">指定bean对象(Kotlin)</h3>
+<pre><code class="language-kotlin">@PropertySource(value = [&quot;classpath:application.yaml&quot;])
+@Component
+@ConfigurationProperties(prefix = &quot;user&quot;)
+class User {
+    var lastName: String? = null
+    var age: Int? = null
+    var isBoss = false
+    var birth: Date? = null
+    var maps: Map&lt;String, Any&gt;? = null
+    var lists: List&lt;Any&gt;? = null
+    var dog: Dog? = null
+}
+</code></pre>
+<p>需要注意注解格式变化和添加？允许为空</p>
 <h2 id="profile环境切换">Profile环境切换</h2>
 <h3 id="多profile">多profile</h3>
 <p>我们在主配置文件编写的时候，文件名可以是 application-{profile}.properties/yml 默认使用application.properties的配置；<br>
