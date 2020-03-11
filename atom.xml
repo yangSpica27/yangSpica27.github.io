@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://yangspica27.github.io/</id>
     <title>Spica 27&apos;S Room</title>
-    <updated>2020-03-11T10:01:59.020Z</updated>
+    <updated>2020-03-11T23:45:07.654Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://yangspica27.github.io/"/>
     <link rel="self" href="https://yangspica27.github.io/atom.xml"/>
@@ -17,7 +17,7 @@
         </link>
         <updated>2020-03-08T10:22:07.000Z</updated>
         <content type="html"><![CDATA[<h1 id="202038">2020/3/8</h1>
-<h2 id="es6部分">ES6部分</h2>
+<h2 id="es6部分其一">ES6部分(其一)</h2>
 <h3 id="var-let-const">var     let    const</h3>
 <ul>
 <li>var声明可以重复声明 重新定义 属于当前的函数</li>
@@ -270,6 +270,23 @@ pringArgs(10,11)
 <h3 id="对象存储">对象存储</h3>
 <p>简单类型的存储： 会独立的存于堆内存中<br>
 复杂对象的存储：栈仅存储指针，指向堆中的对象</p>
+<h1 id="2020311">2020/3/11</h1>
+<h2 id="es6部分其二">ES6部分（其二）</h2>
+<h3 id="标签模板">标签模板</h3>
+<p>再字符串模板中加入方法名标签，使之返回我们规定要求的字符</p>
+<pre><code class="language-javaScript">//标签模板字符串
+function hightLight(string,...values) {
+    debugger;
+return 'laravist'
+}
+const user=&quot;marry&quot;
+const topic=&quot;learn to use md&quot;
+const sentence=hightLight`${user} has commend on your topic ${topic}`
+ console.log(sentence)
+</code></pre>
+<p>运行结果：laravist<br>
+strings为自带字符串所组成集合<br>
+values为模板字符串所组成的集合（user，topic）</p>
 ]]></content>
     </entry>
     <entry>
