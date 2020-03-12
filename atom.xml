@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://yangspica27.github.io/</id>
     <title>Spica 27&apos;S Room</title>
-    <updated>2020-03-12T04:15:27.817Z</updated>
+    <updated>2020-03-12T11:38:26.168Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://yangspica27.github.io/"/>
     <link rel="self" href="https://yangspica27.github.io/atom.xml"/>
@@ -287,7 +287,7 @@ const sentence=hightLight`${user} has commend on your topic ${topic}`
 <p>运行结果：laravist<br>
 strings为自带字符串所组成集合<br>
 values为模板字符串所组成的集合（user，topic）</p>
-<h2 id="新增的字符串函数">新增的字符串函数</h2>
+<h3 id="新增的字符串函数">新增的字符串函数</h3>
 <ol>
 <li>startWith</li>
 <li>endWith</li>
@@ -306,7 +306,7 @@ function padder(string,length=25) {
     return `${' '.repeat(Math.max(length-string.length,0))}${string}`
 }
 </code></pre>
-<h2 id="for-of">for of</h2>
+<h3 id="for-of">for of</h3>
 <p>传统的循环的缺点</p>
 <ul>
 <li>for循环语法繁琐</li>
@@ -321,7 +321,7 @@ for (let fruit of fruits){
 }
 /**
 </code></pre>
-<h2 id="map">Map</h2>
+<h3 id="map">Map</h3>
 <p>与java中的map类似<br>
 具体看示例</p>
 <pre><code class="language-javaScript">const people = new Map();
@@ -342,14 +342,14 @@ const nums=[1,2,3,4,5,5]
 //直接赋值
 const fruits = new Map([['apple', 12], ['banana', 23]]);
 </code></pre>
-<h2 id="weakmap">WeakMap</h2>
+<h3 id="weakmap">WeakMap</h3>
 <p>weakMap不能循环，没有size，没有clear，key必须是对象<br>
 但weakMap会自动回收，可用于内存优化</p>
 <pre><code class="language-javascript">week map
 const strong=new Map();
 const weak=new WeakMap();
 </code></pre>
-<h2 id="class">Class</h2>
+<h3 id="class">Class</h3>
 <p>传统的对象，如果声明方法需要使用prototype，而且存在变量提升<br>
 例：</p>
 <pre><code class="language-javaScript">function User(name, email) {
