@@ -80,7 +80,7 @@ var声明可以重复声明 重新定义 属于当前的函数
           <img src="https://yangspica27.github.io//post-images/qian-duan-kuang-jia-ji-zhu-xue-xi-bi-ji.jpg" alt="前端框架技术学习笔记" class="block w-full mb-8">
         
         <div class="mb-8 flex flex-wrap">
-          <div class="text-gray-400 text-sm mr-4">2020-03-08 · 6 min read</div>
+          <div class="text-gray-400 text-sm mr-4">2020-03-08 · 9 min read</div>
           
             <a href="https://yangspica27.github.io/tag/wwFyOEy1b/" class="text-gray-700 text-sm border-b-2 border-dotted border-gray-200 hover:border-gray-600 transition-all duration-100 inline-flex mr-2">
               <i class="ri-hashtag"></i>
@@ -365,6 +365,105 @@ const sentence=hightLight`${user} has commend on your topic ${topic}`
 <p>运行结果：laravist<br>
 strings为自带字符串所组成集合<br>
 values为模板字符串所组成的集合（user，topic）</p>
+<h2 id="新增的字符串函数">新增的字符串函数</h2>
+<ol>
+<li>startWith</li>
+<li>endWith</li>
+<li>includies</li>
+<li>repeat<br>
+示例</li>
+</ol>
+<pre><code class="language-javascript">const id=&quot;1234567890&quot;
+const fan=&quot;I Love Sleep&quot;
+console.log(id.startsWith(234,1))//true
+console.log(id.endsWith(6789,9))//true
+console.log(id.includes(12,7))//第七位后是否包含12
+console.log(fan.repeat(2))//重复两次
+//repeat实现右对齐
+function padder(string,length=25) {
+    return `${' '.repeat(Math.max(length-string.length,0))}${string}`
+}
+</code></pre>
+<h2 id="for-of">for of</h2>
+<p>传统的循环的缺点</p>
+<ul>
+<li>for循环语法繁琐</li>
+<li>for in循环会打印所有的对象而非只有数组内的对象</li>
+<li>for each不能中断<br>
+for of 只会获取数组内的对象，不会引入其所有内容</li>
+</ul>
+<pre><code class="language-javascript">const fruits=['香蕉','核桃','柠檬','火龙果']
+//for in会打印所有 of只会打印数组内的
+for (let fruit of fruits){
+    console.log(fruit)
+}
+/**
+</code></pre>
+<h2 id="map">Map</h2>
+<p>与java中的map类似<br>
+具体看示例</p>
+<pre><code class="language-javaScript">const people = new Map();
+//添加元素
+people.set(&quot;cky&quot;, 18);
+people.set(&quot;ywz&quot;, 20);
+people.set(&quot;zq&quot;, 22);
+console.log(people);
+//获取大小
+people.size;
+//判断有无
+people.has(&quot;zq&quot;);
+//删除
+people.delete(&quot;zq&quot;);
+//全清
+people.clear();
+const nums=[1,2,3,4,5,5]
+//直接赋值
+const fruits = new Map([['apple', 12], ['banana', 23]]);
+</code></pre>
+<h2 id="weakmap">WeakMap</h2>
+<p>weakMap不能循环，没有size，没有clear，key必须是对象<br>
+但weakMap会自动回收，可用于内存优化</p>
+<pre><code class="language-javascript">week map
+const strong=new Map();
+const weak=new WeakMap();
+</code></pre>
+<h2 id="class">Class</h2>
+<p>传统的对象，如果声明方法需要使用prototype，而且存在变量提升<br>
+例：</p>
+<pre><code class="language-javaScript">function User(name, email) {
+    this.name = name;
+    this.email = email;
+}
+const yang = new User(123, 123)
+User.prototype.speak = function () {
+    console.log(`Hi I am ${this.name}`)
+}
+</code></pre>
+<p>但在Class中，使用构造方法和直接声明方法的方式替代了原先的姿势<br>
+例：</p>
+<pre><code class="language-javaScript">class Book {
+    constructor(name, email) {
+        //构造函数
+        this.name = name
+        this.email = email
+    }
+    info(){
+        console.log(`Hi I am ${this.name}`)
+    }
+    //直接BOOK调用，示例不可调用
+    static desc(){
+        console.log(&quot;hello world&quot;)
+    }
+}
+new Book(123,123).info()
+Book.desc()
+</code></pre>
+<p>值得注意的是</p>
+<ol>
+<li>class不会存在变量提升，所有要先声明在使用</li>
+<li>class中的静态方法，只能自身调用，自身的示例无法调用<br>
+如上示例</li>
+</ol>
 
         </div>
         <!-- Share to Twitter, Weibo, Telegram -->
@@ -461,6 +560,11 @@ values为模板字符串所组成的集合（user，topic）</p>
 <li><a href="#%E6%A0%87%E7%AD%BE%E6%A8%A1%E6%9D%BF">标签模板</a></li>
 </ul>
 </li>
+<li><a href="#%E6%96%B0%E5%A2%9E%E7%9A%84%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%87%BD%E6%95%B0">新增的字符串函数</a></li>
+<li><a href="#for-of">for of</a></li>
+<li><a href="#map">Map</a></li>
+<li><a href="#weakmap">WeakMap</a></li>
+<li><a href="#class">Class</a></li>
 </ul>
 </li>
 </ul>
