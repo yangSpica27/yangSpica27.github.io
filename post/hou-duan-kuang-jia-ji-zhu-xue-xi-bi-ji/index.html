@@ -80,7 +80,7 @@ pom文件依赖...">
           <img src="https://yangspica27.github.io//post-images/hou-duan-kuang-jia-ji-zhu-xue-xi-bi-ji.jpg" alt="后端框架技术学习笔记" class="block w-full mb-8">
         
         <div class="mb-8 flex flex-wrap">
-          <div class="text-gray-400 text-sm mr-4">2020-03-08 · 11 min read</div>
+          <div class="text-gray-400 text-sm mr-4">2020-03-08 · 14 min read</div>
           
             <a href="https://yangspica27.github.io/tag/wwFyOEy1b/" class="text-gray-700 text-sm border-b-2 border-dotted border-gray-200 hover:border-gray-600 transition-all duration-100 inline-flex mr-2">
               <i class="ri-hashtag"></i>
@@ -546,6 +546,129 @@ application-dev.properties：开发环境 application-test.properties：测试�
 <li>命令行： java -jar spring-boot-02-config-0.0.1-SNAPSHOT.jar --spring.profiles.active=dev；可以直接在测试的时候，配置传入命令行参数</li>
 <li>虚拟机参数； -Dspring.profiles.active=dev</li>
 </ol>
+<h1 id="2020216">2020/2/16</h1>
+<h2 id="sping的ioc">Sping的IOC</h2>
+<ul>
+<li>Bean的基本概念:<br>
+在计算机英语中，有可重用组件的意思<br>
+JavaBean的概念大于等于实体类<br>
+JavaBean：用Java编写的可重用的组件</li>
+</ul>
+<h2 id="依赖注入和控制反转">依赖注入和控制反转</h2>
+<ul>
+<li>基本概念：<br>
+对象之间的关联通过对象的组合来实现，每个对象都依赖其他对象提供的各种服务<br>
+Spring提供了IoC容器初始化Bean对象，解决了Bean对象间的依赖关系关系，以及Bean的对象使用问题，改变了传统的以<code>new</code>来创建对象的方式</li>
+<li>控制反转：达成特性，由外部来创建对象，我们仅需要取出对象即可</li>
+<li>依赖注入：实现手段</li>
+</ul>
+<h2 id="常用注解的意思">常用注解的意思</h2>
+<ul>
+<li>用于创建对象的
+<ol>
+<li>@Component
+<ul>
+<li>形式：@Component(value=&quot; &quot;)/@Component(&quot; &quot;)</li>
+<li>作用：用于把当前类对象存入 Spring 容器中</li>
+<li>属性：value : 用于指定 bean 的 id，当我们不写的时候，它的默认值是当前类名，且首字母改小写;当值只有一个的时候可以省略<br>
+以下三个注解的作用与 @Component 完全一样，它们是 Spring 提供的更明确的划分，使三层对象更加清晰</li>
+</ul>
+</li>
+<li>@Controller</li>
+<li>@Service</li>
+<li>@Repository</li>
+</ol>
+</li>
+<li>用于注入数据的
+<ol>
+<li>@Autowired
+<ul>
+<li>作用：自动按照类型注入，只要容器中有唯一的一个 bean 对象类型和要注入的变量类型匹配， 就可以注入成功如果IOC容器中没有任何 bean 的类型和要注入的变量类型匹配，则报错</li>
+<li>出现位置：可以是变量上，也可以是方法上</li>
+<li>细节：在使用注解注入时，set 方法就不是必须的了</li>
+</ul>
+</li>
+<li>@Qualifier
+<ul>
+<li>作用：在按照类型注入的基础上再按照名称注入，它在给类成员注入时不能单独使用，但是在给方法参数注入 时可以。</li>
+<li>value : 用于指定注入的 bean 的 id</li>
+</ul>
+</li>
+<li>@Resource
+<ul>
+<li>作用：直接按照 bean 的 id 注入，可以直接使用</li>
+<li>属性：name : 用于指定 bean 的 id</li>
+<li>等同于@Autowired+@Qualifier<br>
+以上三个注入都只能注入其他 bean 类型的数据，而基本类型和 String 类型的数据无法使用上述注解实现。</li>
+</ul>
+</li>
+<li>@Value
+<ul>
+<li>作用：用于注入基本类型和 String 类型的数据</li>
+<li>属性：value : 用于指定数据的值，它可以使用 Spring 中 Spel (即spring的el表达式)</li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+<p>Spel 的写法：${表达式}</p>
+<ul>
+<li>用于改变范围的
+<ol>
+<li>@Scope
+<ul>
+<li>作用：用于指定 bean 的作用范围</li>
+<li>value : 指定范围的取值，同 xml 中值，常用为 singleton , prototype</li>
+</ul>
+</li>
+<li>@PreDestory
+<ul>
+<li>作用：用于指定销毁方法</li>
+</ul>
+</li>
+<li>@Postcontrust
+<ul>
+<li>作用：用于指定初始化方法</li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+<h2 id="使用配置类">使用配置类</h2>
+<h3 id="常用注解">常用注解</h3>
+<ul>
+<li>@Configuration：声明配置类，从指定类中读取@Bean标记的方法用来创建bean</li>
+<li>@Scope：工厂的创建模式：单例或者多例</li>
+<li>@Lazy：是否懒加载，非懒加载就是容器启动就加载，默认为True</li>
+<li>@Bean：声明一个Bean</li>
+<li>@Profile：容器允许的配置文件</li>
+<li>@Value：同上</li>
+</ul>
+<pre><code class="language-java">//声明为一个配置类
+@Configuration
+public class ConfigBeans {
+  //声明单例还是原型
+  @Scope(value = ConfigurableBeanFactory.SCOPE_SINGLETON)
+  //是否为懒加载。默认为懒加载就是容器启动后就直接创建实例  
+  @Lazy(value = false)
+  //声明bean的信息等同于xml的方式  
+  @Bean(initMethod = &quot;init&quot;, destroyMethod = &quot;destroy&quot;)
+  public ZooService zooService() {
+    return new ZooService();
+  }
+}
+@SpringBootApplication
+public class ConfigApplication {
+  //声明为非web应用，只要加载容器即可
+  public static void main(String[] args) {
+      new SpringApplicationBuilder()
+          .web(WebApplicationType.NONE)
+          .sources(ConfigApplication.class)
+          .run(args);
+  }
+}
+
+</code></pre>
 
         </div>
         <!-- Share to Twitter, Weibo, Telegram -->
@@ -646,6 +769,18 @@ application-dev.properties：开发环境 application-test.properties：测试�
 <ul>
 <li><a href="#%E5%A4%9Aprofile">多profile</a></li>
 <li><a href="#%E6%BF%80%E6%B4%BB%E6%8C%87%E5%AE%9Aprofile">激活指定profile</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#2020216">2020/2/16</a>
+<ul>
+<li><a href="#sping%E7%9A%84ioc">Sping的IOC</a></li>
+<li><a href="#%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5%E5%92%8C%E6%8E%A7%E5%88%B6%E5%8F%8D%E8%BD%AC">依赖注入和控制反转</a></li>
+<li><a href="#%E5%B8%B8%E7%94%A8%E6%B3%A8%E8%A7%A3%E7%9A%84%E6%84%8F%E6%80%9D">常用注解的意思</a></li>
+<li><a href="#%E4%BD%BF%E7%94%A8%E9%85%8D%E7%BD%AE%E7%B1%BB">使用配置类</a>
+<ul>
+<li><a href="#%E5%B8%B8%E7%94%A8%E6%B3%A8%E8%A7%A3">常用注解</a></li>
 </ul>
 </li>
 </ul>
