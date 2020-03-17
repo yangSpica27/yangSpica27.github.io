@@ -14,25 +14,37 @@
 
     
 
-  <meta name="description" content="2020/2/12
-基本语法篇
-##Vue的声明周期
-" />
+  <meta name="description" content="2020/3/17
+Vue
+
+构建数据驱动的Web界面的js渐进式框架
+目标：实现响应式的数据绑定的组合的识图组件
+核心：响应式的数据绑定系统，只关注视图层
+最适合开发单页面应用系统SAP（Single Page Application）
+..." />
   <meta property="og:title" content="前端框架技术学习笔记(Vue篇) - Spica 27&#39;S Room">
-  <meta property="og:description" content="2020/2/12
-基本语法篇
-##Vue的声明周期
-" />
+  <meta property="og:description" content="2020/3/17
+Vue
+
+构建数据驱动的Web界面的js渐进式框架
+目标：实现响应式的数据绑定的组合的识图组件
+核心：响应式的数据绑定系统，只关注视图层
+最适合开发单页面应用系统SAP（Single Page Application）
+..." />
   <meta property="og:type" content="articles">
   <meta property="og:url" content="https://yangspica27.github.io/post/qian-duan-kuang-jia-ji-zhu-xue-xi-bi-ji-vue-pian/" />
   <meta property="og:image" content="https://yangspica27.github.io//images/avatar.png">
   <meta property="og:image:height" content="630">
   <meta property="og:image:width" content="1200">
   <meta name="twitter:title" content="前端框架技术学习笔记(Vue篇) - Spica 27&#39;S Room">
-  <meta name="twitter:description" content="2020/2/12
-基本语法篇
-##Vue的声明周期
-">
+  <meta name="twitter:description" content="2020/3/17
+Vue
+
+构建数据驱动的Web界面的js渐进式框架
+目标：实现响应式的数据绑定的组合的识图组件
+核心：响应式的数据绑定系统，只关注视图层
+最适合开发单页面应用系统SAP（Single Page Application）
+...">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="canonical" href="https://yangspica27.github.io/post/qian-duan-kuang-jia-ji-zhu-xue-xi-bi-ji-vue-pian/">
 
@@ -60,13 +72,144 @@
         </h1>
         
         <div class="mb-8 flex flex-wrap">
-          <div class="text-gray-400 text-sm mr-4">2020-03-12 · 1 min read</div>
+          <div class="text-gray-400 text-sm mr-4">2020-03-12 · 4 min read</div>
           
         </div>
         <div class="markdown mb-8" v-pre>
-          <h1 id="2020212">2020/2/12</h1>
+          <h1 id="2020317">2020/3/17</h1>
+<h2 id="vue">Vue</h2>
+<ul>
+<li>构建数据驱动的Web界面的js渐进式框架</li>
+<li>目标：实现响应式的数据绑定的组合的识图组件</li>
+<li>核心：响应式的数据绑定系统，只关注视图层</li>
+<li>最适合开发单页面应用系统SAP（Single Page Application）</li>
+</ul>
 <h2 id="基本语法篇">基本语法篇</h2>
-<p>##Vue的声明周期</p>
+<h3 id="绑定">绑定</h3>
+<pre><code class="language-html">&lt;div id=&quot;app&quot; v-bind:title=&quot;vueTitle&quot;&gt;
+    {{message}}
+&lt;/div&gt;
+&lt;script type=&quot;text/javascript&quot;&gt;
+    const app = new Vue({
+        el: '#app',
+        data: {
+            message: 'Hello Vue',
+            vueTitle:'标题'
+        }
+    })
+</code></pre>
+<p>效果：<br>
+<img src="https://yangspica27.github.io//post-images/1584404798612.png" alt="" loading="lazy"></p>
+<ul>
+<li>el：绑定控件</li>
+<li>data：声明数据</li>
+</ul>
+<h2 id="v-if">v-if</h2>
+<p>v-if 指令将根据表达式的&quot;seen&quot;值的真假来插入/移除元素</p>
+<pre><code class="language-html">&lt;p v-if=&quot;seen&quot;&gt;现在你看到我了&lt;/p&gt;
+</code></pre>
+<h3 id="v-show">v-show</h3>
+<p>根据表达式的数值动态展示隐藏元素</p>
+<pre><code class="language-html">&lt;h1 v-show=&quot;ok&quot;&gt;Hello!&lt;/h1&gt;
+</code></pre>
+<h3 id="v-for">v-for</h3>
+<p>我们可以用 v-for 指令基于一个数组来渲染一个列表。v-for 指令需要使用 item in items 形式的特殊语法，其中 items 是源数据数组，而 item 则是被迭代的数组元素的别名<br>
+语法<code>v-for=&quot;(item, index) in items&quot;</code><br>
+item的元素对象，index是索引</p>
+<pre><code class="language-HTML">	&lt;div id=&quot;app&quot;&gt;
+			&lt;ul&gt;
+				&lt;li v-for=&quot;item in list&quot;&gt;
+					{{item}}
+				&lt;/li&gt;
+			&lt;/ul&gt;
+		&lt;/div&gt;
+		&lt;script type=&quot;text/javascript&quot;&gt;
+			const app = new Vue({
+				el: &quot;#app&quot;,
+				data: {
+					list: [
+						&quot;item1&quot;,
+						&quot;item2&quot;,
+						&quot;item3&quot;,
+						&quot;item4&quot;
+					]
+				}
+			})
+		&lt;/script&gt;
+</code></pre>
+<h3 id="vue的生命周期">Vue的生命周期</h3>
+<blockquote>
+<p>所有的生命周期钩子自动绑定 this 上下文到实例中，因此你可以访问数据，对属性和方法进行运算。这意味着你不能使用箭头函数来定义一个生命周期方法 (例如 created: () =&gt; this.fetchTodos())。这是因为箭头函数绑定了父上下文，因此 this 与你期待的 Vue 实例不同，this.fetchTodos 的行为未定义。</p>
+</blockquote>
+<pre><code class="language-html">&lt;div id=&quot;app&quot;&gt;{{message}}
+			&lt;button v-on:click=&quot;click&quot;&gt;change&lt;/button&gt;
+		&lt;/div&gt;
+
+		&lt;script type=&quot;text/javascript&quot;&gt;
+			const app = new Vue({
+				el: '#app',
+				data: {
+					message: &quot;hello world&quot;
+				},
+				beforeCreate:function(){
+					console.log(&quot;创建前调用&quot;)
+				},
+				created: function() {
+					console.log('Vue对象被创建的时候调用')
+				},
+				beforeMount: () =&gt; {
+					console.log(&quot;挂载前调用&quot;)
+				},
+				mounted: () =&gt; {
+					console.log('Vue对象挂在到Dom对象的时候执行')
+				},
+				updated: () =&gt; {
+					console.log('data数据更新的时候调用')
+				},
+				beforeDestroy: () =&gt; {
+					console.log('销毁前调用')
+				},
+				destroyed:function(){
+					console.log('销毁完成')
+				},
+
+				//钩子函数不用卸载method中
+				methods: {
+					click: function() {
+						this.message = &quot;ok&quot;
+					}
+				}
+			})
+		
+		&lt;/script&gt;
+</code></pre>
+<h3 id="数据的双向绑定">数据的双向绑定</h3>
+<p>你可以用 <code>v-model</code> 指令在表单 <code>&lt;input&gt;</code>,<code>&lt;textarea&gt;</code>及<code>&lt;select&gt;</code>元素上创建双向数据绑定。它会根据控件类型自动选取正确的方法来更新元素。尽管有些神奇，但 v-model 本质上不过是语法糖。它负责监听用户的输入事件以更新数据，并对一些极端场景进行一些特殊处理。</p>
+<pre><code class="language-Html">&lt;div id=&quot;app&quot; &gt;
+			{{message}}	
+			&lt;button v-on:click=&quot;reverse&quot;&gt;逆转消息&lt;/button&gt;
+			&lt;br /&gt;
+			&lt;!-- v-model指令来表达输入事件之间的双向绑定 --&gt;
+			&lt;input v-model:value=&quot;message&quot; /&gt;
+		&lt;/div&gt;
+
+	
+		&lt;script type=&quot;text/javascript&quot;&gt;
+			const app = new Vue({
+				el: '#app',
+				data: {
+					message: 'Hello Vue',
+				},
+				//定义的函数于此
+				methods: {
+					reverse: function() {
+						console.log(this.message)
+						this.message = this.message.split('').reverse().join('')
+					}
+				}
+			})
+		&lt;/script&gt;
+</code></pre>
 
         </div>
         <!-- Share to Twitter, Weibo, Telegram -->
@@ -126,9 +269,22 @@
       </div>
       <div class="post-toc-container">
         <ul class="markdownIt-TOC">
-<li><a href="#2020212">2020/2/12</a>
+<li><a href="#2020317">2020/3/17</a>
 <ul>
-<li><a href="#%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95%E7%AF%87">基本语法篇</a></li>
+<li><a href="#vue">Vue</a></li>
+<li><a href="#%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95%E7%AF%87">基本语法篇</a>
+<ul>
+<li><a href="#%E7%BB%91%E5%AE%9A">绑定</a></li>
+</ul>
+</li>
+<li><a href="#v-if">v-if</a>
+<ul>
+<li><a href="#v-show">v-show</a></li>
+<li><a href="#v-for">v-for</a></li>
+<li><a href="#vue%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F">Vue的生命周期</a></li>
+<li><a href="#%E6%95%B0%E6%8D%AE%E7%9A%84%E5%8F%8C%E5%90%91%E7%BB%91%E5%AE%9A">数据的双向绑定</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
