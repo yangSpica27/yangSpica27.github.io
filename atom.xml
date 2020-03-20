@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://yangspica27.github.io/</id>
     <title>Spica 27&apos;S Room</title>
-    <updated>2020-03-18T10:25:26.764Z</updated>
+    <updated>2020-03-20T11:49:53.164Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://yangspica27.github.io/"/>
     <link rel="self" href="https://yangspica27.github.io/atom.xml"/>
@@ -149,6 +149,85 @@ item的元素对象，index是索引</p>
 				}
 			})
 		&lt;/script&gt;
+</code></pre>
+<p>#2020/3/19</p>
+<h3 id="计算属性-computed">计算属性 computed</h3>
+<ul>
+<li>在一个计算属性里可以完成各种复杂的逻辑，包括运算、函数调用等，只要最终返回一个结果就可以。</li>
+</ul>
+<pre><code class="language-html">&lt;div id=&quot;example&quot;&gt;
+  &lt;p&gt;Original message: &quot;{{ message }}&quot;&lt;/p&gt;
+  &lt;p&gt;Computed reversed message: &quot;{{ reversedMessage }}&quot;&lt;/p&gt;　　
+&lt;/div&gt;
+</code></pre>
+<pre><code class="language-javascript">var vm = new Vue({
+  el: '#example',
+  data: {
+    message: 'Hello'
+  },
+  computed: {
+    // 计算属性的 getter
+    reversedMessage: function () {
+      // `this` 指向 vm 实例
+      return this.message.split('').reverse().join('')
+    }
+  }
+})
+</code></pre>
+<ul>
+<li>计算属性还能拥有自己的Get和Set方法</li>
+</ul>
+<pre><code class="language-JavaScript">var vm = new Vue({
+    el: '#demo',
+    data: {
+        firstName: 'Foo',
+        lastName: 'Bar'
+    },
+    computed: {
+        fullName: {
+            // getter
+            get: function () {
+                return this.firstName + ' ' + this.lastName
+            },
+            // setter
+            set: function (newValue) {
+                var names = newValue.split(' ');
+                this.firstName = names[0];
+                this.lastName = names[names.length - 1];
+            }
+        }
+    }
+});
+</code></pre>
+<h3 id="侦听器-watch">侦听器 watch</h3>
+<p>Watch的作用可以监控一个值的变换，并调用因为变化需要执行的方法。可以通过watch动态改变关联的状态。</p>
+<pre><code class="language-JavaScript">watch: {
+					enterBrand: function() {
+						// 判断类型是否非法
+						let obj = this.enterBrand
+						if (typeof obj == &quot;undefined&quot; || obj == null || obj == &quot;&quot;) {
+							this.check1 = true;
+						} else {
+							this.check1 = false;
+						}
+					}
+                    }
+</code></pre>
+<h3 id="过滤器">过滤器</h3>
+<p>过滤器可以用在两个地方：双花括号插值和 v-bind 表达式 (后者从 2.1.0+ 开始支持)。过滤器应该被添加在 JavaScript 表达式的尾部，由“管道”符号指示：</p>
+<pre><code class="language-html">&lt;!-- 在双花括号中 --&gt;
+{{ message | capitalize }}
+
+&lt;!-- 在 `v-bind` 中 --&gt;
+&lt;div v-bind:id=&quot;rawId | formatId&quot;&gt;&lt;/div&gt;
+</code></pre>
+<pre><code class="language-JavaScript">filters: {
+  capitalize: function (value) {
+    if (!value) return ''
+    value = value.toString()
+    return value.charAt(0).toUpperCase() + value.slice(1)
+  }
+}
 </code></pre>
 ]]></content>
     </entry>
