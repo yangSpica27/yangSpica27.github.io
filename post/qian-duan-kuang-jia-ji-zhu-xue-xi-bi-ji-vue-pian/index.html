@@ -72,7 +72,7 @@ Vue
         </h1>
         
         <div class="mb-8 flex flex-wrap">
-          <div class="text-gray-400 text-sm mr-4">2020-03-12 · 6 min read</div>
+          <div class="text-gray-400 text-sm mr-4">2020-03-12 · 8 min read</div>
           
         </div>
         <div class="markdown mb-8" v-pre>
@@ -289,6 +289,120 @@ item的元素对象，index是索引</p>
   }
 }
 </code></pre>
+<h1 id="2020322">2020/3/22</h1>
+<h2 id="组件">组件</h2>
+<p>Tips：</p>
+<ul>
+<li>组件默认情况下，只能去调用自己的属性和方法，不能够跨组件调用</li>
+<li>子组件和父组件，不能并列使用</li>
+<li>模板中有且只有一个根元素</li>
+<li>组件名称一定要小写，否则无法解析</li>
+</ul>
+<h2 id="子组件调用父组件数据数据">子组件调用父组件数据数据</h2>
+<ol>
+<li>子组件发送申请</li>
+</ol>
+<pre><code class="language-Html">&lt;template id=&quot;t1&quot;&gt;
+			&lt;div&gt;
+				我是父组件，{{attr1}}
+				&lt;erzi :attr1=&quot;attr1&quot;&gt;&lt;/erzi&gt;
+			&lt;/div&gt;
+
+		&lt;/template&gt;
+</code></pre>
+<ol start="2">
+<li>定义props</li>
+</ol>
+<pre><code class="language-JavaScript">						components: {
+							'erzi': {
+								template: '#t2',
+								data() {
+									return {
+										attr2: '我是子组件的数据'
+									}
+								},
+								props: [&quot;attr1&quot;]
+							}
+						}
+</code></pre>
+<ol start="3">
+<li>调用</li>
+</ol>
+<pre><code class="language-Html">&lt;template id=&quot;t2&quot;&gt;
+			&lt;div&gt;我是子组件，{{attr2}}
+				&lt;h1&gt;{{attr1}}&lt;/h1&gt;
+			&lt;/div&gt;
+		&lt;/template&gt;
+</code></pre>
+<h2 id="父组件获取子组件数据">父组件获取子组件数据</h2>
+<ol>
+<li>子组件自定义方法抛出数据</li>
+</ol>
+<pre><code class="language-javascript">methods: {
+		send: function() {
+		//This指向子组件，触发有个自定义事件
+		this.$emit(&quot;e-word&quot;, this.attr2)
+				}
+	}
+</code></pre>
+<ol start="2">
+<li>父组件定义方法接受数据</li>
+</ol>
+<pre><code class="language-javascript">methods: {
+	getdata: function(attr2) {
+	alert(`父组件获取：${attr2}`)
+	}
+},
+</code></pre>
+<ol start="3">
+<li>绑定</li>
+</ol>
+<pre><code class="language-Html">		&lt;template id=&quot;t1&quot;&gt;
+			&lt;div&gt;
+				我是父组件，{{attr1}}
+				&lt;erzi :attr1=&quot;attr1&quot; @e-word=&quot;getdata&quot;&gt;&lt;/erzi&gt;
+			&lt;/div&gt;
+		&lt;/template&gt;
+</code></pre>
+<h2 id="同级组件的数据获取">同级组件的数据获取</h2>
+<ol>
+<li>再外部定义一个Vue对象用于媒介</li>
+</ol>
+<pre><code class="language-javascript">let event = new Vue({})
+</code></pre>
+<ol start="2">
+<li>发送数据</li>
+</ol>
+<pre><code class="language-javascript">methods: {
+		send() {
+			event.$emit(&quot;e-word&quot;, this.attr2)
+		}
+	}
+</code></pre>
+<ol start="3">
+<li>接收数据</li>
+</ol>
+<pre><code class="language-javascript">event.$on(&quot;e-word&quot;, attr2 =&gt; {
+		console.log(attr2)
+		alert(`获取组件2的数据：${attr2}`)
+	})
+</code></pre>
+<h2 id="自定义指令">自定义指令</h2>
+<p>常用的钩子函数</p>
+<ol>
+<li>bind：绑定的时候调用</li>
+<li>inserted：被绑定的元素被插入到其父节点的时候调用</li>
+<li>update：内容更新的时候调用</li>
+<li>unbind：解绑的时候调用</li>
+</ol>
+<ul>
+<li>简写：在更新和绑定的时候调用</li>
+</ul>
+<pre><code class="language-javascript">Vue.directive(&quot;dongzuo&quot;,function(el,binding){
+	alert(&quot;Hello World&quot;)
+})
+</code></pre>
+<h2 id="nexttick的使用">nextTick的使用</h2>
 
         </div>
         <!-- Share to Twitter, Weibo, Telegram -->
@@ -367,6 +481,16 @@ item的元素对象，index是索引</p>
 <li><a href="#%E8%BF%87%E6%BB%A4%E5%99%A8">过滤器</a></li>
 </ul>
 </li>
+</ul>
+</li>
+<li><a href="#2020322">2020/3/22</a>
+<ul>
+<li><a href="#%E7%BB%84%E4%BB%B6">组件</a></li>
+<li><a href="#%E5%AD%90%E7%BB%84%E4%BB%B6%E8%B0%83%E7%94%A8%E7%88%B6%E7%BB%84%E4%BB%B6%E6%95%B0%E6%8D%AE%E6%95%B0%E6%8D%AE">子组件调用父组件数据数据</a></li>
+<li><a href="#%E7%88%B6%E7%BB%84%E4%BB%B6%E8%8E%B7%E5%8F%96%E5%AD%90%E7%BB%84%E4%BB%B6%E6%95%B0%E6%8D%AE">父组件获取子组件数据</a></li>
+<li><a href="#%E5%90%8C%E7%BA%A7%E7%BB%84%E4%BB%B6%E7%9A%84%E6%95%B0%E6%8D%AE%E8%8E%B7%E5%8F%96">同级组件的数据获取</a></li>
+<li><a href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8C%87%E4%BB%A4">自定义指令</a></li>
+<li><a href="#nexttick%E7%9A%84%E4%BD%BF%E7%94%A8">nextTick的使用</a></li>
 </ul>
 </li>
 </ul>
