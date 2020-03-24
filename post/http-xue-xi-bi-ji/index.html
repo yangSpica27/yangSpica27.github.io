@@ -134,7 +134,7 @@ Date：Sun，0，...</p>
 Host:space.bilibili.comsp</li>
 </ul>
 <ul>
-<li>报文格式：Request<pre><code>  GET/Users HTTP？1.1 //请求行
+<li>报文格式：Request<pre><code class="language-xml">  GET/Users HTTP？1.1 //请求行
   Host:api.githu.com                 //headers    
   Content-Type: text/plain           //headers    
   Content-Length:243                //headers   
@@ -143,7 +143,7 @@ Host:space.bilibili.comsp</li>
 </li>
 <li>报文格式：Response</li>
 </ul>
-<pre><code>HTTP/1.1 200 OK //状态行
+<pre><code class="language-xml">HTTP/1.1 200 OK //状态行
 //请求头
 Content-type：application/json；charset=UTF-8 //headers
 Cache-control：public，max-age=60，S-maxage=60
@@ -208,30 +208,46 @@ Content-encoding:g-zip
 </li>
 </ul>
 <ul>
-<li>Transfer-Encoding：chunked<br>
+<li>
+<p>Transfer-Encoding：chunked<br>
 表示Body长度无法确定，Content-Length不能使用<br>
-Body格式：<pre><code class="language-XML">&lt;length&gt;
-&lt;data1&gt;
-&lt;length2&gt;
-&lt;date2&gt;
-......
-0
-
-</code></pre>
-</li>
-</ul>
-<p><strong>0加换行</strong></p>
+Body格式：<br>
+<length><br>
+<data1><br>
+<length2><br>
+<date2><br>
+......<br>
+0<br>
+<strong>0加换行</strong></p>
 <p>最后传输0表示内容结束</p>
-<ul>
-<li>Location:重定向的目标URL</li>
-<li>User-Agent:用户代理</li>
-<li>Range/Accept-Range：指定Body内容范围</li>
-<li>Cookie/Set-Cookie：发送/设置 Cookie</li>
-<li>Authorization:授权信息</li>
-<li>Accept：客户端可接受的数据类型：如text/html</li>
-<li>Accept-charset：客户端接收的字符集：如 UTF-8</li>
-<li>Accept-Encoding：客户端接收的压缩类型编码。如gzip</li>
-<li>Conetent-Encoding：压缩类型：如gzip</li>
+</li>
+<li>
+<p>Location:重定向的目标URL</p>
+</li>
+<li>
+<p>User-Agent:用户代理</p>
+</li>
+<li>
+<p>Range/Accept-Range：指定Body内容范围</p>
+</li>
+<li>
+<p>Cookie/Set-Cookie：发送/设置 Cookie</p>
+</li>
+<li>
+<p>Authorization:授权信息</p>
+</li>
+<li>
+<p>Accept：客户端可接受的数据类型：如text/html</p>
+</li>
+<li>
+<p>Accept-charset：客户端接收的字符集：如 UTF-8</p>
+</li>
+<li>
+<p>Accept-Encoding：客户端接收的压缩类型编码。如gzip</p>
+</li>
+<li>
+<p>Conetent-Encoding：压缩类型：如gzip</p>
+</li>
 </ul>
 <h2 id="cache-缓存">Cache 缓存</h2>
 <ul>
