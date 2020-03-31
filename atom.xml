@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://yangspica27.github.io/</id>
     <title>Spica 27&apos;S Room</title>
-    <updated>2020-03-25T09:00:37.669Z</updated>
+    <updated>2020-03-31T11:14:02.012Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://yangspica27.github.io/"/>
     <link rel="self" href="https://yangspica27.github.io/atom.xml"/>
@@ -639,6 +639,120 @@ html</li>
                     &lt;/div&gt;
                 &lt;/transition-group&gt;
 </code></pre>
+<h1 id="2020330">2020/3/30</h1>
+<h2 id="promise">Promise</h2>
+<p>一种对象，用于获取异步操作的信息</p>
+<ul>
+<li>用法:<br>
+1. 实例化Promise对象，构造方法中传递方法，该方法用于异步异步任务<br>
+2. resolve和reject两个分别用于处理成功和失败的两种情况，通过.then获取</li>
+</ul>
+<pre><code class="language-javascript">// resolve代表成功 reject失败 都是一个函数
+
+let p = new Promise(function(reslove,reject){
+
+    reject('失败')  //状态由等待变为失败，传的参数作为then函数中失败函数的实参
+
+})
+
+
+p.then((data)=&gt;{
+    console.log('成功'+data)
+},(err)=&gt;{
+    console.log('失败'+err)
+})
+</code></pre>
+<ul>
+<li>then的函数返回值
+<ul>
+<li>返回Promise()对象，该实例对调用下一个then</li>
+<li>返回普通值，则会直接传递给下一个then，通过then参数中的函数的参数值接收值</li>
+</ul>
+</li>
+<li>实例方法
+<ul>
+<li>.then():获取的异步任务的结果</li>
+<li>.catch():获取异常信息</li>
+<li>.finally():成功与否都有执行的内容</li>
+</ul>
+</li>
+<li>类方法
+<ul>
+<li>Promise.all():<br>
+所有任务执行完成后出结果</li>
+<li>Promise.race()<br>
+只要有一个任务完成就有结果</li>
+</ul>
+</li>
+</ul>
+<h2 id="axios-的使用">Axios 的使用</h2>
+<ul>
+<li>Get请求</li>
+</ul>
+<pre><code class="language-javascript">axios.get('http://localhost:8000/axios?id=111')
+				.then(function(response) {
+					console.log(response);
+				})
+axios.get('http://localhost:8000/axios/111')
+				.then(function(response) {
+					console.log(response);
+				})
+this.axios.get('http://localhost:8000/axios', {
+				params: {
+					id: 123,
+				}
+			}).then(response =&gt; {
+				console.log(response);
+
+			}).catch(function(error) {
+				console.log(error);
+        });
+</code></pre>
+<ul>
+<li>Post请求</li>
+</ul>
+<pre><code class="language-javascript">axios.post('/user', {
+    firstName: 'Fred',
+    lastName: 'Flintstone'
+  })
+  .then(function (response) {
+    console.log(response);
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
+</code></pre>
+<ul>
+<li>多条请求</li>
+</ul>
+<pre><code class="language-javascript">function getUserAccount() {
+  return axios.get('/user/12345');
+}
+
+function getUserPermissions() {
+  return axios.get('/user/12345/permissions');
+}
+
+axios.all([getUserAccount(), getUserPermissions()])
+  .then(axios.spread(function (acct, perms) {
+   //在此进行操作
+  }));
+</code></pre>
+<h2 id="asyncawait">async/await</h2>
+<p>基本用法：<br>
+async用在关键字上，进行异步操作<br>
+await用在async函数中，用于获取异步结果<br>
+async函数返回一个 Promise 对象，可以使用then方法添加回调函数。当函数执行的时候，一旦遇到await就会先返回，等到异步操作完成，再接着执行函数体内后面的语句。</p>
+<pre><code class="language-javascript">async function print(){
+    return 1;
+}
+print().then(e =&gt; console.log(e));   //1
+</code></pre>
+<p>注意点：</p>
+<ol>
+<li>await 命令只能用在 async 函数之中，如果用在普通函数，就会报错。</li>
+<li>await 只能使用在原生语法中，比如在 forEeach 结构中使用 await 是无法正常工作的，必须使用 for 循环的原生语法。</li>
+</ol>
 ]]></content>
     </entry>
     <entry>
