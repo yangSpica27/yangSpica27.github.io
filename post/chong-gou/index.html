@@ -1,0 +1,417 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>重构 - Spica 27&#39;S Room</title>
+<link rel="shortcut icon" href="https://yangspica27.github.io//favicon.ico">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.2.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css">
+<link rel="stylesheet" href="https://yangspica27.github.io//media/css/tailwind.css">
+<link rel="stylesheet" href="https://yangspica27.github.io//styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="重构 - Spica 27&#39;S Room - Atom Feed" href="https://yangspica27.github.io//atom.xml">
+
+    
+
+  <meta name="description" content="什么是重构
+
+重构就是以微小的步伐修改程序，如果你犯下错误，便可很容易的发现它。
+对软件内部的结构的一种调整，目的是不改变软件可观察行为的前提下，提高其可理解性，降低其修改成本。
+使用一系列重构手法，在不改变软件的可观察行为的前提下，对其结..." />
+  <meta property="og:title" content="重构 - Spica 27&#39;S Room">
+  <meta property="og:description" content="什么是重构
+
+重构就是以微小的步伐修改程序，如果你犯下错误，便可很容易的发现它。
+对软件内部的结构的一种调整，目的是不改变软件可观察行为的前提下，提高其可理解性，降低其修改成本。
+使用一系列重构手法，在不改变软件的可观察行为的前提下，对其结..." />
+  <meta property="og:type" content="articles">
+  <meta property="og:url" content="https://yangspica27.github.io/post/chong-gou/" />
+  <meta property="og:image" content="https://yangspica27.github.io//images/avatar.png">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:width" content="1200">
+  <meta name="twitter:title" content="重构 - Spica 27&#39;S Room">
+  <meta name="twitter:description" content="什么是重构
+
+重构就是以微小的步伐修改程序，如果你犯下错误，便可很容易的发现它。
+对软件内部的结构的一种调整，目的是不改变软件可观察行为的前提下，提高其可理解性，降低其修改成本。
+使用一系列重构手法，在不改变软件的可观察行为的前提下，对其结...">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://yangspica27.github.io/post/chong-gou/">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css">
+ 
+  
+    <link rel="stylesheet" href="https://yangspica27.github.io//media/css/prism-atom-dark.css">
+  
+
+  
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+  
+</head>
+
+<body>
+  <div class="antialiased flex flex-col min-h-screen" id="app">
+    <a href="https://yangspica27.github.io/" class="fixed top-0 left-0 mt-4 bg-black text-white dark:text-gray-700 dark:bg-yellow-50 dark:hover:bg-black dark:hover:text-white inline-flex p-2 pl-8 hover:text-gray-700 hover:bg-yellow-50 font-bold z-10 transition-fast animated fadeInLeft">
+      Spica 27&#39;S Room
+    </a>
+    <div class="max-w-4xl w-full mx-auto">
+      <div class="shadow-box bg-white dark:bg-gray-600 rounded-lg pt-32 md:pt-64 px-4 md:px-8 pb-8 animated fadeIn mb-8">
+        <h1 class="text-5xl font-semibold leading-normal pb-8 mb-8 border-b-8 border-gray-700">
+          重构
+        </h1>
+        
+        <div class="mb-8 flex flex-wrap">
+          <div class="text-gray-400 text-sm mr-4">2020-04-04 · 6 min read</div>
+          
+        </div>
+        <div class="markdown mb-8" v-pre>
+          <h2 id="什么是重构">什么是重构</h2>
+<ul>
+<li>重构就是以微小的步伐修改程序，如果你犯下错误，便可很容易的发现它。</li>
+<li>对软件内部的结构的一种调整，目的是不改变软件可观察行为的前提下，提高其可理解性，降低其修改成本。</li>
+<li>使用一系列重构手法，在不改变软件的可观察行为的前提下，对其结构进行优化。</li>
+<li>重构的目的是让让软件更容易被理解和修改，与之对比的是性能优化，和重构一样，性能优化通常不会改变组件的行为（除了执行速度）,只会改变其内部结构，但是两者的出发点不同，性能优化往往让代码更难理解，但为了你所需的性能你不得不那么去做。</li>
+<li>重构不会改变软件的可观察行为，重构之后软件的功能一如既往。</li>
+</ul>
+<h2 id="重构的目的">重构的目的：</h2>
+<ul>
+<li>重构改进软件设计，防止长时间开发积累的脱离结构的代码导致程序腐败</li>
+<li>重构使软件更加容易理解  &quot;擦掉窗户上的污垢，使其看的更远&quot;</li>
+<li>重构可以帮助找到Bug</li>
+<li>重构提升编程速度（良好的设计是快速开发的根本）</li>
+</ul>
+<p>重复的做类似的事情？事不过三，三则重构</p>
+<h2 id="何时重构">何时重构：</h2>
+<ul>
+<li>添加功能的时候重构<br>
+重构让我更加理解这段代码，重构让我弥补之前的不足，让添加新特性更加轻松。</li>
+<li>修补错误的时候重构<br>
+发现Bug是这段代码需要重构的信号，说明其结构不够清晰，清晰到我没能一眼看出它有bug</li>
+<li>复审代码的时候重构</li>
+</ul>
+<h2 id="重构的原则">重构的原则：</h2>
+<ul>
+<li>减少不必要的间接层：<br>
+如一个有着多态性的组件，但是最终其实只有一处用到了，请将这种寄生虫式的间接层去掉</li>
+<li>合理的引入间接层：
+<ul>
+<li>间接层的好处：
+<ol>
+<li>允许逻辑共享</li>
+<li>分开解释意图和实现</li>
+<li>隔离变化</li>
+<li>封装条件逻辑</li>
+</ol>
+</li>
+<li>何时引入间接层？
+<ol>
+<li>找到缺乏“间接层好处的地方”，不修改其现有行为的前提下引入间接层</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>对比事前设计的优势：<em>小心翼翼的事前设计</em>让整个系统的完成之前就拥有了极高的质量，程序员只需要讲代码塞进整个强健的模板/骨架就可以了，但也有非常大的隐患：<strong>太容易猜错</strong>，理解上的错误会导致全盘的错误，但重构永远面临全盘出错的风险。程序从始至终都是能保持一致的。</li>
+</ul>
+<p>##重构的难题</p>
+<h3 id="数据库">数据库</h3>
+<p>难点：程序与背后的数据库过分耦合在一起<br>
+解决方法：在对象模型和数据库模型中插入一个分层。<br>
+优势：虽然增加了复杂度，但是使得程序变得更加灵活，但无需一开始就引入，在对象变得不再稳定的时候再行引入即可。</p>
+<h3 id="修改接口">修改接口</h3>
+<p>难点：接口改变了，任何事情都可能发生：<br>
+如果这个函数的（哪怕是public）所有的调用者都在你的控制下，即使您将函数名称改掉了也能获取其调用者进行修正的时候，是不存在问题的，但是这个接口是个“已经发布的接口”，我们不能在对其调用者进行修改，或者根本无法获得其调用者的情况下，这时候才是问题。<br>
+解决方法：<br>
+1. 发布新旧两个接口（将旧接口进行deprecated标记）<br>
+缺点： 必须构造并且维护一些额外的函数，这让接口变得复杂且难以调用。<br>
+2. 尽量不发布没有必要的接口<br>
+3. 在throw子句之中添加自定义的异常：为这个新的函数指定名称，并在旧的函数中调用它，将这个受控异常变为非受控异常。</p>
+<h2 id="难以通过重构进行改变的设计改动">难以通过重构进行改变的设计改动</h2>
+<p>想象重构的情况，如果有简单的设计方式作为重构对象，可以先重构为简单的设计，及时不能覆盖全部的需求。如果没有，则需要重新在设计上花时间。</p>
+<h2 id="何时不该重构">何时不该重构</h2>
+<ol>
+<li>代码过于混乱以至于重写更加简单时候，别犹豫，重写吧。</li>
+<li>项目的末期应该避免重构，重构任务相当于债务，应该是及时写及时重构，拖得太久终会被利息（代码质量腐败）压垮。重构可以提高生产力，但如果最后没有时间进行重构，表明你早该开始重构了。</li>
+</ol>
+<h2 id="重构与设计">重构与设计</h2>
+<ul>
+<li>重构和设计互为补充
+<ul>
+<li>&quot;预先设计”可以减少反工的时间</li>
+<li>“有了设计我们可以思考的更快，但是其中有许多小漏洞”</li>
+</ul>
+</li>
+<li>重构的另辟蹊径：预先设计并不需要多么正确复杂仅需足够合理，在实现的过程中对问题逐渐理解加深之后，发现最佳解决方案与“预先设计”不同之时，重构让日后的修改成本不在高昂。
+<ul>
+<li>简化了设计成本：灵活的设计方案成本太大，因为个性的问题分布在程序的各个角落，在所有地方建立起灵活性，复杂度和可维护性难度会直接飙升。实践阶段发现有些灵活性毫无必要，是不可避免的，为了获得这种灵活性，我们在实际行动需要更多的灵活性。</li>
+<li>重构的途径来解决这种风险，我们只需要思考“如何把目前简单的实现方案重构成灵活的实现方案”。</li>
+</ul>
+</li>
+</ul>
+<h3 id="劳而无获">劳而无获</h3>
+<p>Ron Jeffries关于克莱斯勒综合薪资系统:<br>
+“哪怕我们十分了解系统，也请实际度量它的性能，不要臆测，臆测会让你学到一些东西，但<strong>十有八九是错的</strong>。&quot;</p>
+<h2 id="重构与性能">重构与性能</h2>
+<ul>
+<li>不赞成为了设计的纯洁性而忽视性能</li>
+<li>重构使得性能优化变得更加容易，虽然重构短期内可能导致运行速度的变慢：“先写出可调的软件，再去优化其性能获取足够速度”</li>
+</ul>
+<h2 id="重构的起源">重构的起源</h2>
+<h2 id="坏代码的味道">坏代码的“味道”</h2>
+<p>“如果尿布丑了，就换掉它。”</p>
+<h3 id="重复代码">重复代码</h3>
+<h3 id="过大的类">过大的类</h3>
+<h3 id="过长的方法">过长的方法</h3>
+
+        </div>
+        <!-- Share to Twitter, Weibo, Telegram -->
+        <div class="flex items-center">
+          <div class="mr-4 flex items-center">
+            <i class="ri-share-forward-line text-gray-500"></i>
+          </div>
+          <div class="px-4 cursor-pointer text-blue-500 hover:bg-blue-100 dark:hover:bg-gray-600 inline-flex" @click="shareToTwitter">
+            <i class="ri-twitter-line"></i>
+          </div>
+          <div class="px-4 cursor-pointer text-red-500 hover:bg-red-100 dark:hover:bg-gray-600 inline-flex" @click="shareToWeibo">
+            <i class="ri-weibo-line"></i>
+          </div>
+          <div class="px-4 cursor-pointer text-indigo-500 hover:bg-indigo-100 dark:hover:bg-gray-600 inline-flex" @click="shareToTelegram">
+            <i class="ri-telegram-line"></i>
+          </div>
+        </div>
+      </div>
+
+      
+
+      
+        <div id="vlaine-comment"></div>
+<script type="application/javascript" src="https://unpkg.com/valine"></script>
+<script type="application/javascript">
+  new Valine({
+    el: '#vlaine-comment',
+    appId: 'AR4nFLrhLULlkR2TemSiyB9o-9Nh9j0Va',
+    appKey: 'pW4rve7MFseLwc2b9pBpK1XG',
+    pageSize: 10,
+    notify: false,
+    avatar: 'mp',
+    verify: false,
+    placeholder: '来都来了，不妨评论一下',
+    visitor: true,
+    highlight: true,
+    recordIP: true,
+  })
+</script>
+      
+
+      <footer class="py-12 text-center px-4 md:px-0" v-pre>
+  Think like a man of action, act like a man of thought.
+</footer>
+    </div>
+
+    <!-- TOC Container -->
+    <div class="fixed right-0 bottom-0 mb-16 mr-4 shadow w-8 h-8 rounded-full flex justify-center items-center z-10 cursor-pointer bg-white dark:bg-gray-500 dark:text-gray-200 hover:shadow-lg transition-all animated fadeInRight" @click="showToc = true">
+      <i class="ri-file-list-line"></i>
+    </div>
+
+    <div class="fixed right-0 top-0 bottom-0 overflow-y-auto w-64 bg-white dark:bg-gray-800 p-4 border-l border-gray-100 dark:border-gray-600 z-10 transition-fast" :class="{ '-mr-64': !showToc }">
+      <div class="flex mb-4 justify-end">
+        <div class="w-8 h-8 inline-flex justify-center items-center rounded-full cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-600 transition-fast" @click="showToc = false">
+          <i class="ri-close-line text-lg"></i>
+        </div>
+      </div>
+      <div class="post-toc-container">
+        <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#%E4%BB%80%E4%B9%88%E6%98%AF%E9%87%8D%E6%9E%84">什么是重构</a></li>
+<li><a href="#%E9%87%8D%E6%9E%84%E7%9A%84%E7%9B%AE%E7%9A%84">重构的目的：</a></li>
+<li><a href="#%E4%BD%95%E6%97%B6%E9%87%8D%E6%9E%84">何时重构：</a></li>
+<li><a href="#%E9%87%8D%E6%9E%84%E7%9A%84%E5%8E%9F%E5%88%99">重构的原则：</a>
+<ul>
+<li><a href="#%E6%95%B0%E6%8D%AE%E5%BA%93">数据库</a></li>
+<li><a href="#%E4%BF%AE%E6%94%B9%E6%8E%A5%E5%8F%A3">修改接口</a></li>
+</ul>
+</li>
+<li><a href="#%E9%9A%BE%E4%BB%A5%E9%80%9A%E8%BF%87%E9%87%8D%E6%9E%84%E8%BF%9B%E8%A1%8C%E6%94%B9%E5%8F%98%E7%9A%84%E8%AE%BE%E8%AE%A1%E6%94%B9%E5%8A%A8">难以通过重构进行改变的设计改动</a></li>
+<li><a href="#%E4%BD%95%E6%97%B6%E4%B8%8D%E8%AF%A5%E9%87%8D%E6%9E%84">何时不该重构</a></li>
+<li><a href="#%E9%87%8D%E6%9E%84%E4%B8%8E%E8%AE%BE%E8%AE%A1">重构与设计</a>
+<ul>
+<li><a href="#%E5%8A%B3%E8%80%8C%E6%97%A0%E8%8E%B7">劳而无获</a></li>
+</ul>
+</li>
+<li><a href="#%E9%87%8D%E6%9E%84%E4%B8%8E%E6%80%A7%E8%83%BD">重构与性能</a></li>
+<li><a href="#%E9%87%8D%E6%9E%84%E7%9A%84%E8%B5%B7%E6%BA%90">重构的起源</a></li>
+<li><a href="#%E5%9D%8F%E4%BB%A3%E7%A0%81%E7%9A%84%E5%91%B3%E9%81%93">坏代码的“味道”</a>
+<ul>
+<li><a href="#%E9%87%8D%E5%A4%8D%E4%BB%A3%E7%A0%81">重复代码</a></li>
+<li><a href="#%E8%BF%87%E5%A4%A7%E7%9A%84%E7%B1%BB">过大的类</a></li>
+<li><a href="#%E8%BF%87%E9%95%BF%E7%9A%84%E6%96%B9%E6%B3%95">过长的方法</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+      </div>
+    </div>
+
+    <!-- Back to top -->
+    <div class="fixed right-0 bottom-0 mb-4 mr-4 shadow w-8 h-8 rounded-full flex justify-center items-center z-10 cursor-pointer bg-white hover:shadow-lg transition-all dark:bg-gray-500 dark:text-gray-200" @click="backToUp" v-show="scrolled">
+      <i class="ri-arrow-up-line"></i>
+    </div>
+  </div>
+
+  <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+  <!-- Background of PhotoSwipe. 
+        It's a separate element as animating opacity is faster than rgba(). -->
+  <div class="pswp__bg">
+  </div>
+  <!-- Slides wrapper with overflow:hidden. -->
+  <div class="pswp__scroll-wrap">
+    <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+    <div class="pswp__container">
+      <div class="pswp__item">
+      </div>
+      <div class="pswp__item">
+      </div>
+      <div class="pswp__item">
+      </div>
+    </div>
+    <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+    <div class="pswp__ui pswp__ui--hidden">
+      <div class="pswp__top-bar">
+        <!--  Controls are self-explanatory. Order can be changed. -->
+        <div class="pswp__counter">
+        </div>
+        <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+        <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+        <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+        <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+        <!-- element will get class pswp__preloader--active when preloader is running -->
+        <div class="pswp__preloader">
+          <div class="pswp__preloader__icn">
+            <div class="pswp__preloader__cut">
+              <div class="pswp__preloader__donut">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+        <div class="pswp__share-tooltip">
+        </div>
+      </div>
+      <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+      </button>
+      <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+      </button>
+      <div class="pswp__caption">
+        <div class="pswp__caption__center">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="https://yangspica27.github.io//media/scripts/main.js"></script>
+  
+  <!-- Code Highlight -->
+  
+    <script src="https://yangspica27.github.io//media/prism.js"></script>
+    <script>
+      Prism.highlightAll()
+    </script>
+  
+
+  <script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+  <script>
+    //拿到预览框架，也就是上面的html代码
+    var pswpElement = document.querySelectorAll('.pswp')[0];
+    //定义图片数组变量
+    var imgitems;
+    /**
+    * 用于显示预览界面
+    * @param index 图片数组下标
+    */
+    function viewImg(index) {
+      //其它选项这里不做过多阐述，详情见官网
+      var pswpoptions = {
+        index: parseInt(index, 10), // 开始幻灯片索引。0是第一张幻灯片。必须是整数，而不是字符串。
+        bgOpacity: 0.7, // 背景透明度，0-1
+        maxSpreadZoom: 3, // 缩放级别，不要太大
+      };
+      //初始化并打开PhotoSwipe，pswpElement对应上面预览框架，PhotoSwipeUI_Default为皮肤，imgitems为图片数组，pswpoptions为选项
+      var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, imgitems, pswpoptions);
+      gallery.init()
+    }
+    /**
+    * 用于添加图片点击事件
+    * @param img 图片元素
+    * @param index 所属下标（在imgitems中的位置）
+    */
+    function addImgClick(img, index) {
+      img.onclick = function() {
+        viewImg(index)
+      }
+    }
+    /**
+    * 轮询所有图片，获取src、width、height等数据，加入imgitems，并给图片元素添加事件
+    * 最好在onload中执行该方法，本站因放在最底部，所以直接初始化
+    * 异步加载图片可在图片元素创建完成后调用此方法
+    */
+    function initImg() {
+      //重置图片数组
+      imgitems = [];
+      //查找class:markdown 下的所有img元素并遍历
+      var imgs = document.querySelectorAll('.markdown img');
+      for (var i = 0; i < imgs.length; i++) {
+        var img = imgs[i];
+        //本站相册初始为loading图片，真实图片放在data-src
+        var ds = img.getAttribute("data-src");
+        //创建image对象，用于获取图片宽高
+        var imgtemp = new Image();
+        //判断是否存在data-src
+        if (ds != null && ds.length > 0) {
+          imgtemp.src = ds
+        } else {
+          imgtemp.src = img.src
+        }
+        //判断是否存在缓存
+        if (imgtemp.complete) {
+          var imgobj = {
+            "src": imgtemp.src,
+            "w": imgtemp.width,
+            "h": imgtemp.height,
+          };
+          imgitems[i] = imgobj;
+          addImgClick(img, i);
+        } else {
+          console.log('进来了2')
+          imgtemp.index = i;
+          imgtemp.img = img;
+          imgtemp.onload = function() {
+            var imgobj = {
+              "src": this.src,
+              "w": this.width,
+              "h": this.height,
+            };
+            //不要使用push，因为onload前后顺序会不同
+            imgitems[this.index] = imgobj
+            //添加点击事件
+            addImgClick(this.img, this.index);
+          }
+        }
+      }
+    }
+    //初始化
+    initImg();
+  </script>
+</body>
+
+</html>
