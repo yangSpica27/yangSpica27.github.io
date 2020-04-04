@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://yangspica27.github.io/</id>
     <title>Spica 27&apos;S Room</title>
-    <updated>2020-04-04T04:33:11.604Z</updated>
+    <updated>2020-04-04T05:01:44.932Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://yangspica27.github.io/"/>
     <link rel="self" href="https://yangspica27.github.io/atom.xml"/>
@@ -857,6 +857,79 @@ print().then(e =&gt; console.log(e));   //1
 <li>await 命令只能用在 async 函数之中，如果用在普通函数，就会报错。</li>
 <li>await 只能使用在原生语法中，比如在 forEeach 结构中使用 await 是无法正常工作的，必须使用 for 循环的原生语法。</li>
 </ol>
+<p>#2020/4/4</p>
+<h2 id="vue的路由">Vue的路由</h2>
+<h3 id="js-中配置路由">js 中配置路由</h3>
+<pre><code class="language-javascript">const routes = [
+  { path: '/home', component: Home },
+  { path: '/about', component: About }
+]
+</code></pre>
+<ul>
+<li>创建router 对路由进行管理，它是由构造函数 new vueRouter() 创建，接受routes 参数</li>
+</ul>
+<pre><code class="language-javascript">const router = new VueRouter({
+      routes // routes: routes 的简写
+})
+</code></pre>
+<ul>
+<li>router 实例注入到 vue 根实例中</li>
+</ul>
+<pre><code class="language-javascript">const app = new Vue({
+  router
+}).$mount('#app')
+</code></pre>
+<h3 id="命名路由">命名路由</h3>
+<p>给user 路由加一个name 属性</p>
+<pre><code class="language-javascript">{
+        path: &quot;/user/:id&quot;,
+        name: &quot;user&quot;,
+        component: user
+}
+</code></pre>
+<h3 id="嵌套路由">嵌套路由</h3>
+<p>在home页面上定义三个router-link 标签用于导航，然后再定义一个router-view标签，用于渲染对应的组件。router-link 和router-view 标签要一一对应。home.vue 组件修改如下</p>
+<pre><code class="language-javascript">const routes = [
+    {
+        path:&quot;/home&quot;,
+
+　　　　　// 下面这个属性也不少，因为，我们是先进入home页面，才能进入子路由
+        component: home,
+
+　　　　 // 子路由
+        children: [
+            {
+                path: &quot;phone&quot;,
+                component: phone
+            },
+            {
+                path: &quot;tablet&quot;,
+                component: tablet
+            },
+            {
+                path: &quot;computer&quot;,
+                component: computer
+            }
+        ]
+    },
+    {
+        path: &quot;/about&quot;,
+        component: about
+    },
+    {
+        path: &quot;/user/:id&quot;,
+        component: user
+    },
+    {
+        path: '/', 
+        redirect: '/home' 
+    }
+]
+</code></pre>
+<h3 id="编程式导航">编程式导航：</h3>
+<p>调用rourter.push() 方法。 当们把router 注入到根实例中后，组件中通过 this.$router 可以获取到router</p>
+<pre><code class="language-javascript">this.$router.push(&quot;home&quot;)
+</code></pre>
 ]]></content>
     </entry>
     <entry>
