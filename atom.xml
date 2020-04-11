@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://yangspica27.github.io/</id>
     <title>Spica 27&apos;S Room</title>
-    <updated>2020-04-04T11:53:32.911Z</updated>
+    <updated>2020-04-11T10:12:33.011Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://yangspica27.github.io/"/>
     <link rel="self" href="https://yangspica27.github.io/atom.xml"/>
@@ -10,6 +10,109 @@
     <logo>https://yangspica27.github.io/images/avatar.png</logo>
     <icon>https://yangspica27.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, Spica 27&apos;S Room</rights>
+    <entry>
+        <title type="html"><![CDATA[重构手法之Extract Method（提炼函数）]]></title>
+        <id>https://yangspica27.github.io/post/chong-gou-shou-fa-zhi-extract-methodti-lian-han-shu/</id>
+        <link href="https://yangspica27.github.io/post/chong-gou-shou-fa-zhi-extract-methodti-lian-han-shu/">
+        </link>
+        <updated>2020-04-11T08:49:28.000Z</updated>
+        <content type="html"><![CDATA[<p>提炼函数是最常用的重构手法之一。<br>
+常用于以下场景：</p>
+<ol>
+<li>函数过长</li>
+<li>逻辑过于复杂，让人无法直接理解其意图<br>
+要点：</li>
+<li>处理临时变量<br>
+用查询代替临时变量本身<br>
+太过复杂的时候，使用“Replaca Method With Method Object”</li>
+<li>处理参数</li>
+</ol>
+<ul>
+<li>
+<p>不要在函数内赋值，如果这样子做了，请使用“Remove Assignments to Parameters”，逻辑清晰后，可以进一步优化算法。</p>
+</li>
+<li>
+<p>实现方式</p>
+</li>
+</ul>
+<ol>
+<li>以该处的作用为这个新函数命名（如果想不出名字，请不要动它）</li>
+<li>检查有无作用域仅存原函数的变量</li>
+<li>检查有无“仅用于被提炼代码段的”临时变量，在目标函数中声明为临时变量。</li>
+<li>如果代码段中有局部函数被赋值了，尝试将新函数处理为一个查询函数，在流程结束之后Return给局部变量。</li>
+</ol>
+<ul>
+<li>修改前</li>
+</ul>
+<pre><code class="language-java">public static void main(String[] args) {
+    BookDaoImpl bookDao = new BookDaoImpl();
+    List&lt;Book&gt; books = bookDao.getAllBook();
+    for (Book book : books) {
+      System.out.println(&quot;输出信息:&quot;);
+      System.out.println(&quot;bookName:&quot; + book.getBookName());
+      System.out.println(&quot;bookNum:&quot; + book.getBookName());
+    }
+  }
+</code></pre>
+<ul>
+<li>修改后</li>
+</ul>
+<pre><code class="language-java">public class Main {
+
+  public static void main(String[] args) {
+    BookDaoImpl bookDao = new BookDaoImpl();
+    List&lt;Book&gt; books = bookDao.getAllBook();
+    for (Book book : books) {
+      Main main = new Main();
+      main.printBookDetail(book);
+    }
+  }
+
+  public void printBookDetail(Book book) {
+    System.out.println(&quot;输出信息:&quot;);
+    System.out.println(&quot;bookName:&quot; + book.getBookName());
+    System.out.println(&quot;bookNum:&quot; + book.getBookName());
+  }
+}
+</code></pre>
+<p>有赋值的情况</p>
+<ul>
+<li>修改前</li>
+</ul>
+<pre><code class="language-java">public static void main(String[] args) {
+    BookDaoImpl bookDao = new BookDaoImpl();
+    List&lt;Book&gt; books = bookDao.getAllBook();
+    double allPrice = 0;
+    for (Book book : books) {
+      allPrice += book.getPrice();
+    }
+  }
+</code></pre>
+<ul>
+<li>修改后</li>
+</ul>
+<pre><code class="language-java">public class Main {
+
+  public static void main(String[] args) {
+    BookDaoImpl bookDao = new BookDaoImpl();
+    Main main = new Main();
+    double allPrice = 0;
+    allPrice = main.getAllPrice(bookDao);
+  }
+
+
+  double getAllPrice(BookDao bookDao) {
+    List&lt;Book&gt; books = bookDao.getAllBook();
+    double out = 0;
+    for (Book book : books) {
+      out += book.getPrice();
+    }
+    return out;
+  }
+}
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[重构]]></title>
         <id>https://yangspica27.github.io/post/chong-gou/</id>
@@ -63,7 +166,7 @@
 </li>
 <li>对比事前设计的优势：<em>小心翼翼的事前设计</em>让整个系统的完成之前就拥有了极高的质量，程序员只需要讲代码塞进整个强健的模板/骨架就可以了，但也有非常大的隐患：<strong>太容易猜错</strong>，理解上的错误会导致全盘的错误，但重构永远面临全盘出错的风险。程序从始至终都是能保持一致的。</li>
 </ul>
-<p>##重构的难题</p>
+<h2 id="重构的难题">重构的难题</h2>
 <h3 id="数据库">数据库</h3>
 <p>难点：程序与背后的数据库过分耦合在一起<br>
 解决方法：在对象模型和数据库模型中插入一个分层。<br>
@@ -134,7 +237,51 @@
 <li>条件表达式和循环也是可提炼的信号</li>
 </ol>
 <h3 id="过大的类">过大的类</h3>
-<h3 id="过长的方法">过长的方法</h3>
+<p>导致原因：试图使用单个类做太多的事情<br>
+解决方案：可以运用“Extract Class”将几个变量存到一个新类中去，如果变量中的词缀和词头有所重叠，尝试用“Extract SubClass”提炼到某个组件或者子类之中。<br>
+小技巧：可以先确定客户端如何使用他们，之后运用“Extract interface”为每种方式提供一个接口，这可以帮助分解这个类。</p>
+<h3 id="过长的参数列">过长的参数列</h3>
+<p>如果可以香已存在的对象（这个对象代表另一个参数，或者class对象）发送请求就能获取到这个参数，可以使用“Replace Parameter with Method”重构，也可以将这些参数封装为一个“参数对象”，以参数对象代替过长的参数列。<br>
+如果不希望对象与大对象之间发生依赖关系，那就该考虑结构是否合理了。</p>
+<h3 id="发散式的变化">发散式的变化</h3>
+<p>解释：某个类常常因为各种原因在不同的方向上产生不同的变化，不利于修改<br>
+针对某一外界变化的所有对应的修改，都应该发生在单一类中，而这个新类的所有内容都反应这个变化。<br>
+解决方案：找出特定原因下的所有变化，然后使用“Extract Class”将他们提取到另一个类中。</p>
+<h3 id="发散式的修改">发散式的修改</h3>
+<p>情景：遇到某种情况，都必须在许多不同的类中做小修改。这回导致代码四散在各处，导致遗漏需要修改的地方。<br>
+解决方案：这种情况下，应该使用“Move Method”和“Move Fileld”将所有需要修改的代码放进同一个类<br>
+<em><strong>上面两种情况目的都是为了让外界的变化和变动的类 一一对应</strong></em></p>
+<h3 id="依恋情结">依恋情结</h3>
+<p>情景：一个函数从另一个类中调用大量的值/一个函数用到了许多类的内容<br>
+解决方案：使用“Move Method”将函数提取到它该去的地方，如果只是函数中的一部分需要这种依恋关系，可以使用“Extract Method”提炼到独立函数中，在使用“Move Method”。</p>
+<h3 id="数据泥团">数据泥团</h3>
+<p>删除数据项中大量数据中的其中一个，如果其他数据因此失去意义，可以考虑为他们创建一个新对象。</p>
+<h3 id="primitive-obsession基本类型偏执">Primitive Obsession（基本类型偏执）</h3>
+<p>尝试使用一些小对象代替传统的基本类型</p>
+<h3 id="switch的惊悚现身">Switch的惊悚现身</h3>
+<p>少用switch语句<br>
+尝试使用多态来代替它，如果是在单一函数之中，可以使用“Replace Parameter with Explicit Method”，如果选择条件含null，试试看“Introduce Null Object”。</p>
+<h3 id="平行继承体系">平行继承体系</h3>
+<p>情景：某个类是另一个类的特殊情况<br>
+导致的问题：你更改一个类的时候，必须也对另一个类做对应的修改<br>
+如何消除：让一个继承体系的实例去引用另一个继承体系的实例</p>
+<h3 id="lazy-class">Lazy Class</h3>
+<p>某些子类没有做足够的工作，使用“Collapse Hierarchy”<br>
+对于几乎没用的组件，使用“Inline Class”对付他们</p>
+<h3 id="夸夸其谈的未来性">夸夸其谈的未来性</h3>
+<p>情景：为了将来“可能需要处理”的某个事情，而用各种各样的钩子，特殊情况来处理。<br>
+某个抽象类其实并没有太大作用<br>
+解决方案：一刀删掉</p>
+<h3 id="令人迷惑的暂时字段">令人迷惑的暂时字段</h3>
+<h3 id="过度耦合的消息链">过度耦合的消息链</h3>
+<h3 id="中间人">中间人</h3>
+<h3 id="过于亲密的关系">过于亲密的关系</h3>
+<h3 id="异曲同工的类">异曲同工的类</h3>
+<h3 id="不完美的类库">不完美的类库</h3>
+<h3 id="纯稚的数据类">纯稚的数据类</h3>
+<h3 id="被拒绝的遗赠">被拒绝的遗赠</h3>
+<h3 id="过多的注释">过多的注释</h3>
+<h2 id="重新组织函数">重新组织函数</h2>
 ]]></content>
     </entry>
     <entry>
@@ -1990,6 +2137,52 @@ public class MyAspect3 {
 }
 
 </code></pre>
+<h1 id="202047">2020/4/7</h1>
+<h2 id="mybatis">Mybatis</h2>
+<ul>
+<li>
+<p>整体架构<br>
+<img src="https://yangspica27.github.io//post-images/1586249817500.png" alt="" loading="lazy"></p>
+</li>
+<li>
+<p>依赖</p>
+</li>
+</ul>
+<pre><code class="language-xml">     &lt;dependency&gt;
+            &lt;groupId&gt;org.mybatis.spring.boot&lt;/groupId&gt;
+            &lt;artifactId&gt;mybatis-spring-boot-starter&lt;/artifactId&gt;
+            &lt;version&gt;2.1.2&lt;/version&gt;
+    &lt;/dependency&gt;
+</code></pre>
+<ul>
+<li>Mapper示例</li>
+</ul>
+<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;
+&lt;!DOCTYPE mapper
+  PUBLIC &quot;-//mybatis.org//DTD Mapper 3.0//EN&quot;
+  &quot;http://mybatis.org/dtd/mybatis-3-mapper.dtd&quot;&gt;
+&lt;!-- mapper:根标签，namespace：命名空间，随便写，一般保证命名空间唯一 --&gt;
+&lt;mapper namespace=&quot;MyMapper&quot;&gt;
+   &lt;!-- statement，内容：sql语句。id：唯一标识，随便写，在同一个命名空间下保持唯一
+      resultType：sql语句查询结果集的封装类型,tb_message即为数据库中的表
+    --&gt;
+   &lt;select id=&quot;selectById&quot; resultType=&quot;com.example.mybatisdemo.entity.Message&quot;&gt;
+      select * from tb_message where id = #{id}
+   &lt;/select&gt;
+&lt;/mapper&gt;
+</code></pre>
+<ul>
+<li>一些常规配置</li>
+</ul>
+<pre><code class="language-properties">##开启驼峰命名
+mybatis.configuration.map-underscore-to-camel-case=true
+## 配置文件地址
+mybatis.config-location=classpath:mybatis/mybatis-config.xml
+## mapper地址
+mybatis.mapper-locations=classpath:mybatis/mapper/*.xml
+##扫描的pojo地址
+mybatis.type-aliases-package=com.example.mybatisdemo.entity
+</code></pre>
 ]]></content>
     </entry>
     <entry>
@@ -2735,143 +2928,6 @@ Body格式：<br>
 <ul>
 <li>正确的使用Http</li>
 </ul>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[如何自定义一个简单的自动换行的TagLayout布局]]></title>
-        <id>https://yangspica27.github.io/post/ru-he-zi-ding-yi-yi-ge-jian-dan-de-zi-dong-huan-xing-de-taglayout-bu-ju/</id>
-        <link href="https://yangspica27.github.io/post/ru-he-zi-ding-yi-yi-ge-jian-dan-de-zi-dong-huan-xing-de-taglayout-bu-ju/">
-        </link>
-        <updated>2020-02-10T13:21:11.000Z</updated>
-        <content type="html"><![CDATA[<figure data-type="image" tabindex="1"><img src="https://yangspica27.github.io//post-images/1581341006296.png" alt="" loading="lazy"></figure>
-<h1 id="先上完整代码">先上完整代码：</h1>
-<pre><code class="language-java">public class TagLayout extends ViewGroup {
-
-  List&lt;Rect&gt; childrenBounds = new ArrayList&lt;&gt;();
-
-  public TagLayout(Context context, AttributeSet attrs) {
-    super(context, attrs);
-  }
-
-  @Override
-  protected void onLayout(boolean changed, int l, int t, int r, int b) {
-    for (int i = 0; i &lt; getChildCount(); i++) {
-      View child = getChildAt(i);
-      Rect childBound = childrenBounds.get(i);
-      child.layout(childBound.left, childBound.top, childBound.right, childBound.bottom);
-    }
-  }
-
-  @Override
-  protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-    super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-
-    int lineMaxWidth = 0;
-    int heightUse = 0;
-    int widthUse = 0;
-    int lineMaxHeight = 0;
-
-    int specMode=MeasureSpec.getMode(widthMeasureSpec);
-
-    int specWidth = MeasureSpec.getSize(widthMeasureSpec);
-
-    for (int i = 0; i &lt; getChildCount(); i++) {
-      View child = getChildAt(i);
-
-      measureChildWithMargins(child, widthMeasureSpec, 0, heightMeasureSpec, heightUse);
-
-      if (specMode!=MeasureSpec.UNSPECIFIED&amp;&amp;widthUse + child.getMeasuredWidth() &gt; specWidth) {
-        // 另起一行
-        widthUse = 0;
-        heightUse += lineMaxHeight;
-        lineMaxHeight=0;
-        measureChildWithMargins(child, widthMeasureSpec, 0, heightMeasureSpec, heightUse);
-      }
-
-      Rect childBound;
-      if (childrenBounds.size() &lt;= i) {
-        childBound = new Rect();
-        childrenBounds.add(childBound);
-      } else {
-        childBound = childrenBounds.get(i);
-      }
-
-      childBound.set(
-          widthUse,
-          heightUse,
-          widthUse + getMeasuredWidth(),
-          heightUse + getMeasuredHeight());
-
-      widthUse += child.getMeasuredWidth();
-      lineMaxWidth = Math.max(lineMaxWidth, widthUse);
-      lineMaxHeight = Math.max(lineMaxHeight, child.getMeasuredHeight());
-    }
-
-    int width = lineMaxWidth;
-    int height = lineMaxHeight+heightUse;
-    setMeasuredDimension(width, height);
-  }
-
-  @Override
-  public LayoutParams generateLayoutParams(AttributeSet attrs) {
-    return new MarginLayoutParams(getContext(), attrs);
-  }
-}
-
-
-</code></pre>
-<h2 id="准备工作">准备工作</h2>
-<p>定义一个容器来存储子View的位置信息：</p>
-<pre><code class="language-java">  List&lt;Rect&gt; childrenBounds = new ArrayList&lt;&gt;();
-</code></pre>
-<h2 id="先从onmeasure阶段开始">先从onMeasure（）阶段开始</h2>
-<h3 id="定义了四个量">定义了四个量：</h3>
-<pre><code class="language-java">    int widthUse = 0;//使用了多少宽度
-    int heightUse = 0;//使用了多少高度
-    int lineMaxWidth = 0; //当前最大宽度
-    int lineMaxHeight = 0;//当前最大高度
-</code></pre>
-<p>这个布局是个横向排列的过程，我们用一个<code>widthUse</code>来记录当前行横向使用的宽度，则计算下个子View位置时候，只需在此基础上累加即可。<br>
-而<code>lineMaxHeight</code>用来记录当前行的子View中的最大高度，当换行时候传递给<code>heightUse</code>，使下一阶段的子View添加下沉高度。</p>
-<h3 id="这段代码是什么意义">这段代码是什么意义：</h3>
-<pre><code class="language-java">   measureChildWithMargins(child, widthMeasureSpec, 0, heightMeasureSpec, heightUse);
-</code></pre>
-<p>这其实是安卓帮我们做了一个自动计算的过程：</p>
-<pre><code class="language-java">    LayoutParams layoutParams = child.getLayoutParams();
-
-      int specWidthMode = MeasureSpec.getMode(widthMeasureSpec);
-      int specWidthSize = MeasureSpec.getSize(widthMeasureSpec);
-
-      int childWidthMode;
-      int childWidthSize;
-
-      switch (layoutParams.width) {
-        case LayoutParams.MATCH_PARENT:
-          switch (specWidthMode) {
-            case MeasureSpec.EXACTLY:
-            case MeasureSpec.AT_MOST:
-              childWidthMode = MeasureSpec.EXACTLY;
-              childWidthSize = specWidthSize - useWidth;
-              break;
-            case MeasureSpec.UNSPECIFIED:
-              childWidthMode = MeasureSpec.UNSPECIFIED;
-              childWidthSize = 0;
-              break;
-          }
-          break;
-        case LayoutParams.WRAP_CONTENT:
-          break;
-      }
-</code></pre>
-<p>可以类比为如上的代码，根据开发者传入的参数类型进行数值的自动适配</p>
-<h2 id="onlayout阶段">onLayout()阶段</h2>
-<p>循环设置布局参数</p>
-<pre><code class="language-java">    for (int i = 0; i &lt; getChildCount(); i++) {
-      View child = getChildAt(i);
-      Rect childBound = childrenBounds.get(i);
-      child.layout(childBound.left, childBound.top, childBound.right, childBound.bottom);
-    }
-</code></pre>
 ]]></content>
     </entry>
 </feed>

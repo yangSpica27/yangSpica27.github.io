@@ -80,7 +80,7 @@ pom文件依赖...">
           <img src="https://yangspica27.github.io//post-images/hou-duan-kuang-jia-ji-zhu-xue-xi-bi-ji.jpg" alt="后端框架技术学习笔记" class="block w-full mb-8">
         
         <div class="mb-8 flex flex-wrap">
-          <div class="text-gray-400 text-sm mr-4">2020-03-08 · 17 min read</div>
+          <div class="text-gray-400 text-sm mr-4">2020-03-08 · 18 min read</div>
           
             <a href="https://yangspica27.github.io/tag/wwFyOEy1b/" class="text-gray-700 text-sm border-b-2 border-dotted border-gray-200 hover:border-gray-600 transition-all duration-100 inline-flex mr-2">
               <i class="ri-hashtag"></i>
@@ -745,6 +745,52 @@ public class MyAspect3 {
 }
 
 </code></pre>
+<h1 id="202047">2020/4/7</h1>
+<h2 id="mybatis">Mybatis</h2>
+<ul>
+<li>
+<p>整体架构<br>
+<img src="https://yangspica27.github.io//post-images/1586249817500.png" alt="" loading="lazy"></p>
+</li>
+<li>
+<p>依赖</p>
+</li>
+</ul>
+<pre><code class="language-xml">     &lt;dependency&gt;
+            &lt;groupId&gt;org.mybatis.spring.boot&lt;/groupId&gt;
+            &lt;artifactId&gt;mybatis-spring-boot-starter&lt;/artifactId&gt;
+            &lt;version&gt;2.1.2&lt;/version&gt;
+    &lt;/dependency&gt;
+</code></pre>
+<ul>
+<li>Mapper示例</li>
+</ul>
+<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;
+&lt;!DOCTYPE mapper
+  PUBLIC &quot;-//mybatis.org//DTD Mapper 3.0//EN&quot;
+  &quot;http://mybatis.org/dtd/mybatis-3-mapper.dtd&quot;&gt;
+&lt;!-- mapper:根标签，namespace：命名空间，随便写，一般保证命名空间唯一 --&gt;
+&lt;mapper namespace=&quot;MyMapper&quot;&gt;
+   &lt;!-- statement，内容：sql语句。id：唯一标识，随便写，在同一个命名空间下保持唯一
+      resultType：sql语句查询结果集的封装类型,tb_message即为数据库中的表
+    --&gt;
+   &lt;select id=&quot;selectById&quot; resultType=&quot;com.example.mybatisdemo.entity.Message&quot;&gt;
+      select * from tb_message where id = #{id}
+   &lt;/select&gt;
+&lt;/mapper&gt;
+</code></pre>
+<ul>
+<li>一些常规配置</li>
+</ul>
+<pre><code class="language-properties">##开启驼峰命名
+mybatis.configuration.map-underscore-to-camel-case=true
+## 配置文件地址
+mybatis.config-location=classpath:mybatis/mybatis-config.xml
+## mapper地址
+mybatis.mapper-locations=classpath:mybatis/mapper/*.xml
+##扫描的pojo地址
+mybatis.type-aliases-package=com.example.mybatisdemo.entity
+</code></pre>
 
         </div>
         <!-- Share to Twitter, Weibo, Telegram -->
@@ -865,6 +911,11 @@ public class MyAspect3 {
 <li><a href="#aspect">Aspect</a></li>
 </ul>
 </li>
+</ul>
+</li>
+<li><a href="#202047">2020/4/7</a>
+<ul>
+<li><a href="#mybatis">Mybatis</a></li>
 </ul>
 </li>
 </ul>
