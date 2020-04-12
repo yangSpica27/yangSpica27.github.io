@@ -72,7 +72,7 @@ Vue
         </h1>
         
         <div class="mb-8 flex flex-wrap">
-          <div class="text-gray-400 text-sm mr-4">2020-03-12 · 23 min read</div>
+          <div class="text-gray-400 text-sm mr-4">2020-03-12 · 24 min read</div>
           
         </div>
         <div class="markdown mb-8" v-pre>
@@ -886,6 +886,49 @@ print().then(e =&gt; console.log(e));   //1
 <p>调用rourter.push() 方法。 当们把router 注入到根实例中后，组件中通过 this.$router 可以获取到router</p>
 <pre><code class="language-javascript">this.$router.push(&quot;home&quot;)
 </code></pre>
+<h3 id="状态管理">状态管理</h3>
+<p>在大型应用中，状态管理常常变得复杂，因为状态分散在许多组件内。常常忽略 Vue.js 应用的来源是原生的数据对象—— Vue 实例代理访问它。因此，如果一个状态要被多个实例共享，应避免复制它：</p>
+<pre><code class="language-javascript">var sourceOfTruth = {}
+
+var vmA = new Vue({
+  data: sourceOfTruth
+})
+
+var vmB = new Vue({
+  data: sourceOfTruth
+})
+</code></pre>
+<p>现在每当<code>sourceOfTruth</code>被修改后，<code>vmA</code>与<code>vmB</code> 将自动更新它们的视图。扩展这个思路，我们可以实现 store 模式：</p>
+<pre><code class="language-javascript">var store = {
+  state: {
+    message: 'Hello!'
+  },
+  actionA: function () {
+    this.state.message = 'action A triggered'
+  },
+  actionB: function () {
+    this.state.message = 'action B triggered'
+  }
+}
+
+var vmA = new Vue({
+  data: {
+    privateState: {},
+    sharedState: store.state
+  }
+})
+
+var vmB = new Vue({
+  data: {
+    privateState: {},
+    sharedState: store.state
+  }
+})
+</code></pre>
+<p>我们把所有的 action 放在 store 内，action 修改 store 的状态。集中管理状态更易于理解状态将怎样变化。组件仍然可以拥有和管理它的私有状态。<br>
+<img src="https://yangspica27.github.io//post-images/1586655507102.png" alt="" loading="lazy"><br>
+有一点要注意，不要在 action 中替换原始的状态对象——为了观察到变化，组件和 store 需要共享这个对象。<br>
+如果我们约定，组件不可以直接修改 store 的状态，而应当派发事件，通知 store 执行 action，那么我们基本上实现了 Flux 架构。此约定的好处是，我们能记录 store 所有的状态变化，并且在此之上实现高级的调试帮助函数，如修改日志，快照，历史回滚等。</p>
 
         </div>
         <!-- Share to Twitter, Weibo, Telegram -->
@@ -995,6 +1038,7 @@ print().then(e =&gt; console.log(e));   //1
 <li><a href="#%E5%91%BD%E5%90%8D%E8%B7%AF%E7%94%B1">命名路由</a></li>
 <li><a href="#%E5%B5%8C%E5%A5%97%E8%B7%AF%E7%94%B1">嵌套路由</a></li>
 <li><a href="#%E7%BC%96%E7%A8%8B%E5%BC%8F%E5%AF%BC%E8%88%AA">编程式导航：</a></li>
+<li><a href="#%E7%8A%B6%E6%80%81%E7%AE%A1%E7%90%86">状态管理</a></li>
 </ul>
 </li>
 </ul>
