@@ -135,7 +135,7 @@
     
   </div>
   <div class="md:mx-8 flex-shrink-0 self-start rounded-full border-4 border-dotted border-transparent hover:border-yellow-50 p-2 w-32 h-32 order-1 md:order-2 mx-auto s3-dotted">
-    <img class="rounded-full object-cover" src="https://yangspica27.github.io//images/avatar.png?v=1586655510305" alt="Spica 27&#39;S Room" width="100%" height="100%">
+    <img class="rounded-full object-cover" src="https://yangspica27.github.io//images/avatar.png?v=1587376392646" alt="Spica 27&#39;S Room" width="100%" height="100%">
   </div>
 </header>
       
@@ -171,6 +171,57 @@ pom文件依赖...
     </div>
     
       <img class="flex-shrink-0 self-start md:ml-4 mb-4 md:mb-0 rounded-sm object-cover featured-img order-1 md:order-2 w-full h-40 md:w-56 md:h-32" loading="lazy" src="https://yangspica27.github.io//post-images/hou-duan-kuang-jia-ji-zhu-xue-xi-bi-ji.jpg" alt="后端框架技术学习笔记">
+    
+  </div>
+
+  <div class="p-8 border-b border-gray-200 dark:border-gray-700 flex relative overflow-hidden flex-col md:flex-row animated fadeIn">
+    
+    <div class="flex-1 order-2 md:order-1">
+      <h2 class="text-2xl font-semibold mb-4">
+        <a href="https://yangspica27.github.io/post/chong-gou-shou-fa-zhi-nei-lian-lin-shi-bian-liang-inline-temp/" class="text-gray-700 dark:text-gray-200 border-b-2 border-dotted border-gray-200 dark:border-gray-400 dark:hover:border-gray-200 hover:border-gray-600 transition-all duration-100">
+          重构手法之内联临时变量（Inline Temp）
+        </a>
+      </h2>
+      <div class="mb-4 text-xs text-gray-500">2020-04-20</div>
+      <div class="mb-4 text-gray-500 dark:text-gray-300">
+        问题场景：
+一个变量仅仅被赋值了一次，且妨碍了其他重构手法
+问题代码：
+double  basePrice = order.getPrice();
+return (basePrice &gt; 1000)
+
+使用场景:
+
+作为“Replac...
+      </div>
+      <a href="https://yangspica27.github.io/post/chong-gou-shou-fa-zhi-nei-lian-lin-shi-bian-liang-inline-temp/" class="btn">
+        阅读全文
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="p-8 border-b border-gray-200 dark:border-gray-700 flex relative overflow-hidden flex-col md:flex-row animated fadeIn">
+    
+    <div class="flex-1 order-2 md:order-1">
+      <h2 class="text-2xl font-semibold mb-4">
+        <a href="https://yangspica27.github.io/post/chong-gou-shou-fa-zhi-nei-lian-han-shu-inline-method/" class="text-gray-700 dark:text-gray-200 border-b-2 border-dotted border-gray-200 dark:border-gray-400 dark:hover:border-gray-200 hover:border-gray-600 transition-all duration-100">
+          重构手法之内联函数（InLine Method）
+        </a>
+      </h2>
+      <div class="mb-4 text-xs text-gray-500">2020-04-14</div>
+      <div class="mb-4 text-gray-500 dark:text-gray-300">
+        我们先来看一个栗子：
+  //根据是否及格获取最后加的学分
+  int getLastRating(int rate) {
+    return (isQualified(rate)) ? 2 : 1;
+  }
+  //根据考试成绩判断是否...
+      </div>
+      <a href="https://yangspica27.github.io/post/chong-gou-shou-fa-zhi-nei-lian-han-shu-inline-method/" class="btn">
+        阅读全文
+      </a>
+    </div>
     
   </div>
 
@@ -354,67 +405,6 @@ var声明可以重复声明 重新定义 属于当前的函数
       @Ov...
       </div>
       <a href="https://yangspica27.github.io/post/jin-cheng-he-xian-cheng-xue-xi-bi-ji/" class="btn">
-        阅读全文
-      </a>
-    </div>
-    
-  </div>
-
-  <div class="p-8 border-b border-gray-200 dark:border-gray-700 flex relative overflow-hidden flex-col md:flex-row animated fadeIn">
-    
-    <div class="flex-1 order-2 md:order-1">
-      <h2 class="text-2xl font-semibold mb-4">
-        <a href="https://yangspica27.github.io/post/http-xue-xi-bi-ji-2/" class="text-gray-700 dark:text-gray-200 border-b-2 border-dotted border-gray-200 dark:border-gray-400 dark:hover:border-gray-200 hover:border-gray-600 transition-all duration-100">
-          HTTP学习笔记2
-        </a>
-      </h2>
-      <div class="mb-4 text-xs text-gray-500">2020-02-11</div>
-      <div class="mb-4 text-gray-500 dark:text-gray-300">
-        编码，加密，Hash
-加密
-
-对称加密
-
-原理：使用密钥和加密算法对数据进行转换，得到的无意义的数据即为密文。使用密钥和解密算法对密文进行逆向转换，得到原数据。
-经典算法：AES DES
-
-
-非对称加密
-
-原理使用公钥对数据进行加密得到密文...
-      </div>
-      <a href="https://yangspica27.github.io/post/http-xue-xi-bi-ji-2/" class="btn">
-        阅读全文
-      </a>
-    </div>
-    
-  </div>
-
-  <div class="p-8 border-b border-gray-200 dark:border-gray-700 flex relative overflow-hidden flex-col md:flex-row animated fadeIn">
-    
-    <div class="flex-1 order-2 md:order-1">
-      <h2 class="text-2xl font-semibold mb-4">
-        <a href="https://yangspica27.github.io/post/http-xue-xi-bi-ji/" class="text-gray-700 dark:text-gray-200 border-b-2 border-dotted border-gray-200 dark:border-gray-400 dark:hover:border-gray-200 hover:border-gray-600 transition-all duration-100">
-          HTTP 学习笔记1
-        </a>
-      </h2>
-      <div class="mb-4 text-xs text-gray-500">2020-02-11</div>
-      <div class="mb-4 text-gray-500 dark:text-gray-300">
-        HTTP
-
-HyperText Transfer Portocol 超文本传输协议
-
-超文本：在电脑中，显示的含有可以指向其他文本链接的文本
-
-
-
-HTTP的工作方式
-
-
-浏览器--&gt;发送请求--&gt;服务器
-GET/HTTP/1....
-      </div>
-      <a href="https://yangspica27.github.io/post/http-xue-xi-bi-ji/" class="btn">
         阅读全文
       </a>
     </div>
