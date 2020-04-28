@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://yangspica27.github.io/</id>
     <title>Spica 27&apos;S Room</title>
-    <updated>2020-04-20T09:53:41.861Z</updated>
+    <updated>2020-04-28T13:27:29.651Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://yangspica27.github.io/"/>
     <link rel="self" href="https://yangspica27.github.io/atom.xml"/>
@@ -10,6 +10,46 @@
     <logo>https://yangspica27.github.io/images/avatar.png</logo>
     <icon>https://yangspica27.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, Spica 27&apos;S Room</rights>
+    <entry>
+        <title type="html"><![CDATA[Replace Temp With Query（以查询代替临时变量）]]></title>
+        <id>https://yangspica27.github.io/post/replace-temp-with-queryyi-cha-xun-dai-ti-lin-shi-bian-liang/</id>
+        <link href="https://yangspica27.github.io/post/replace-temp-with-queryyi-cha-xun-dai-ti-lin-shi-bian-liang/">
+        </link>
+        <updated>2020-04-28T13:12:42.000Z</updated>
+        <content type="html"><![CDATA[<p>实例：<br>
+原函数：</p>
+<pre><code class="language-java">    double basePrice = price * num;
+    if (basePrice &gt; 1000) {
+      return basePrice * 0.95;
+    } else {
+      return basePrice * 0.98;
+    }
+</code></pre>
+<p>优化后</p>
+<pre><code class="language-java"> double basePrice() {
+    return price * num;
+  }
+
+if (basePrice() &gt; 1000) {
+      return basePrice() * 0.95;
+    } else {
+      return basePrice() * 0.98;
+    }
+</code></pre>
+<p>场景：<br>
+临时变量的问题在于：他们是局部的，且是暂时的，只在该函数内可见。<br>
+更改为查询之后可以被整个类使用。可以方便其他重构手法的使用。</p>
+<p>做法：</p>
+<ol>
+<li>找出只被赋值一次的临时变量</li>
+<li>将该临时变量声明为final</li>
+<li>编译 确定该函数仅被赋值一次</li>
+<li>将赋值过程封装进一个独立函数之中，且声明为私有，日后有需求后可声明为其他</li>
+<li>编译测试</li>
+<li>对该临时变量使用inline Temp.</li>
+</ol>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[重构手法之内联临时变量（Inline Temp）]]></title>
         <id>https://yangspica27.github.io/post/chong-gou-shou-fa-zhi-nei-lian-lin-shi-bian-liang-inline-temp/</id>
@@ -2568,75 +2608,6 @@ mybatis.type-aliases-package=com.example.mybatisdemo.entity
 <h2 id="优化启动逻辑">优化启动逻辑</h2>
 <p>Android 系统更新也会对应用启动速度进行优化，比如上面提到的 Pre-Fork，又比如这里的简化 doFrame 个数<br>
 <img src="https://yangspica27.github.io//post-images/1582000182751.jpg" alt="" loading="lazy"></p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[进程和线程学习笔记]]></title>
-        <id>https://yangspica27.github.io/post/jin-cheng-he-xian-cheng-xue-xi-bi-ji/</id>
-        <link href="https://yangspica27.github.io/post/jin-cheng-he-xian-cheng-xue-xi-bi-ji/">
-        </link>
-        <updated>2020-02-11T11:16:08.000Z</updated>
-        <content type="html"><![CDATA[<h2 id="进程">进程</h2>
-<ul>
-<li>给每个程序提供的独立封闭的环境，里面有各种资源和线程</li>
-</ul>
-<h2 id="区别">区别</h2>
-<ul>
-<li>同进程下的线程可以共享资源，进程之间无法直接共享资源</li>
-</ul>
-<h2 id="使用thread类来定义工作">使用Thread类来定义工作</h2>
-<pre><code class="language-java">    Thread thread=new Thread(){
-      @Override public void run() {
-        super.run();
-        //工作内容
-      }
-    };
-</code></pre>
-<h2 id="使用runable来定义工作">使用Runable来定义工作</h2>
-<pre><code class="language-java">    Runnable runnable =
-        new Runnable() {
-          @Override
-          public void run() {
-
-            while (flag) {}
-          }
-        };
-        Thread thread=new Thread(runnable);
-</code></pre>
-<h2 id="工厂方法">工厂方法</h2>
-<pre><code class="language-java"> ThreadFactory threadFactory=new ThreadFactory() {
-      int count=1;
-      @Override public Thread newThread(@NonNull Runnable r) {
-        count++;
-        return new Thread(r,count+&quot;&quot;);
-      }
-    };
-    
-    Thread thread=threadFactory.newThread(runnable);
-</code></pre>
-<h2 id="executor">Executor</h2>
-<pre><code class="language-java"> Executor executor = Executors.newCachedThreadPool();
-    executor.execute(runnable);
-</code></pre>
-<ul>
-<li>newCachedThreadPool()<br>
-初始0个线程，可以不断添加，用完后线程会暂时缓存，过段时间之后会回收</li>
-<li>newSingleThreadExecutor();<br>
-只能跑一个线程，放多个会排队进行</li>
-<li>Executors.newFixedThreadPool(5);<br>
-只能跑限定个数的线程，需要自己做资源回收<br>
-<code>((ExecutorService)executor).shutdown();</code></li>
-</ul>
-<h2 id="callable-可以看作有返回值的runnable">Callable (可以看作有返回值的Runnable)</h2>
-<pre><code class="language-java">Callable&lt;String&gt; callable=new Callable&lt;String&gt;() {
-    @Override public String call() throws Exception {
-      return &quot;string&quot;;
-    }
-  };
-  ExecutorService executor=Executors.newCachedThreadPool();
-  Future&lt;String&gt; future=executor.submit(callable);
-  String result=future.get();
-</code></pre>
 ]]></content>
     </entry>
 </feed>
