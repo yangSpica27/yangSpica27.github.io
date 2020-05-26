@@ -14,13 +14,13 @@
 
     
 
-  <meta name="description" content="2020/5/26
+  <meta name="description" content="2020/5/25
 
 实现id的实现id的无碰撞自动赋值算法
 之前实现view的id赋值都是手动给的int值，程序繁琐，需要先到xml中去声明才能使用
 自动赋随机数之后由于id不可控，导致外部需要获取内部view时findbyid无法使用，..." />
   <meta property="og:title" content="实训总结 - Spica 27&#39;S Room">
-  <meta property="og:description" content="2020/5/26
+  <meta property="og:description" content="2020/5/25
 
 实现id的实现id的无碰撞自动赋值算法
 之前实现view的id赋值都是手动给的int值，程序繁琐，需要先到xml中去声明才能使用
@@ -31,7 +31,7 @@
   <meta property="og:image:height" content="630">
   <meta property="og:image:width" content="1200">
   <meta name="twitter:title" content="实训总结 - Spica 27&#39;S Room">
-  <meta name="twitter:description" content="2020/5/26
+  <meta name="twitter:description" content="2020/5/25
 
 实现id的实现id的无碰撞自动赋值算法
 之前实现view的id赋值都是手动给的int值，程序繁琐，需要先到xml中去声明才能使用
@@ -63,11 +63,11 @@
         </h1>
         
         <div class="mb-8 flex flex-wrap">
-          <div class="text-gray-400 text-sm mr-4">2020-05-25 · 2 min read</div>
+          <div class="text-gray-400 text-sm mr-4">2020-05-25 · 3 min read</div>
           
         </div>
         <div class="markdown mb-8" v-pre>
-          <h2 id="2020526">2020/5/26</h2>
+          <h2 id="2020525">2020/5/25</h2>
 <ul>
 <li>实现id的实现id的无碰撞自动赋值算法<br>
 之前实现view的id赋值都是手动给的int值，程序繁琐，需要先到xml中去声明才能使用<br>
@@ -112,6 +112,74 @@ findViewById(&quot;form_content&quot;.toLayoutId())
       }
     }
   }
+</code></pre>
+<h2 id="2020526">2020/5/26</h2>
+<ul>
+<li>完成 点击的弹性动画的封装并在此基础上封装了有个弹性Button（SpringButton）</li>
+</ul>
+<pre><code class="language-kotlin">if (!this.isAnimating &amp;&amp; this.view.scaleX == 1f) {
+      val animatorCompat = ViewCompat.animate(view)
+        .setDuration(this.duration.toLong())
+        .scaleX(this.scaleX)
+        .scaleY(this.scaleY)
+        .setInterpolator(CycleInterpolator(0.5f)).apply {
+          setListener(object : ViewPropertyAnimatorListener {
+            override fun onAnimationCancel(view: View?) = Unit
+            override fun onAnimationStart(view: View?) {
+              isAnimating = true
+            }
+
+            override fun onAnimationEnd(view: View?) {
+              isAnimating = false
+              finishListener?.onFinished()
+            }
+          })
+        }
+      this.listener?.let { animatorCompat.setListener(it) }
+      if (this.view is ViewGroup) {
+        for (index in 0 until this.view.childCount) {
+          val nextChild = this.view.getChildAt(index)
+          ViewCompat.animate(nextChild)
+            .setDuration(this.duration.toLong())
+            .scaleX(this.scaleX)
+            .scaleY(this.scaleY)
+            .setInterpolator(CycleInterpolator(0.5f))
+            .withLayer()
+            .start()
+        }
+      }
+      animatorCompat.withLayer().start()
+    }
+</code></pre>
+<ul>
+<li>
+<p>主页面到登录页面路由Motion动画 <a href="https://proandroiddev.com/material-design-motion-for-android-396da62edb1c">参考文章</a></p>
+</li>
+<li>
+<p>登录部分网络请求</p>
+</li>
+</ul>
+<pre><code class="language-kotlin">    //网络请求监听
+    viewModel.newsLiveData.observe(this, Observer {
+      when (it.requestStatus) {
+        RequestStatus.START -&gt; {
+          //网络请求开始，可以在此加入加载框
+        }
+        RequestStatus.SUCCESS -&gt; {
+          //网络请求成功，在此处理数据
+          &quot;网络请求成功:${ it.data?.toString()}&quot;.toast(this)
+        }
+        RequestStatus.COMPLETE -&gt; {
+          //网络请求结束,可以在此加载框关闭
+//          &quot;网络请求结束&quot;.toast(this)
+        }
+        RequestStatus.ERROR -&gt; {
+          //网络请求错误
+          &quot;网络出错了&quot;.toast(this)
+          Log.e(&quot;请求错误:&quot;, it.error?.message.toString())
+        }
+      }
+    })
 </code></pre>
 
         </div>
@@ -174,6 +242,7 @@ findViewById(&quot;form_content&quot;.toLayoutId())
         <ul class="markdownIt-TOC">
 <li>
 <ul>
+<li><a href="#2020525">2020/5/25</a></li>
 <li><a href="#2020526">2020/5/26</a></li>
 </ul>
 </li>
