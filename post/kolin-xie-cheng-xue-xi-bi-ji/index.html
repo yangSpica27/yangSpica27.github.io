@@ -113,7 +113,10 @@ Kotlin的协程在 JVM上是线程框架，但它的概念层不仅仅是线程�
 </ul>
 <h1 id="协程的写法">协程的写法</h1>
 <ul>
-<li>开启协程和线程写法比较<pre><code class="language-kotlin">          //开启一个协程（非常规写法）
+<li>
+<p>开启协程和线程写法比较<br>
+例子：</p>
+<pre><code class="language-kotlin">          //开启一个协程（非常规写法）
           GlobalScope.launch {
               print(&quot;线程的名称1：${Thread.currentThread().name}&quot;)
           }
@@ -126,8 +129,9 @@ Kotlin的协程在 JVM上是线程框架，但它的概念层不仅仅是线程�
               print(&quot;线程的名称3：${Thread.currentThread().name}&quot;)
           }
 </code></pre>
-可见的是，如果仅仅是开启一个后台任务，协程并没有语法上的优势，甚至于增加了拓展函数包之后，开启线程来运行一个后台任务更加的方便，但协程的优势并不是在此，而是在其的可挂起上和线程切换上。<br>
-下面的示例<code>IoCode()</code>代表一个后台任务， <code>uiCode()</code>代表一个前台任务，于是在线程上我们就要这样子做线程切换：</li>
+<p>可见的是，如果仅仅是开启一个后台任务，协程并没有语法上的优势，甚至于增加了拓展函数包之后，开启线程来运行一个后台任务更加的方便，但协程的优势并不是在此，而是在其的可挂起上和线程切换上。<br>
+下面的示例<code>IoCode()</code>代表一个后台任务， <code>uiCode()</code>代表一个前台任务，于是在线程上我们就要这样子做线程切换：</p>
+</li>
 </ul>
 <pre><code class="language-kotlin">thread { 
                 ioCode1()
@@ -157,7 +161,7 @@ Kotlin的协程在 JVM上是线程框架，但它的概念层不仅仅是线程�
     private suspend fun uiCode()= withContext(Dispatchers.Main){
         //前端业务逻辑
     }
-....
+   ....
 GlobalScope.launch { 
                 ioCode()
                 uiCode()
